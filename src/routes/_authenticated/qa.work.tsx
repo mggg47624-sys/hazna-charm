@@ -95,12 +95,24 @@ const normalizeQuestions = (source: unknown): EvalQuestion[] =>
 function WorkPage() {
   const qc = useQueryClient();
   const { user } = useAuth();
-  const [stage, setStage] = useState<"idle" | "active" | "submitted">("idle");
-  const [lead, setLead] = useState<NextLead | null>(null);
+  // Pick up a lead handed off from Call Later (seeded into cache via
+  // queryClient.setQueryData(["queue", "next"], lead)).
+  const primed = qc.getQueryData<NextLead>(["queue", "next"]) ?? null;
+  const [stage, setStage] = useState<"idle" | "active" | "submitted">(
+    primed ? "active" : "idle",
+  );
+  const [lead, setLead] = useState<NextLead | null>(primed);
   const [callResultId, setCallResultId] = useState<string>("");
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
   const [notes, setNotes] = useState("");
   const [result, setResult] = useState<SubmitCallResp | null>(null);
+
+  // Clear the primed lead from cache once consumed so a page refresh doesn't
+  // silently re-hydrate an already-handled Call Later pickup.
+  useEffect(() => {
+    if (primed) qc.removeQueries({ queryKey: ["queue", "next"] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const callResults = useCallResults();
 
