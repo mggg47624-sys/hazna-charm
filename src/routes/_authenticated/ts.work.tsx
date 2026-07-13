@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -33,14 +33,13 @@ import {
   Inbox,
   CheckCircle2,
   UserPlus,
-  Megaphone,
   RotateCw,
+  Tag,
 } from "lucide-react";
 import { toast } from "sonner";
 import { CopyButton } from "@/components/copy-button";
 import { SectionGuard } from "@/components/section-guard";
 import {
-  useActiveCampaigns,
   useAddReferral,
   useTsAgentToday,
   useTsNextLead,
@@ -61,11 +60,14 @@ const ANSWERED_ID = 1;
 
 function TsWorkPage() {
   const qc = useQueryClient();
-  const campaigns = useActiveCampaigns();
   const callResults = useCallResults();
-  const [campaignId, setCampaignId] = useState<number | undefined>(undefined);
-  const [lead, setLead] = useState<TSNextLead | null>(null);
-  const [stage, setStage] = useState<"idle" | "active" | "submitted">("idle");
+  // Cache-first: Call Later hands off a lead by seeding ["ts", "next"].
+  const primed = qc.getQueryData<TSNextLead>(["ts", "next"]) ?? null;
+
+  const [lead, setLead] = useState<TSNextLead | null>(primed);
+  const [stage, setStage] = useState<"idle" | "active" | "submitted">(
+    primed ? "active" : "idle",
+  );
   const [callResultId, setCallResultId] = useState("");
   const [answers, setAnswers] = useState<Record<number, any>>({});
   const [notes, setNotes] = useState("");
@@ -77,23 +79,25 @@ function TsWorkPage() {
   const submit = useTsSubmitCall();
   const referral = useAddReferral();
 
-  const activeCid = campaignId ?? campaigns.data?.[0]?.id;
   const isAnswered = Number(callResultId) === ANSWERED_ID;
-
   const questions = lead?.form?.questions ?? [];
+
+  useEffect(() => {
+    // Consume the primed lead so a refresh doesn't silently re-hydrate.
+    if (primed) qc.removeQueries({ queryKey: ["ts", "next"] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const canSubmit = useMemo(() => {
     if (!callResultId) return false;
     if (!isAnswered) return true;
-    return questions.every((q) => (q.required ? answers[q.id] != null && answers[q.id] !== "" : true));
+    return questions.every((q) =>
+      q.required ? answers[q.id] != null && answers[q.id] !== "" : true,
+    );
   }, [callResultId, isAnswered, answers, questions]);
 
   const fetchNext = () => {
-    if (!activeCid) {
-      toast.error("Select a campaign first");
-      return;
-    }
-    next.mutate(activeCid, {
+    next.mutate(undefined, {
       onSuccess: (data) => {
         if (!data || !data.leadId) {
           toast.info("No leads available");
@@ -141,7 +145,7 @@ function TsWorkPage() {
         <div>
           <h1 className="text-2xl font-semibold">TeleSales Work Queue</h1>
           <p className="text-sm text-muted-foreground">
-            Call assigned leads for the selected campaign
+            Call assigned leads and log the outcome
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -167,7 +171,7 @@ function TsWorkPage() {
           </Dialog>
 
           {stage === "idle" && (
-            <Button size="lg" onClick={fetchNext} disabled={next.isPending || !activeCid}>
+            <Button size="lg" onClick={fetchNext} disabled={next.isPending}>
               {next.isPending ? (
                 <Loader2 className="h-4 w-4 mr-2 animate-spin" />
               ) : (
@@ -178,29 +182,6 @@ function TsWorkPage() {
           )}
         </div>
       </div>
-
-      {/* Campaign selector */}
-      <Card>
-        <CardContent className="p-4 flex items-center gap-3 flex-wrap">
-          <Megaphone className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm font-medium">Campaign</span>
-          <Select
-            value={activeCid ? String(activeCid) : ""}
-            onValueChange={(v) => setCampaignId(Number(v))}
-          >
-            <SelectTrigger className="w-64">
-              <SelectValue placeholder="Select a campaign" />
-            </SelectTrigger>
-            <SelectContent>
-              {campaigns.data?.map((c) => (
-                <SelectItem key={c.id} value={String(c.id)}>
-                  {c.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </CardContent>
-      </Card>
 
       {/* Today's stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -219,7 +200,7 @@ function TsWorkPage() {
             </div>
             <h3 className="font-semibold text-lg">Ready to start</h3>
             <p className="text-sm text-muted-foreground mt-1 max-w-sm">
-              Pick a campaign above and click "Get Next Lead" to pull an assigned lead.
+              Click "Get Next Lead" to pull the next assigned lead.
             </p>
           </CardContent>
         </Card>
@@ -230,10 +211,12 @@ function TsWorkPage() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between flex-wrap gap-3">
-                <CardTitle className="text-lg">Lead Information</CardTitle>
+                <CardTitle className="text-lg">Customer Details</CardTitle>
                 <div className="flex items-center gap-2">
                   {lead.attemptCount > 0 && (
-                    <Badge variant="outline">Attempt #{lead.attemptCount + 1}</Badge>
+                    <Badge variant="outline">
+                      Attempt #{lead.attemptCount + 1}
+                    </Badge>
                   )}
                   {lead.campaignName && <Badge>{lead.campaignName}</Badge>}
                 </div>
@@ -258,6 +241,9 @@ function TsWorkPage() {
               />
               <InfoRow icon={Building2} label="Company" value={lead.companyName || "—"} />
               <InfoRow icon={MapPin} label="City" value={lead.city || "—"} />
+              {lead.form?.name && (
+                <InfoRow icon={Tag} label="Operation Type" value={lead.form.name} />
+              )}
             </CardContent>
           </Card>
 
@@ -360,7 +346,12 @@ function ReferralDialog({
   pending,
 }: {
   close: () => void;
-  submit: (body: { customerName: string; phone: string; companyName?: string; notes?: string }) => void;
+  submit: (body: {
+    customerName: string;
+    phone: string;
+    companyName?: string;
+    notes?: string;
+  }) => void;
   pending: boolean;
 }) {
   const [customerName, setName] = useState("");
@@ -375,17 +366,25 @@ function ReferralDialog({
       <DialogHeader>
         <DialogTitle>Add Referral Lead</DialogTitle>
         <DialogDescription>
-          The referral is added to your assigned leads pool for the current campaign.
+          The referral is added to your assigned leads pool.
         </DialogDescription>
       </DialogHeader>
       <div className="space-y-3">
         <div>
           <Label>Customer name</Label>
-          <Input value={customerName} onChange={(e) => setName(e.target.value)} placeholder="Full name" />
+          <Input
+            value={customerName}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Full name"
+          />
         </div>
         <div>
           <Label>Phone</Label>
-          <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="01xxxxxxxxx" />
+          <Input
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="01xxxxxxxxx"
+          />
         </div>
         <div>
           <Label>Company (optional)</Label>
@@ -397,7 +396,9 @@ function ReferralDialog({
         </div>
       </div>
       <DialogFooter>
-        <Button variant="outline" onClick={close}>Cancel</Button>
+        <Button variant="outline" onClick={close}>
+          Cancel
+        </Button>
         <Button
           disabled={disabled || pending}
           onClick={() => submit({ customerName, phone, companyName, notes })}
@@ -425,7 +426,11 @@ function QuestionField({
         <Label className="text-sm">
           {q.questionText} {q.required && <span className="text-destructive">*</span>}
         </Label>
-        <Textarea value={value ?? ""} onChange={(e) => onChange(e.target.value)} rows={2} />
+        <Textarea
+          value={value ?? ""}
+          onChange={(e) => onChange(e.target.value)}
+          rows={2}
+        />
       </div>
     );
   }
@@ -498,8 +503,10 @@ function MiniStat({ label, value }: { label: string; value: number | string }) {
   return (
     <Card>
       <CardContent className="p-4">
-        <p className="text-xs text-muted-foreground">{label}</p>
-        <p className="text-2xl font-semibold leading-tight">{value}</p>
+        <div className="text-xs text-muted-foreground uppercase tracking-wide">
+          {label}
+        </div>
+        <div className="text-2xl font-semibold mt-1">{value}</div>
       </CardContent>
     </Card>
   );
