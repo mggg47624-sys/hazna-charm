@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useMemo, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -12,6 +12,11 @@ import { SectionGuard } from "@/components/section-guard";
 import { useActiveCampaigns, useTsReportCalls } from "@/lib/ts-api";
 import { ExportButton } from "@/components/export-button";
 import { CopyButton } from "@/components/copy-button";
+import {
+  FilterBar,
+  buildRowFilter,
+  type FilterValues,
+} from "@/components/filters/filter-bar";
 
 export const Route = createFileRoute("/_authenticated/ts/reports/calls")({
   component: () => (
@@ -26,6 +31,25 @@ function TsCallsReport() {
   const [cid, setCid] = useState<number | undefined>(undefined);
   const activeCid = cid ?? campaigns.data?.[0]?.id;
   const q = useTsReportCalls(activeCid);
+  const [values, setValues] = useState<FilterValues>({});
+
+  const predicate = useMemo(
+    () =>
+      buildRowFilter<any>(
+        values,
+        {
+          mobile: (r) => r.phone,
+          dateFrom: (r) => r.callDate,
+          dateTo: (r) => r.callDate,
+          callResult: (r) => r.callResult,
+          agent: (r) => r.agentName,
+        },
+        [(r: any) => r.customerName, (r: any) => r.phone, (r: any) => r.agentName],
+      ),
+    [values],
+  );
+
+  const rows = (q.data ?? []).filter(predicate);
 
   return (
     <div className="space-y-6">
@@ -44,7 +68,7 @@ function TsCallsReport() {
             </SelectContent>
           </Select>
           <ExportButton
-            rows={q.data ?? []}
+            rows={rows}
             filename="ts-calls"
             columns={[
               { label: "Call ID", key: "callId" },
@@ -60,7 +84,12 @@ function TsCallsReport() {
         </div>
       </div>
       <Card>
-        <CardContent className="p-0">
+        <CardContent className="p-4 space-y-4">
+          <FilterBar
+            fields={["search", "mobile", "dateFrom", "dateTo", "callResult"]}
+            values={values}
+            onChange={setValues}
+          />
           {q.isLoading ? (
             <div className="p-10 flex justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>
           ) : (
@@ -77,7 +106,9 @@ function TsCallsReport() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {(q.data ?? []).map((c: any) => (
+                  {!rows.length ? (
+                    <TableRow><TableCell colSpan={6} className="h-24 text-center text-muted-foreground">No results</TableCell></TableRow>
+                  ) : rows.map((c: any) => (
                     <TableRow key={c.callId}>
                       <TableCell className="text-muted-foreground">{new Date(c.callDate).toLocaleString()}</TableCell>
                       <TableCell className="font-medium">{c.customerName}</TableCell>
@@ -94,6 +125,7 @@ function TsCallsReport() {
                   ))}
                 </TableBody>
               </Table>
+              <div className="mt-2 text-xs text-muted-foreground">{rows.length} record{rows.length === 1 ? "" : "s"}</div>
             </div>
           )}
         </CardContent>

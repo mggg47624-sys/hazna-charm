@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -13,6 +13,11 @@ import { SectionGuard } from "@/components/section-guard";
 import { useActiveCampaigns, useTsReportLeads } from "@/lib/ts-api";
 import { ExportButton } from "@/components/export-button";
 import { CopyButton } from "@/components/copy-button";
+import {
+  FilterBar,
+  buildRowFilter,
+  type FilterValues,
+} from "@/components/filters/filter-bar";
 
 export const Route = createFileRoute("/_authenticated/ts/reports/leads")({
   component: () => (
@@ -27,6 +32,27 @@ function TsLeadsReport() {
   const [cid, setCid] = useState<number | undefined>(undefined);
   const activeCid = cid ?? campaigns.data?.[0]?.id;
   const q = useTsReportLeads(activeCid);
+  const [values, setValues] = useState<FilterValues>({});
+
+  const predicate = useMemo(
+    () =>
+      buildRowFilter<any>(
+        values,
+        {
+          mobile: (r) => r.phone,
+          agent: (r) => r.assignedAgent,
+        },
+        [
+          (r: any) => r.customerName,
+          (r: any) => r.phone,
+          (r: any) => r.companyName,
+          (r: any) => r.city,
+        ],
+      ),
+    [values],
+  );
+
+  const rows = (q.data ?? []).filter(predicate);
 
   return (
     <div className="space-y-6">
@@ -45,7 +71,7 @@ function TsLeadsReport() {
             </SelectContent>
           </Select>
           <ExportButton
-            rows={q.data ?? []}
+            rows={rows}
             filename="ts-leads"
             columns={[
               { label: "ID", key: "id" },
@@ -61,7 +87,12 @@ function TsLeadsReport() {
         </div>
       </div>
       <Card>
-        <CardContent className="p-0">
+        <CardContent className="p-4 space-y-4">
+          <FilterBar
+            fields={["search", "mobile"]}
+            values={values}
+            onChange={setValues}
+          />
           {q.isLoading ? (
             <div className="p-10 flex justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>
           ) : (
@@ -79,7 +110,9 @@ function TsLeadsReport() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {(q.data ?? []).map((l: any) => (
+                  {!rows.length ? (
+                    <TableRow><TableCell colSpan={7} className="h-24 text-center text-muted-foreground">No results</TableCell></TableRow>
+                  ) : rows.map((l: any) => (
                     <TableRow key={l.id}>
                       <TableCell className="font-medium">{l.customerName}</TableCell>
                       <TableCell>
@@ -97,6 +130,7 @@ function TsLeadsReport() {
                   ))}
                 </TableBody>
               </Table>
+              <div className="mt-2 text-xs text-muted-foreground">{rows.length} record{rows.length === 1 ? "" : "s"}</div>
             </div>
           )}
         </CardContent>
