@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { CallLaterItem, NextLead } from "@/lib/types";
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { Loader2, Phone, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { FilterBar, buildRowFilter, type FilterValues } from "@/components/filters/filter-bar";
 
 export const Route = createFileRoute("/_authenticated/qa/call-later")({
   component: CallLaterPage,
