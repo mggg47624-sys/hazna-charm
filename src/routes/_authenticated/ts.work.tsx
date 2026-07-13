@@ -509,14 +509,33 @@ function InfoRow({
   );
 }
 
-function MiniStat({ label, value }: { label: string; value: number | string }) {
+function StatCard({
+  label,
+  value,
+  icon: Icon,
+  tone,
+}: {
+  label: string;
+  value: number | string;
+  icon: ComponentType<{ className?: string }>;
+  tone: "primary" | "success" | "muted";
+}) {
+  const toneClasses =
+    tone === "success"
+      ? "bg-[color:var(--success)]/15 text-[color:var(--success)]"
+      : tone === "muted"
+        ? "bg-muted text-muted-foreground"
+        : "bg-primary/10 text-primary";
   return (
     <Card>
-      <CardContent className="p-4">
-        <div className="text-xs text-muted-foreground uppercase tracking-wide">
-          {label}
+      <CardContent className="p-4 flex items-center gap-3">
+        <div className={`h-11 w-11 rounded-lg flex items-center justify-center ${toneClasses}`}>
+          <Icon className="h-5 w-5" />
         </div>
-        <div className="text-2xl font-semibold mt-1">{value}</div>
+        <div className="min-w-0">
+          <p className="text-xs text-muted-foreground">{label}</p>
+          <p className="text-2xl font-semibold leading-tight">{value}</p>
+        </div>
       </CardContent>
     </Card>
   );
