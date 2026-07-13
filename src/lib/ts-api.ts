@@ -113,6 +113,12 @@ export function useTsCallLater() {
     enabled: enabled(),
   });
 }
+export function useTsPickCallLater() {
+  return useMutation({
+    mutationFn: (id: number) =>
+      api<TSNextLead>(`/api/ts/Queue/PickFromCallLater/${id}`, { method: "POST" }),
+  });
+}
 export function useTsSubmitCall() {
   const qc = useQueryClient();
   return useMutation({
