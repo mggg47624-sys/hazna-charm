@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedManagerIndexRouteImport } from './routes/_authenticated/manager.index'
 import { Route as AuthenticatedTsWorkRouteImport } from './routes/_authenticated/ts.work'
 import { Route as AuthenticatedTsMyWarningsRouteImport } from './routes/_authenticated/ts.my-warnings'
 import { Route as AuthenticatedTsCallLaterRouteImport } from './routes/_authenticated/ts.call-later'
@@ -55,6 +56,12 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedManagerIndexRoute =
+  AuthenticatedManagerIndexRouteImport.update({
+    id: '/manager/',
+    path: '/manager/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedTsWorkRoute = AuthenticatedTsWorkRouteImport.update({
   id: '/ts/work',
   path: '/ts/work',
@@ -233,6 +240,7 @@ export interface FileRoutesByFullPath {
   '/ts/call-later': typeof AuthenticatedTsCallLaterRoute
   '/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/ts/work': typeof AuthenticatedTsWorkRoute
+  '/manager/': typeof AuthenticatedManagerIndexRoute
   '/qa/admin/import': typeof AuthenticatedQaAdminImportRoute
   '/qa/admin/sales-reps': typeof AuthenticatedQaAdminSalesRepsRoute
   '/qa/admin/users': typeof AuthenticatedQaAdminUsersRoute
@@ -265,6 +273,7 @@ export interface FileRoutesByTo {
   '/ts/call-later': typeof AuthenticatedTsCallLaterRoute
   '/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/ts/work': typeof AuthenticatedTsWorkRoute
+  '/manager': typeof AuthenticatedManagerIndexRoute
   '/qa/admin/import': typeof AuthenticatedQaAdminImportRoute
   '/qa/admin/sales-reps': typeof AuthenticatedQaAdminSalesRepsRoute
   '/qa/admin/users': typeof AuthenticatedQaAdminUsersRoute
@@ -299,6 +308,7 @@ export interface FileRoutesById {
   '/_authenticated/ts/call-later': typeof AuthenticatedTsCallLaterRoute
   '/_authenticated/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/_authenticated/ts/work': typeof AuthenticatedTsWorkRoute
+  '/_authenticated/manager/': typeof AuthenticatedManagerIndexRoute
   '/_authenticated/qa/admin/import': typeof AuthenticatedQaAdminImportRoute
   '/_authenticated/qa/admin/sales-reps': typeof AuthenticatedQaAdminSalesRepsRoute
   '/_authenticated/qa/admin/users': typeof AuthenticatedQaAdminUsersRoute
@@ -333,6 +343,7 @@ export interface FileRouteTypes {
     | '/ts/call-later'
     | '/ts/my-warnings'
     | '/ts/work'
+    | '/manager/'
     | '/qa/admin/import'
     | '/qa/admin/sales-reps'
     | '/qa/admin/users'
@@ -365,6 +376,7 @@ export interface FileRouteTypes {
     | '/ts/call-later'
     | '/ts/my-warnings'
     | '/ts/work'
+    | '/manager'
     | '/qa/admin/import'
     | '/qa/admin/sales-reps'
     | '/qa/admin/users'
@@ -398,6 +410,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ts/call-later'
     | '/_authenticated/ts/my-warnings'
     | '/_authenticated/ts/work'
+    | '/_authenticated/manager/'
     | '/_authenticated/qa/admin/import'
     | '/_authenticated/qa/admin/sales-reps'
     | '/_authenticated/qa/admin/users'
@@ -446,6 +459,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/': {
+      id: '/_authenticated/manager/'
+      path: '/manager'
+      fullPath: '/manager/'
+      preLoaderRoute: typeof AuthenticatedManagerIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/ts/work': {
@@ -687,6 +707,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTsCallLaterRoute: typeof AuthenticatedTsCallLaterRoute
   AuthenticatedTsMyWarningsRoute: typeof AuthenticatedTsMyWarningsRoute
   AuthenticatedTsWorkRoute: typeof AuthenticatedTsWorkRoute
+  AuthenticatedManagerIndexRoute: typeof AuthenticatedManagerIndexRoute
   AuthenticatedQaAdminImportRoute: typeof AuthenticatedQaAdminImportRoute
   AuthenticatedQaAdminSalesRepsRoute: typeof AuthenticatedQaAdminSalesRepsRoute
   AuthenticatedQaAdminUsersRoute: typeof AuthenticatedQaAdminUsersRoute
@@ -718,6 +739,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedTsCallLaterRoute: AuthenticatedTsCallLaterRoute,
   AuthenticatedTsMyWarningsRoute: AuthenticatedTsMyWarningsRoute,
   AuthenticatedTsWorkRoute: AuthenticatedTsWorkRoute,
+  AuthenticatedManagerIndexRoute: AuthenticatedManagerIndexRoute,
   AuthenticatedQaAdminImportRoute: AuthenticatedQaAdminImportRoute,
   AuthenticatedQaAdminSalesRepsRoute: AuthenticatedQaAdminSalesRepsRoute,
   AuthenticatedQaAdminUsersRoute: AuthenticatedQaAdminUsersRoute,
