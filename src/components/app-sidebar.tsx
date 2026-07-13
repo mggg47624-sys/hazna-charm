@@ -104,6 +104,35 @@ const groups: { label: string; items: Item[] }[] = [
       { title: "Leads", url: "/ts/reports/leads", icon: ClipboardList, section: "ts:reports" },
     ],
   },
+  // Manager (read-only)
+  {
+    label: "Manager — Overview",
+    items: [
+      { title: "Executive Dashboard", url: "/manager", icon: LayoutDashboard, section: "manager:dashboard" },
+    ],
+  },
+  {
+    label: "Manager — TeleSales",
+    items: [
+      { title: "Campaigns", url: "/manager/ts/campaigns", icon: Megaphone, section: "manager:ts" },
+      { title: "Calls", url: "/manager/ts/calls", icon: Phone, section: "manager:ts" },
+      { title: "Leads", url: "/manager/ts/leads", icon: ClipboardList, section: "manager:ts" },
+      { title: "Agents", url: "/manager/ts/agents", icon: UserCheck, section: "manager:ts" },
+      { title: "Batches", url: "/manager/ts/batches", icon: FileSpreadsheet, section: "manager:ts" },
+    ],
+  },
+  {
+    label: "Manager — Quality Assurance",
+    items: [
+      { title: "Calls", url: "/manager/qa/calls", icon: Phone, section: "manager:qa" },
+      { title: "Evaluations", url: "/manager/qa/evaluations", icon: CheckSquare, section: "manager:qa" },
+      { title: "Customers", url: "/manager/qa/customers", icon: ListChecks, section: "manager:qa" },
+      { title: "Sales Reps", url: "/manager/qa/sales-reps", icon: TrendingUp, section: "manager:qa" },
+      { title: "QA Agents", url: "/manager/qa/agents", icon: UserCheck, section: "manager:qa" },
+      { title: "Teams", url: "/manager/qa/teams", icon: Users2, section: "manager:qa" },
+      { title: "Batches", url: "/manager/qa/batches", icon: FileSpreadsheet, section: "manager:qa" },
+    ],
+  },
 ];
 
 export function AppSidebar() {

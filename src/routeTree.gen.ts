@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedManagerIndexRouteImport } from './routes/_authenticated/manager.index'
 import { Route as AuthenticatedTsWorkRouteImport } from './routes/_authenticated/ts.work'
 import { Route as AuthenticatedTsMyWarningsRouteImport } from './routes/_authenticated/ts.my-warnings'
 import { Route as AuthenticatedTsCallLaterRouteImport } from './routes/_authenticated/ts.call-later'
@@ -38,6 +39,18 @@ import { Route as AuthenticatedQaReportsAgentsRouteImport } from './routes/_auth
 import { Route as AuthenticatedQaAdminUsersRouteImport } from './routes/_authenticated/qa.admin.users'
 import { Route as AuthenticatedQaAdminSalesRepsRouteImport } from './routes/_authenticated/qa.admin.sales-reps'
 import { Route as AuthenticatedQaAdminImportRouteImport } from './routes/_authenticated/qa.admin.import'
+import { Route as AuthenticatedManagerTsLeadsRouteImport } from './routes/_authenticated/manager.ts.leads'
+import { Route as AuthenticatedManagerTsCampaignsRouteImport } from './routes/_authenticated/manager.ts.campaigns'
+import { Route as AuthenticatedManagerTsCallsRouteImport } from './routes/_authenticated/manager.ts.calls'
+import { Route as AuthenticatedManagerTsBatchesRouteImport } from './routes/_authenticated/manager.ts.batches'
+import { Route as AuthenticatedManagerTsAgentsRouteImport } from './routes/_authenticated/manager.ts.agents'
+import { Route as AuthenticatedManagerQaTeamsRouteImport } from './routes/_authenticated/manager.qa.teams'
+import { Route as AuthenticatedManagerQaSalesRepsRouteImport } from './routes/_authenticated/manager.qa.sales-reps'
+import { Route as AuthenticatedManagerQaEvaluationsRouteImport } from './routes/_authenticated/manager.qa.evaluations'
+import { Route as AuthenticatedManagerQaCustomersRouteImport } from './routes/_authenticated/manager.qa.customers'
+import { Route as AuthenticatedManagerQaCallsRouteImport } from './routes/_authenticated/manager.qa.calls'
+import { Route as AuthenticatedManagerQaBatchesRouteImport } from './routes/_authenticated/manager.qa.batches'
+import { Route as AuthenticatedManagerQaAgentsRouteImport } from './routes/_authenticated/manager.qa.agents'
 import { Route as AuthenticatedQaReportsSalesRepsIdRouteImport } from './routes/_authenticated/qa.reports.sales-reps.$id'
 import { Route as AuthenticatedQaReportsEvaluationsIdRouteImport } from './routes/_authenticated/qa.reports.evaluations.$id'
 
@@ -55,6 +68,12 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedManagerIndexRoute =
+  AuthenticatedManagerIndexRouteImport.update({
+    id: '/manager/',
+    path: '/manager/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedTsWorkRoute = AuthenticatedTsWorkRouteImport.update({
   id: '/ts/work',
   path: '/ts/work',
@@ -209,6 +228,78 @@ const AuthenticatedQaAdminImportRoute =
     path: '/qa/admin/import',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedManagerTsLeadsRoute =
+  AuthenticatedManagerTsLeadsRouteImport.update({
+    id: '/manager/ts/leads',
+    path: '/manager/ts/leads',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsCampaignsRoute =
+  AuthenticatedManagerTsCampaignsRouteImport.update({
+    id: '/manager/ts/campaigns',
+    path: '/manager/ts/campaigns',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsCallsRoute =
+  AuthenticatedManagerTsCallsRouteImport.update({
+    id: '/manager/ts/calls',
+    path: '/manager/ts/calls',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsBatchesRoute =
+  AuthenticatedManagerTsBatchesRouteImport.update({
+    id: '/manager/ts/batches',
+    path: '/manager/ts/batches',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsAgentsRoute =
+  AuthenticatedManagerTsAgentsRouteImport.update({
+    id: '/manager/ts/agents',
+    path: '/manager/ts/agents',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaTeamsRoute =
+  AuthenticatedManagerQaTeamsRouteImport.update({
+    id: '/manager/qa/teams',
+    path: '/manager/qa/teams',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaSalesRepsRoute =
+  AuthenticatedManagerQaSalesRepsRouteImport.update({
+    id: '/manager/qa/sales-reps',
+    path: '/manager/qa/sales-reps',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaEvaluationsRoute =
+  AuthenticatedManagerQaEvaluationsRouteImport.update({
+    id: '/manager/qa/evaluations',
+    path: '/manager/qa/evaluations',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaCustomersRoute =
+  AuthenticatedManagerQaCustomersRouteImport.update({
+    id: '/manager/qa/customers',
+    path: '/manager/qa/customers',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaCallsRoute =
+  AuthenticatedManagerQaCallsRouteImport.update({
+    id: '/manager/qa/calls',
+    path: '/manager/qa/calls',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaBatchesRoute =
+  AuthenticatedManagerQaBatchesRouteImport.update({
+    id: '/manager/qa/batches',
+    path: '/manager/qa/batches',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaAgentsRoute =
+  AuthenticatedManagerQaAgentsRouteImport.update({
+    id: '/manager/qa/agents',
+    path: '/manager/qa/agents',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedQaReportsSalesRepsIdRoute =
   AuthenticatedQaReportsSalesRepsIdRouteImport.update({
     id: '/$id',
@@ -233,6 +324,19 @@ export interface FileRoutesByFullPath {
   '/ts/call-later': typeof AuthenticatedTsCallLaterRoute
   '/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/ts/work': typeof AuthenticatedTsWorkRoute
+  '/manager/': typeof AuthenticatedManagerIndexRoute
+  '/manager/qa/agents': typeof AuthenticatedManagerQaAgentsRoute
+  '/manager/qa/batches': typeof AuthenticatedManagerQaBatchesRoute
+  '/manager/qa/calls': typeof AuthenticatedManagerQaCallsRoute
+  '/manager/qa/customers': typeof AuthenticatedManagerQaCustomersRoute
+  '/manager/qa/evaluations': typeof AuthenticatedManagerQaEvaluationsRoute
+  '/manager/qa/sales-reps': typeof AuthenticatedManagerQaSalesRepsRoute
+  '/manager/qa/teams': typeof AuthenticatedManagerQaTeamsRoute
+  '/manager/ts/agents': typeof AuthenticatedManagerTsAgentsRoute
+  '/manager/ts/batches': typeof AuthenticatedManagerTsBatchesRoute
+  '/manager/ts/calls': typeof AuthenticatedManagerTsCallsRoute
+  '/manager/ts/campaigns': typeof AuthenticatedManagerTsCampaignsRoute
+  '/manager/ts/leads': typeof AuthenticatedManagerTsLeadsRoute
   '/qa/admin/import': typeof AuthenticatedQaAdminImportRoute
   '/qa/admin/sales-reps': typeof AuthenticatedQaAdminSalesRepsRoute
   '/qa/admin/users': typeof AuthenticatedQaAdminUsersRoute
@@ -265,6 +369,19 @@ export interface FileRoutesByTo {
   '/ts/call-later': typeof AuthenticatedTsCallLaterRoute
   '/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/ts/work': typeof AuthenticatedTsWorkRoute
+  '/manager': typeof AuthenticatedManagerIndexRoute
+  '/manager/qa/agents': typeof AuthenticatedManagerQaAgentsRoute
+  '/manager/qa/batches': typeof AuthenticatedManagerQaBatchesRoute
+  '/manager/qa/calls': typeof AuthenticatedManagerQaCallsRoute
+  '/manager/qa/customers': typeof AuthenticatedManagerQaCustomersRoute
+  '/manager/qa/evaluations': typeof AuthenticatedManagerQaEvaluationsRoute
+  '/manager/qa/sales-reps': typeof AuthenticatedManagerQaSalesRepsRoute
+  '/manager/qa/teams': typeof AuthenticatedManagerQaTeamsRoute
+  '/manager/ts/agents': typeof AuthenticatedManagerTsAgentsRoute
+  '/manager/ts/batches': typeof AuthenticatedManagerTsBatchesRoute
+  '/manager/ts/calls': typeof AuthenticatedManagerTsCallsRoute
+  '/manager/ts/campaigns': typeof AuthenticatedManagerTsCampaignsRoute
+  '/manager/ts/leads': typeof AuthenticatedManagerTsLeadsRoute
   '/qa/admin/import': typeof AuthenticatedQaAdminImportRoute
   '/qa/admin/sales-reps': typeof AuthenticatedQaAdminSalesRepsRoute
   '/qa/admin/users': typeof AuthenticatedQaAdminUsersRoute
@@ -299,6 +416,19 @@ export interface FileRoutesById {
   '/_authenticated/ts/call-later': typeof AuthenticatedTsCallLaterRoute
   '/_authenticated/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/_authenticated/ts/work': typeof AuthenticatedTsWorkRoute
+  '/_authenticated/manager/': typeof AuthenticatedManagerIndexRoute
+  '/_authenticated/manager/qa/agents': typeof AuthenticatedManagerQaAgentsRoute
+  '/_authenticated/manager/qa/batches': typeof AuthenticatedManagerQaBatchesRoute
+  '/_authenticated/manager/qa/calls': typeof AuthenticatedManagerQaCallsRoute
+  '/_authenticated/manager/qa/customers': typeof AuthenticatedManagerQaCustomersRoute
+  '/_authenticated/manager/qa/evaluations': typeof AuthenticatedManagerQaEvaluationsRoute
+  '/_authenticated/manager/qa/sales-reps': typeof AuthenticatedManagerQaSalesRepsRoute
+  '/_authenticated/manager/qa/teams': typeof AuthenticatedManagerQaTeamsRoute
+  '/_authenticated/manager/ts/agents': typeof AuthenticatedManagerTsAgentsRoute
+  '/_authenticated/manager/ts/batches': typeof AuthenticatedManagerTsBatchesRoute
+  '/_authenticated/manager/ts/calls': typeof AuthenticatedManagerTsCallsRoute
+  '/_authenticated/manager/ts/campaigns': typeof AuthenticatedManagerTsCampaignsRoute
+  '/_authenticated/manager/ts/leads': typeof AuthenticatedManagerTsLeadsRoute
   '/_authenticated/qa/admin/import': typeof AuthenticatedQaAdminImportRoute
   '/_authenticated/qa/admin/sales-reps': typeof AuthenticatedQaAdminSalesRepsRoute
   '/_authenticated/qa/admin/users': typeof AuthenticatedQaAdminUsersRoute
@@ -333,6 +463,19 @@ export interface FileRouteTypes {
     | '/ts/call-later'
     | '/ts/my-warnings'
     | '/ts/work'
+    | '/manager/'
+    | '/manager/qa/agents'
+    | '/manager/qa/batches'
+    | '/manager/qa/calls'
+    | '/manager/qa/customers'
+    | '/manager/qa/evaluations'
+    | '/manager/qa/sales-reps'
+    | '/manager/qa/teams'
+    | '/manager/ts/agents'
+    | '/manager/ts/batches'
+    | '/manager/ts/calls'
+    | '/manager/ts/campaigns'
+    | '/manager/ts/leads'
     | '/qa/admin/import'
     | '/qa/admin/sales-reps'
     | '/qa/admin/users'
@@ -365,6 +508,19 @@ export interface FileRouteTypes {
     | '/ts/call-later'
     | '/ts/my-warnings'
     | '/ts/work'
+    | '/manager'
+    | '/manager/qa/agents'
+    | '/manager/qa/batches'
+    | '/manager/qa/calls'
+    | '/manager/qa/customers'
+    | '/manager/qa/evaluations'
+    | '/manager/qa/sales-reps'
+    | '/manager/qa/teams'
+    | '/manager/ts/agents'
+    | '/manager/ts/batches'
+    | '/manager/ts/calls'
+    | '/manager/ts/campaigns'
+    | '/manager/ts/leads'
     | '/qa/admin/import'
     | '/qa/admin/sales-reps'
     | '/qa/admin/users'
@@ -398,6 +554,19 @@ export interface FileRouteTypes {
     | '/_authenticated/ts/call-later'
     | '/_authenticated/ts/my-warnings'
     | '/_authenticated/ts/work'
+    | '/_authenticated/manager/'
+    | '/_authenticated/manager/qa/agents'
+    | '/_authenticated/manager/qa/batches'
+    | '/_authenticated/manager/qa/calls'
+    | '/_authenticated/manager/qa/customers'
+    | '/_authenticated/manager/qa/evaluations'
+    | '/_authenticated/manager/qa/sales-reps'
+    | '/_authenticated/manager/qa/teams'
+    | '/_authenticated/manager/ts/agents'
+    | '/_authenticated/manager/ts/batches'
+    | '/_authenticated/manager/ts/calls'
+    | '/_authenticated/manager/ts/campaigns'
+    | '/_authenticated/manager/ts/leads'
     | '/_authenticated/qa/admin/import'
     | '/_authenticated/qa/admin/sales-reps'
     | '/_authenticated/qa/admin/users'
@@ -446,6 +615,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/': {
+      id: '/_authenticated/manager/'
+      path: '/manager'
+      fullPath: '/manager/'
+      preLoaderRoute: typeof AuthenticatedManagerIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/ts/work': {
@@ -630,6 +806,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedQaAdminImportRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/manager/ts/leads': {
+      id: '/_authenticated/manager/ts/leads'
+      path: '/manager/ts/leads'
+      fullPath: '/manager/ts/leads'
+      preLoaderRoute: typeof AuthenticatedManagerTsLeadsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/campaigns': {
+      id: '/_authenticated/manager/ts/campaigns'
+      path: '/manager/ts/campaigns'
+      fullPath: '/manager/ts/campaigns'
+      preLoaderRoute: typeof AuthenticatedManagerTsCampaignsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/calls': {
+      id: '/_authenticated/manager/ts/calls'
+      path: '/manager/ts/calls'
+      fullPath: '/manager/ts/calls'
+      preLoaderRoute: typeof AuthenticatedManagerTsCallsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/batches': {
+      id: '/_authenticated/manager/ts/batches'
+      path: '/manager/ts/batches'
+      fullPath: '/manager/ts/batches'
+      preLoaderRoute: typeof AuthenticatedManagerTsBatchesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/agents': {
+      id: '/_authenticated/manager/ts/agents'
+      path: '/manager/ts/agents'
+      fullPath: '/manager/ts/agents'
+      preLoaderRoute: typeof AuthenticatedManagerTsAgentsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/teams': {
+      id: '/_authenticated/manager/qa/teams'
+      path: '/manager/qa/teams'
+      fullPath: '/manager/qa/teams'
+      preLoaderRoute: typeof AuthenticatedManagerQaTeamsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/sales-reps': {
+      id: '/_authenticated/manager/qa/sales-reps'
+      path: '/manager/qa/sales-reps'
+      fullPath: '/manager/qa/sales-reps'
+      preLoaderRoute: typeof AuthenticatedManagerQaSalesRepsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/evaluations': {
+      id: '/_authenticated/manager/qa/evaluations'
+      path: '/manager/qa/evaluations'
+      fullPath: '/manager/qa/evaluations'
+      preLoaderRoute: typeof AuthenticatedManagerQaEvaluationsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/customers': {
+      id: '/_authenticated/manager/qa/customers'
+      path: '/manager/qa/customers'
+      fullPath: '/manager/qa/customers'
+      preLoaderRoute: typeof AuthenticatedManagerQaCustomersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/calls': {
+      id: '/_authenticated/manager/qa/calls'
+      path: '/manager/qa/calls'
+      fullPath: '/manager/qa/calls'
+      preLoaderRoute: typeof AuthenticatedManagerQaCallsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/batches': {
+      id: '/_authenticated/manager/qa/batches'
+      path: '/manager/qa/batches'
+      fullPath: '/manager/qa/batches'
+      preLoaderRoute: typeof AuthenticatedManagerQaBatchesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/agents': {
+      id: '/_authenticated/manager/qa/agents'
+      path: '/manager/qa/agents'
+      fullPath: '/manager/qa/agents'
+      preLoaderRoute: typeof AuthenticatedManagerQaAgentsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/qa/reports/sales-reps/$id': {
       id: '/_authenticated/qa/reports/sales-reps/$id'
       path: '/$id'
@@ -687,6 +947,19 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTsCallLaterRoute: typeof AuthenticatedTsCallLaterRoute
   AuthenticatedTsMyWarningsRoute: typeof AuthenticatedTsMyWarningsRoute
   AuthenticatedTsWorkRoute: typeof AuthenticatedTsWorkRoute
+  AuthenticatedManagerIndexRoute: typeof AuthenticatedManagerIndexRoute
+  AuthenticatedManagerQaAgentsRoute: typeof AuthenticatedManagerQaAgentsRoute
+  AuthenticatedManagerQaBatchesRoute: typeof AuthenticatedManagerQaBatchesRoute
+  AuthenticatedManagerQaCallsRoute: typeof AuthenticatedManagerQaCallsRoute
+  AuthenticatedManagerQaCustomersRoute: typeof AuthenticatedManagerQaCustomersRoute
+  AuthenticatedManagerQaEvaluationsRoute: typeof AuthenticatedManagerQaEvaluationsRoute
+  AuthenticatedManagerQaSalesRepsRoute: typeof AuthenticatedManagerQaSalesRepsRoute
+  AuthenticatedManagerQaTeamsRoute: typeof AuthenticatedManagerQaTeamsRoute
+  AuthenticatedManagerTsAgentsRoute: typeof AuthenticatedManagerTsAgentsRoute
+  AuthenticatedManagerTsBatchesRoute: typeof AuthenticatedManagerTsBatchesRoute
+  AuthenticatedManagerTsCallsRoute: typeof AuthenticatedManagerTsCallsRoute
+  AuthenticatedManagerTsCampaignsRoute: typeof AuthenticatedManagerTsCampaignsRoute
+  AuthenticatedManagerTsLeadsRoute: typeof AuthenticatedManagerTsLeadsRoute
   AuthenticatedQaAdminImportRoute: typeof AuthenticatedQaAdminImportRoute
   AuthenticatedQaAdminSalesRepsRoute: typeof AuthenticatedQaAdminSalesRepsRoute
   AuthenticatedQaAdminUsersRoute: typeof AuthenticatedQaAdminUsersRoute
@@ -718,6 +991,20 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedTsCallLaterRoute: AuthenticatedTsCallLaterRoute,
   AuthenticatedTsMyWarningsRoute: AuthenticatedTsMyWarningsRoute,
   AuthenticatedTsWorkRoute: AuthenticatedTsWorkRoute,
+  AuthenticatedManagerIndexRoute: AuthenticatedManagerIndexRoute,
+  AuthenticatedManagerQaAgentsRoute: AuthenticatedManagerQaAgentsRoute,
+  AuthenticatedManagerQaBatchesRoute: AuthenticatedManagerQaBatchesRoute,
+  AuthenticatedManagerQaCallsRoute: AuthenticatedManagerQaCallsRoute,
+  AuthenticatedManagerQaCustomersRoute: AuthenticatedManagerQaCustomersRoute,
+  AuthenticatedManagerQaEvaluationsRoute:
+    AuthenticatedManagerQaEvaluationsRoute,
+  AuthenticatedManagerQaSalesRepsRoute: AuthenticatedManagerQaSalesRepsRoute,
+  AuthenticatedManagerQaTeamsRoute: AuthenticatedManagerQaTeamsRoute,
+  AuthenticatedManagerTsAgentsRoute: AuthenticatedManagerTsAgentsRoute,
+  AuthenticatedManagerTsBatchesRoute: AuthenticatedManagerTsBatchesRoute,
+  AuthenticatedManagerTsCallsRoute: AuthenticatedManagerTsCallsRoute,
+  AuthenticatedManagerTsCampaignsRoute: AuthenticatedManagerTsCampaignsRoute,
+  AuthenticatedManagerTsLeadsRoute: AuthenticatedManagerTsLeadsRoute,
   AuthenticatedQaAdminImportRoute: AuthenticatedQaAdminImportRoute,
   AuthenticatedQaAdminSalesRepsRoute: AuthenticatedQaAdminSalesRepsRoute,
   AuthenticatedQaAdminUsersRoute: AuthenticatedQaAdminUsersRoute,
@@ -751,13 +1038,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

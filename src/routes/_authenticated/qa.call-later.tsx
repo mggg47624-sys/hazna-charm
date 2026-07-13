@@ -30,9 +30,12 @@ function CallLaterPage() {
   const pick = useMutation({
     mutationFn: (customerId: number) =>
       api<NextLead>(`/api/Queue/PickFromCallLater/${customerId}`, { method: "POST" }),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["queue"] });
-      toast.success("Lead loaded — go to Work Queue");
+    onSuccess: (lead) => {
+      // Seed the Work Queue cache so it renders this lead immediately
+      // without asking the backend for another one.
+      qc.setQueryData(["queue", "next"], lead);
+      qc.invalidateQueries({ queryKey: ["queue", "callLater"] });
+      toast.success("Lead loaded — continue in Work Queue");
       navigate({ to: "/qa/work" });
     },
     onError: (e: Error) => toast.error(e.message),
@@ -44,11 +47,15 @@ function CallLaterPage() {
     <div className="max-w-6xl mx-auto space-y-4">
       <div>
         <h1 className="text-2xl font-semibold">Call Later</h1>
-        <p className="text-sm text-muted-foreground">Customers you scheduled for a callback</p>
+        <p className="text-sm text-muted-foreground">
+          Customers you scheduled for a callback
+        </p>
       </div>
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">{rows.length} pending callback{rows.length === 1 ? "" : "s"}</CardTitle>
+          <CardTitle className="text-base">
+            {rows.length} pending callback{rows.length === 1 ? "" : "s"}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border overflow-x-auto">
@@ -65,27 +72,44 @@ function CallLaterPage() {
               </TableHeader>
               <TableBody>
                 {isLoading ? (
-                  <TableRow><TableCell colSpan={6} className="h-24 text-center"><Loader2 className="h-5 w-5 animate-spin inline text-primary" /></TableCell></TableRow>
-                ) : !rows.length ? (
-                  <TableRow><TableCell colSpan={6} className="h-24 text-center text-muted-foreground">No callbacks scheduled</TableCell></TableRow>
-                ) : rows.map((c) => (
-                  <TableRow key={c.customerId}>
-                    <TableCell className="font-medium">{c.customerName}</TableCell>
-                    <TableCell>
-                      <a href={`tel:${c.phone}`} className="text-primary inline-flex items-center gap-1">
-                        <Phone className="h-3 w-3" /> {c.phone}
-                      </a>
-                    </TableCell>
-                    <TableCell>{c.companyName || "—"}</TableCell>
-                    <TableCell>{c.transactionType || "—"}</TableCell>
-                    <TableCell>{c.salesRepName || "—"}</TableCell>
-                    <TableCell className="text-right">
-                      <Button size="sm" onClick={() => pick.mutate(c.customerId)} disabled={pick.isPending}>
-                        Pick <ArrowRight className="h-3 w-3 ml-1" />
-                      </Button>
+                  <TableRow>
+                    <TableCell colSpan={6} className="h-24 text-center">
+                      <Loader2 className="h-5 w-5 animate-spin inline text-primary" />
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : !rows.length ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
+                      No callbacks scheduled
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  rows.map((c) => (
+                    <TableRow key={c.customerId}>
+                      <TableCell className="font-medium">{c.customerName}</TableCell>
+                      <TableCell>
+                        <a
+                          href={`tel:${c.phone}`}
+                          className="text-primary inline-flex items-center gap-1"
+                        >
+                          <Phone className="h-3 w-3" /> {c.phone}
+                        </a>
+                      </TableCell>
+                      <TableCell>{c.companyName || "—"}</TableCell>
+                      <TableCell>{c.transactionType || "—"}</TableCell>
+                      <TableCell>{c.salesRepName || "—"}</TableCell>
+                      <TableCell className="text-right">
+                        <Button
+                          size="sm"
+                          onClick={() => pick.mutate(c.customerId)}
+                          disabled={pick.isPending}
+                        >
+                          Pick Up <ArrowRight className="h-3 w-3 ml-1" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </div>
