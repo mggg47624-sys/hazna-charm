@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { CallLaterItem, NextLead } from "@/lib/types";
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { Loader2, Phone, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { FilterBar, buildRowFilter, type FilterValues } from "@/components/filters/filter-bar";
 
 export const Route = createFileRoute("/_authenticated/qa/call-later")({
   component: CallLaterPage,
@@ -41,7 +43,17 @@ function CallLaterPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
-  const rows = data || [];
+  const [filters, setFilters] = useState<FilterValues>({});
+  const rowFilter = useMemo(
+    () =>
+      buildRowFilter<CallLaterItem>(
+        filters,
+        { mobile: (r) => r.phone },
+        [(r) => r.customerName, (r) => r.phone, (r) => r.companyName, (r) => r.salesRepName],
+      ),
+    [filters],
+  );
+  const rows = (data || []).filter(rowFilter);
 
   return (
     <div className="max-w-6xl mx-auto space-y-4">
@@ -56,6 +68,13 @@ function CallLaterPage() {
           <CardTitle className="text-base">
             {rows.length} pending callback{rows.length === 1 ? "" : "s"}
           </CardTitle>
+          <div className="pt-3">
+            <FilterBar
+              fields={["search", "mobile"]}
+              values={filters}
+              onChange={setFilters}
+            />
+          </div>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border overflow-x-auto">

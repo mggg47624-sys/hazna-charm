@@ -35,7 +35,12 @@ import {
   UserPlus,
   RotateCw,
   Tag,
+  PhoneCall,
+  PhoneOff,
+  Clock,
+  ClipboardCheck,
 } from "lucide-react";
+import type { ComponentType } from "react";
 import { toast } from "sonner";
 import { CopyButton } from "@/components/copy-button";
 import { SectionGuard } from "@/components/section-guard";
@@ -183,13 +188,18 @@ function TsWorkPage() {
         </div>
       </div>
 
-      {/* Today's stats */}
+      {/* Today's stats — same layout as QA agent Work Queue */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        <MiniStat label="Total Calls" value={s?.totalCalls ?? 0} />
-        <MiniStat label="Answered" value={s?.answeredCalls ?? 0} />
-        <MiniStat label="No Answer" value={s?.unansweredCalls ?? 0} />
-        <MiniStat label="Wrong Number" value={s?.wrongNumberCalls ?? 0} />
-        <MiniStat label="Call Later" value={s?.callLaterCalls ?? 0} />
+        <StatCard label="Total Calls" value={s?.totalCalls ?? 0} icon={PhoneCall} tone="primary" />
+        <StatCard label="Answered" value={s?.answeredCalls ?? 0} icon={CheckCircle2} tone="success" />
+        <StatCard label="No Answer" value={s?.unansweredCalls ?? 0} icon={PhoneOff} tone="muted" />
+        <StatCard label="Wrong Number" value={s?.wrongNumberCalls ?? 0} icon={PhoneOff} tone="muted" />
+        <StatCard label="Call Later" value={s?.callLaterCalls ?? 0} icon={Clock} tone="muted" />
+        <StatCard label="Referrals" value={s?.referralsCount ?? 0} icon={UserPlus} tone="primary" />
+        <StatCard label="First Call" value={s?.firstCallTime ?? "—"} icon={Clock} tone="muted" />
+        <StatCard label="Last Call" value={s?.lastCallTime ?? "—"} icon={Clock} tone="muted" />
+        <StatCard label="Avg Lead (min)" value={s?.avgLeadDurationMinutes != null ? Number(s.avgLeadDurationMinutes).toFixed(1) : "—"} icon={ClipboardCheck} tone="primary" />
+        <StatCard label="Working (min)" value={s?.totalWorkingMinutes ?? "—"} icon={Clock} tone="primary" />
       </div>
 
       {stage === "idle" && (
@@ -499,14 +509,33 @@ function InfoRow({
   );
 }
 
-function MiniStat({ label, value }: { label: string; value: number | string }) {
+function StatCard({
+  label,
+  value,
+  icon: Icon,
+  tone,
+}: {
+  label: string;
+  value: number | string;
+  icon: ComponentType<{ className?: string }>;
+  tone: "primary" | "success" | "muted";
+}) {
+  const toneClasses =
+    tone === "success"
+      ? "bg-[color:var(--success)]/15 text-[color:var(--success)]"
+      : tone === "muted"
+        ? "bg-muted text-muted-foreground"
+        : "bg-primary/10 text-primary";
   return (
     <Card>
-      <CardContent className="p-4">
-        <div className="text-xs text-muted-foreground uppercase tracking-wide">
-          {label}
+      <CardContent className="p-4 flex items-center gap-3">
+        <div className={`h-11 w-11 rounded-lg flex items-center justify-center ${toneClasses}`}>
+          <Icon className="h-5 w-5" />
         </div>
-        <div className="text-2xl font-semibold mt-1">{value}</div>
+        <div className="min-w-0">
+          <p className="text-xs text-muted-foreground">{label}</p>
+          <p className="text-2xl font-semibold leading-tight">{value}</p>
+        </div>
       </CardContent>
     </Card>
   );

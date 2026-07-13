@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { toast } from "sonner";
 import { SectionGuard } from "@/components/section-guard";
 import { useTsCallLater, useTsPickCallLater } from "@/lib/ts-api";
 import { CopyButton } from "@/components/copy-button";
+import { FilterBar, buildRowFilter, type FilterValues } from "@/components/filters/filter-bar";
 
 export const Route = createFileRoute("/_authenticated/ts/call-later")({
   component: () => (
@@ -38,6 +40,18 @@ function TsCallLaterPage() {
     });
   };
 
+  const [filters, setFilters] = useState<FilterValues>({});
+  const rowFilter = useMemo(
+    () =>
+      buildRowFilter<any>(
+        filters,
+        { mobile: (r) => r.phone, dateFrom: (r) => r.scheduledAt },
+        [(r) => r.customerName, (r) => r.phone, (r) => r.companyName, (r) => r.notes],
+      ),
+    [filters],
+  );
+  const rows = (q.data ?? []).filter(rowFilter);
+
   return (
     <div className="space-y-6">
       <div>
@@ -49,15 +63,22 @@ function TsCallLaterPage() {
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Scheduled leads</CardTitle>
+          <div className="pt-3">
+            <FilterBar
+              fields={["search", "mobile", "dateFrom", "dateTo"]}
+              values={filters}
+              onChange={setFilters}
+            />
+          </div>
         </CardHeader>
         <CardContent className="p-0">
           {q.isLoading ? (
             <div className="p-10 flex justify-center">
               <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
             </div>
-          ) : !q.data?.length ? (
+          ) : !rows.length ? (
             <div className="p-10 text-center text-sm text-muted-foreground">
-              No scheduled callbacks.
+              No scheduled callbacks match your filters.
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -74,7 +95,7 @@ function TsCallLaterPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {q.data.map((l: any) => (
+                  {rows.map((l: any) => (
                     <TableRow key={l.id}>
                       <TableCell className="font-medium">{l.customerName}</TableCell>
                       <TableCell>
