@@ -5,27 +5,9 @@
  *   3 = QAAgent
  *   4 = QAAdmin
  *   5 = TSAgent
- *   6 = TSTeamLeader   (has full TSAdmin capabilities)
- *   7 = TSAdmin
+ *   6 = TSTeamLeader   (management only — no call workflow)
+ *   7 = TSAdmin        (management only — no call workflow)
  *   9 = Manager        (read-only across both systems)
- *
- * Section keys are grouped by system:
- *   dashboard         — landing dashboard (all non-agent roles)
- *   exports           — CSV / Excel export button on admin & report tables
- *
- *   qa:agent          — QA agent work queue + call later
- *   qa:call-history   — QA agent personal call history
- *   qa:admin          — QA admin (users, sales reps, import)
- *   qa:reports        — QA reports (customers, sales reps, evaluations, batches,
- *                        calls, agents, teams)
- *
- *   ts:agent          — TS agent work queue + call later
- *   ts:call-history   — TS agent personal call history
- *   ts:admin          — TS admin (campaigns, forms, batches, users)
- *   ts:reports        — TS reports (per campaign)
- *   ts:warnings       — TS warnings admin
- *   ts:audit          — TS audit log
- *   ts:my-warnings    — TS agent's own warnings page
  */
 
 export type Section =
@@ -41,7 +23,10 @@ export type Section =
   | "ts:reports"
   | "ts:warnings"
   | "ts:audit"
-  | "ts:my-warnings";
+  | "ts:my-warnings"
+  | "manager:dashboard"
+  | "manager:ts"
+  | "manager:qa";
 
 export const ROLE_QA_AGENT = 3;
 export const ROLE_QA_ADMIN = 4;
@@ -50,6 +35,7 @@ export const ROLE_TS_TEAM_LEADER = 6;
 export const ROLE_TS_ADMIN = 7;
 export const ROLE_MANAGER = 9;
 
+// Team Leader & Admin: management only — NO ts:agent / ts:my-warnings / ts:call-history.
 const TS_ADMIN_SECTIONS: Section[] = [
   "dashboard",
   "exports",
@@ -68,17 +54,17 @@ export const ROLE_PERMISSIONS: Record<number, Section[]> = {
     "qa:reports",
   ],
   [ROLE_TS_AGENT]: ["ts:agent", "ts:call-history", "ts:my-warnings"],
-  // Team leader shares TS admin capabilities per business contract.
   [ROLE_TS_TEAM_LEADER]: TS_ADMIN_SECTIONS,
   [ROLE_TS_ADMIN]: TS_ADMIN_SECTIONS,
-  // Manager: read-only across both systems.
+  // Manager: strictly read-only. Reports across both systems + manager sections.
   [ROLE_MANAGER]: [
     "dashboard",
     "exports",
+    "manager:dashboard",
+    "manager:ts",
+    "manager:qa",
     "qa:reports",
     "ts:reports",
-    "ts:warnings",
-    "ts:audit",
   ],
 };
 
@@ -94,7 +80,6 @@ export function canAccess(
   return permissionsFor(roleId).includes(section);
 }
 
-/** Friendly labels, falling back to backend-provided role name. */
 export const ROLE_LABELS: Record<number, string> = {
   [ROLE_QA_AGENT]: "QA Agent",
   [ROLE_QA_ADMIN]: "QA Admin",
@@ -112,4 +97,7 @@ export function isTsAgent(roleId?: number | null) {
 }
 export function isAgent(roleId?: number | null) {
   return isQaAgent(roleId) || isTsAgent(roleId);
+}
+export function isManager(roleId?: number | null) {
+  return Number(roleId) === ROLE_MANAGER;
 }
