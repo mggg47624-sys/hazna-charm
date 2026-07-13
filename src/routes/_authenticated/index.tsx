@@ -56,10 +56,12 @@ function DashboardRouter() {
   const navigate = useNavigate();
 
   // Agents don't have a dashboard — redirect to their workspace.
+  // Manager gets the read-only executive dashboard.
   useEffect(() => {
     if (loading || !user) return;
     if (roleId === 3) navigate({ to: "/qa/work", replace: true });
     else if (roleId === 5) navigate({ to: "/ts/work", replace: true });
+    else if (roleId === ROLE_MANAGER) navigate({ to: "/manager", replace: true });
   }, [loading, user, roleId, navigate]);
 
   if (!user) return null;
@@ -70,10 +72,8 @@ function DashboardRouter() {
     case ROLE_TS_ADMIN:
     case ROLE_TS_TEAM_LEADER:
       return <TsAdminDashboard />;
-    case ROLE_MANAGER:
-      return <ManagerDashboard />;
     default:
-      return <ManagerDashboard />;
+      return null;
   }
 }
 
