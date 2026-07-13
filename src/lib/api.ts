@@ -24,12 +24,6 @@ export type ApiInit = Omit<RequestInit, "body"> & {
 };
 
 export async function api<T = unknown>(path: string, init: ApiInit = {}): Promise<T> {
-  // Dev-only mock backend. Never runs in production builds.
-  if (import.meta.env.DEV) {
-    const { handleMock } = await import("./mock/router");
-    const mocked = await handleMock(path, init);
-    if (mocked) return mocked.value as T;
-  }
 
   const token = getToken();
   const headers = new Headers(init.headers || {});
