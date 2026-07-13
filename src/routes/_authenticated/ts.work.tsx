@@ -188,13 +188,18 @@ function TsWorkPage() {
         </div>
       </div>
 
-      {/* Today's stats */}
+      {/* Today's stats — same layout as QA agent Work Queue */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        <MiniStat label="Total Calls" value={s?.totalCalls ?? 0} />
-        <MiniStat label="Answered" value={s?.answeredCalls ?? 0} />
-        <MiniStat label="No Answer" value={s?.unansweredCalls ?? 0} />
-        <MiniStat label="Wrong Number" value={s?.wrongNumberCalls ?? 0} />
-        <MiniStat label="Call Later" value={s?.callLaterCalls ?? 0} />
+        <StatCard label="Total Calls" value={s?.totalCalls ?? 0} icon={PhoneCall} tone="primary" />
+        <StatCard label="Answered" value={s?.answeredCalls ?? 0} icon={CheckCircle2} tone="success" />
+        <StatCard label="No Answer" value={s?.unansweredCalls ?? 0} icon={PhoneOff} tone="muted" />
+        <StatCard label="Wrong Number" value={s?.wrongNumberCalls ?? 0} icon={PhoneOff} tone="muted" />
+        <StatCard label="Call Later" value={s?.callLaterCalls ?? 0} icon={Clock} tone="muted" />
+        <StatCard label="Referrals" value={s?.referralsCount ?? 0} icon={UserPlus} tone="primary" />
+        <StatCard label="First Call" value={s?.firstCallTime ?? "—"} icon={Clock} tone="muted" />
+        <StatCard label="Last Call" value={s?.lastCallTime ?? "—"} icon={Clock} tone="muted" />
+        <StatCard label="Avg Lead (min)" value={s?.avgLeadDurationMinutes != null ? Number(s.avgLeadDurationMinutes).toFixed(1) : "—"} icon={ClipboardCheck} tone="primary" />
+        <StatCard label="Working (min)" value={s?.totalWorkingMinutes ?? "—"} icon={Clock} tone="primary" />
       </div>
 
       {stage === "idle" && (
