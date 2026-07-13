@@ -95,7 +95,7 @@ function TsCallLaterPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {q.data.map((l: any) => (
+                  {rows.map((l: any) => (
                     <TableRow key={l.id}>
                       <TableCell className="font-medium">{l.customerName}</TableCell>
                       <TableCell>
