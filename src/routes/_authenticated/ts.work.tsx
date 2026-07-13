@@ -35,7 +35,12 @@ import {
   UserPlus,
   RotateCw,
   Tag,
+  PhoneCall,
+  PhoneOff,
+  Clock,
+  ClipboardCheck,
 } from "lucide-react";
+import type { ComponentType } from "react";
 import { toast } from "sonner";
 import { CopyButton } from "@/components/copy-button";
 import { SectionGuard } from "@/components/section-guard";
