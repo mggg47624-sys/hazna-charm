@@ -1,5 +1,5 @@
 /**
- * TeleSales domain hooks. All calls proxy through `api()` so mock/router.ts
+ * TeleSales domain hooks. All calls proxy through `api()` 
  * intercepts them in dev.
  */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
