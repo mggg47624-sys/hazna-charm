@@ -4,7 +4,6 @@ import {
   Phone,
   Clock,
   Users,
-  UserCog,
   Upload,
   ListChecks,
   CheckSquare,
@@ -21,6 +20,11 @@ import {
   AlertTriangle,
   ScrollText,
   PhoneCall,
+  GitBranch,
+  Filter,
+  Target,
+  FileUp,
+  UserCog,
 } from "lucide-react";
 import {
   Sidebar,
@@ -43,11 +47,8 @@ type Item = { title: string; url: string; icon: any; section: Section };
 const groups: { label: string; items: Item[] }[] = [
   {
     label: "Overview",
-    items: [
-      { title: "Dashboard", url: "/", icon: LayoutDashboard, section: "dashboard" },
-    ],
+    items: [{ title: "Dashboard", url: "/", icon: LayoutDashboard, section: "dashboard" }],
   },
-  // QA
   {
     label: "QA — Workspace",
     items: [
@@ -76,7 +77,6 @@ const groups: { label: string; items: Item[] }[] = [
       { title: "Teams", url: "/qa/reports/teams", icon: Users2, section: "qa:reports" },
     ],
   },
-  // TS
   {
     label: "TeleSales — Workspace",
     items: [
@@ -91,6 +91,11 @@ const groups: { label: string; items: Item[] }[] = [
     items: [
       { title: "Campaigns", url: "/ts/admin/campaigns", icon: Megaphone, section: "ts:admin" },
       { title: "Batches", url: "/ts/admin/batches", icon: FileSpreadsheet, section: "ts:admin" },
+      { title: "Forms", url: "/ts/admin/forms", icon: GitBranch, section: "ts:admin-forms" },
+      { title: "Call Results", url: "/ts/admin/call-results", icon: Filter, section: "ts:admin-config" },
+      { title: "Daily Targets", url: "/ts/admin/targets", icon: Target, section: "ts:admin-config" },
+      { title: "Validation Dump", url: "/ts/admin/validation", icon: FileUp, section: "ts:admin-dumps" },
+      { title: "Activation Dump", url: "/ts/admin/activation", icon: FileUp, section: "ts:admin-dumps" },
       { title: "Users", url: "/ts/admin/users", icon: Users, section: "ts:admin" },
       { title: "Warnings", url: "/ts/admin/warnings", icon: AlertTriangle, section: "ts:warnings" },
       { title: "Audit Log", url: "/ts/admin/audit-log", icon: ScrollText, section: "ts:audit" },
@@ -104,12 +109,9 @@ const groups: { label: string; items: Item[] }[] = [
       { title: "Leads", url: "/ts/reports/leads", icon: ClipboardList, section: "ts:reports" },
     ],
   },
-  // Manager (read-only)
   {
     label: "Manager — Overview",
-    items: [
-      { title: "Executive Dashboard", url: "/manager", icon: LayoutDashboard, section: "manager:dashboard" },
-    ],
+    items: [{ title: "Executive Dashboard", url: "/manager", icon: LayoutDashboard, section: "manager:dashboard" }],
   },
   {
     label: "Manager — TeleSales",
@@ -143,9 +145,7 @@ export function AppSidebar() {
   const agentOnly = useIsAgent();
   const roleLabel = useRoleLabel();
 
-  // Compute per-section access once, in a stable order (no conditional hook calls).
   const perms = new Set(permissionsFor(user?.roleId));
-  // Also react to auth-context changes even before permissions memo populates.
   void useCanAccess("dashboard");
 
   return (
@@ -174,8 +174,7 @@ export function AppSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   {visible.map((item) => {
-                    const active =
-                      item.url === "/" ? path === "/" : path.startsWith(item.url);
+                    const active = item.url === "/" ? path === "/" : path.startsWith(item.url);
                     return (
                       <SidebarMenuItem key={item.url}>
                         <SidebarMenuButton asChild isActive={active}>

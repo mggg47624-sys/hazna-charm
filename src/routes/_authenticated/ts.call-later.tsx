@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { Loader2, Clock, Phone, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { SectionGuard } from "@/components/section-guard";
@@ -28,8 +27,20 @@ function TsCallLaterPage() {
   const navigate = useNavigate();
   const pick = useTsPickCallLater();
 
-  const onPick = (id: number) => {
-    pick.mutate(id, {
+  const [filters, setFilters] = useState<FilterValues>({});
+  const rowFilter = useMemo(
+    () =>
+      buildRowFilter<any>(
+        filters,
+        { mobile: (r) => r.phone, dateFrom: (r) => r.lastCallAt, dateTo: (r) => r.lastCallAt },
+        [(r) => r.fullName, (r) => r.phone, (r) => r.companyName, (r) => r.lastNotes],
+      ),
+    [filters],
+  );
+  const rows = (q.data ?? []).filter(rowFilter);
+
+  const onPick = (leadId: number) => {
+    pick.mutate(leadId, {
       onSuccess: (lead) => {
         qc.setQueryData(["ts", "next"], lead);
         qc.invalidateQueries({ queryKey: ["ts", "callLater"] });
@@ -40,46 +51,24 @@ function TsCallLaterPage() {
     });
   };
 
-  const [filters, setFilters] = useState<FilterValues>({});
-  const rowFilter = useMemo(
-    () =>
-      buildRowFilter<any>(
-        filters,
-        { mobile: (r) => r.phone, dateFrom: (r) => r.scheduledAt },
-        [(r) => r.customerName, (r) => r.phone, (r) => r.companyName, (r) => r.notes],
-      ),
-    [filters],
-  );
-  const rows = (q.data ?? []).filter(rowFilter);
-
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold">Call Later</h1>
-        <p className="text-sm text-muted-foreground">
-          Scheduled callbacks for your assigned leads.
-        </p>
+        <p className="text-sm text-muted-foreground">Scheduled callbacks for your assigned leads.</p>
       </div>
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Scheduled leads</CardTitle>
           <div className="pt-3">
-            <FilterBar
-              fields={["search", "mobile", "dateFrom", "dateTo"]}
-              values={filters}
-              onChange={setFilters}
-            />
+            <FilterBar fields={["search", "mobile", "dateFrom", "dateTo"]} values={filters} onChange={setFilters} />
           </div>
         </CardHeader>
         <CardContent className="p-0">
           {q.isLoading ? (
-            <div className="p-10 flex justify-center">
-              <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-            </div>
+            <div className="p-10 flex justify-center"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>
           ) : !rows.length ? (
-            <div className="p-10 text-center text-sm text-muted-foreground">
-              No scheduled callbacks match your filters.
-            </div>
+            <div className="p-10 text-center text-sm text-muted-foreground">No scheduled callbacks.</div>
           ) : (
             <div className="overflow-x-auto">
               <Table>
@@ -88,42 +77,36 @@ function TsCallLaterPage() {
                     <TableHead>Customer</TableHead>
                     <TableHead>Phone</TableHead>
                     <TableHead>Company</TableHead>
-                    <TableHead>Scheduled</TableHead>
+                    <TableHead>Attempts</TableHead>
+                    <TableHead>Last call</TableHead>
                     <TableHead>Notes</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead>Campaign</TableHead>
                     <TableHead className="text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {rows.map((l: any) => (
-                    <TableRow key={l.id}>
-                      <TableCell className="font-medium">{l.customerName}</TableCell>
+                    <TableRow key={l.leadId}>
+                      <TableCell className="font-medium">{l.fullName}</TableCell>
                       <TableCell>
                         <span className="inline-flex items-center gap-2">
                           <Phone className="h-3.5 w-3.5 text-muted-foreground" />
-                          <a className="text-primary hover:underline" href={`tel:${l.phone}`}>
-                            {l.phone}
-                          </a>
+                          <a className="text-primary hover:underline" href={`tel:${l.phone}`}>{l.phone}</a>
                           <CopyButton value={l.phone} />
                         </span>
                       </TableCell>
                       <TableCell>{l.companyName || "—"}</TableCell>
+                      <TableCell>{l.attemptCount ?? 0}</TableCell>
                       <TableCell className="text-muted-foreground">
                         <span className="inline-flex items-center gap-1">
-                          <Clock className="h-3.5 w-3.5" />{" "}
-                          {l.scheduledAt ? new Date(l.scheduledAt).toLocaleString() : "—"}
+                          <Clock className="h-3.5 w-3.5" />
+                          {l.lastCallAt ? new Date(l.lastCallAt).toLocaleString() : "—"}
                         </span>
                       </TableCell>
-                      <TableCell className="text-muted-foreground">{l.notes || "—"}</TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{l.status || "scheduled"}</Badge>
-                      </TableCell>
+                      <TableCell className="text-muted-foreground max-w-xs truncate">{l.lastNotes || "—"}</TableCell>
+                      <TableCell className="text-muted-foreground">{l.campaignName ?? "—"}</TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          size="sm"
-                          onClick={() => onPick(l.id)}
-                          disabled={pick.isPending}
-                        >
+                        <Button size="sm" onClick={() => onPick(l.leadId)} disabled={pick.isPending}>
                           Pick Up <ArrowRight className="h-3 w-3 ml-1" />
                         </Button>
                       </TableCell>
