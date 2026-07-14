@@ -25,10 +25,15 @@ import { Route as AuthenticatedTsReportsLeadsRouteImport } from './routes/_authe
 import { Route as AuthenticatedTsReportsCallsRouteImport } from './routes/_authenticated/ts.reports.calls'
 import { Route as AuthenticatedTsReportsAgentsRouteImport } from './routes/_authenticated/ts.reports.agents'
 import { Route as AuthenticatedTsAdminWarningsRouteImport } from './routes/_authenticated/ts.admin.warnings'
+import { Route as AuthenticatedTsAdminValidationRouteImport } from './routes/_authenticated/ts.admin.validation'
 import { Route as AuthenticatedTsAdminUsersRouteImport } from './routes/_authenticated/ts.admin.users'
+import { Route as AuthenticatedTsAdminTargetsRouteImport } from './routes/_authenticated/ts.admin.targets'
+import { Route as AuthenticatedTsAdminFormsRouteImport } from './routes/_authenticated/ts.admin.forms'
 import { Route as AuthenticatedTsAdminCampaignsRouteImport } from './routes/_authenticated/ts.admin.campaigns'
+import { Route as AuthenticatedTsAdminCallResultsRouteImport } from './routes/_authenticated/ts.admin.call-results'
 import { Route as AuthenticatedTsAdminBatchesRouteImport } from './routes/_authenticated/ts.admin.batches'
 import { Route as AuthenticatedTsAdminAuditLogRouteImport } from './routes/_authenticated/ts.admin.audit-log'
+import { Route as AuthenticatedTsAdminActivationRouteImport } from './routes/_authenticated/ts.admin.activation'
 import { Route as AuthenticatedQaReportsTeamsRouteImport } from './routes/_authenticated/qa.reports.teams'
 import { Route as AuthenticatedQaReportsSalesRepsRouteImport } from './routes/_authenticated/qa.reports.sales-reps'
 import { Route as AuthenticatedQaReportsEvaluationsRouteImport } from './routes/_authenticated/qa.reports.evaluations'
@@ -144,16 +149,40 @@ const AuthenticatedTsAdminWarningsRoute =
     path: '/ts/admin/warnings',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedTsAdminValidationRoute =
+  AuthenticatedTsAdminValidationRouteImport.update({
+    id: '/ts/admin/validation',
+    path: '/ts/admin/validation',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedTsAdminUsersRoute =
   AuthenticatedTsAdminUsersRouteImport.update({
     id: '/ts/admin/users',
     path: '/ts/admin/users',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedTsAdminTargetsRoute =
+  AuthenticatedTsAdminTargetsRouteImport.update({
+    id: '/ts/admin/targets',
+    path: '/ts/admin/targets',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminFormsRoute =
+  AuthenticatedTsAdminFormsRouteImport.update({
+    id: '/ts/admin/forms',
+    path: '/ts/admin/forms',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedTsAdminCampaignsRoute =
   AuthenticatedTsAdminCampaignsRouteImport.update({
     id: '/ts/admin/campaigns',
     path: '/ts/admin/campaigns',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminCallResultsRoute =
+  AuthenticatedTsAdminCallResultsRouteImport.update({
+    id: '/ts/admin/call-results',
+    path: '/ts/admin/call-results',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedTsAdminBatchesRoute =
@@ -166,6 +195,12 @@ const AuthenticatedTsAdminAuditLogRoute =
   AuthenticatedTsAdminAuditLogRouteImport.update({
     id: '/ts/admin/audit-log',
     path: '/ts/admin/audit-log',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminActivationRoute =
+  AuthenticatedTsAdminActivationRouteImport.update({
+    id: '/ts/admin/activation',
+    path: '/ts/admin/activation',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedQaReportsTeamsRoute =
@@ -347,10 +382,15 @@ export interface FileRoutesByFullPath {
   '/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsRouteWithChildren
   '/qa/reports/sales-reps': typeof AuthenticatedQaReportsSalesRepsRouteWithChildren
   '/qa/reports/teams': typeof AuthenticatedQaReportsTeamsRoute
+  '/ts/admin/activation': typeof AuthenticatedTsAdminActivationRoute
   '/ts/admin/audit-log': typeof AuthenticatedTsAdminAuditLogRoute
   '/ts/admin/batches': typeof AuthenticatedTsAdminBatchesRoute
+  '/ts/admin/call-results': typeof AuthenticatedTsAdminCallResultsRoute
   '/ts/admin/campaigns': typeof AuthenticatedTsAdminCampaignsRoute
+  '/ts/admin/forms': typeof AuthenticatedTsAdminFormsRoute
+  '/ts/admin/targets': typeof AuthenticatedTsAdminTargetsRoute
   '/ts/admin/users': typeof AuthenticatedTsAdminUsersRoute
+  '/ts/admin/validation': typeof AuthenticatedTsAdminValidationRoute
   '/ts/admin/warnings': typeof AuthenticatedTsAdminWarningsRoute
   '/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
@@ -392,10 +432,15 @@ export interface FileRoutesByTo {
   '/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsRouteWithChildren
   '/qa/reports/sales-reps': typeof AuthenticatedQaReportsSalesRepsRouteWithChildren
   '/qa/reports/teams': typeof AuthenticatedQaReportsTeamsRoute
+  '/ts/admin/activation': typeof AuthenticatedTsAdminActivationRoute
   '/ts/admin/audit-log': typeof AuthenticatedTsAdminAuditLogRoute
   '/ts/admin/batches': typeof AuthenticatedTsAdminBatchesRoute
+  '/ts/admin/call-results': typeof AuthenticatedTsAdminCallResultsRoute
   '/ts/admin/campaigns': typeof AuthenticatedTsAdminCampaignsRoute
+  '/ts/admin/forms': typeof AuthenticatedTsAdminFormsRoute
+  '/ts/admin/targets': typeof AuthenticatedTsAdminTargetsRoute
   '/ts/admin/users': typeof AuthenticatedTsAdminUsersRoute
+  '/ts/admin/validation': typeof AuthenticatedTsAdminValidationRoute
   '/ts/admin/warnings': typeof AuthenticatedTsAdminWarningsRoute
   '/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
@@ -439,10 +484,15 @@ export interface FileRoutesById {
   '/_authenticated/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsRouteWithChildren
   '/_authenticated/qa/reports/sales-reps': typeof AuthenticatedQaReportsSalesRepsRouteWithChildren
   '/_authenticated/qa/reports/teams': typeof AuthenticatedQaReportsTeamsRoute
+  '/_authenticated/ts/admin/activation': typeof AuthenticatedTsAdminActivationRoute
   '/_authenticated/ts/admin/audit-log': typeof AuthenticatedTsAdminAuditLogRoute
   '/_authenticated/ts/admin/batches': typeof AuthenticatedTsAdminBatchesRoute
+  '/_authenticated/ts/admin/call-results': typeof AuthenticatedTsAdminCallResultsRoute
   '/_authenticated/ts/admin/campaigns': typeof AuthenticatedTsAdminCampaignsRoute
+  '/_authenticated/ts/admin/forms': typeof AuthenticatedTsAdminFormsRoute
+  '/_authenticated/ts/admin/targets': typeof AuthenticatedTsAdminTargetsRoute
   '/_authenticated/ts/admin/users': typeof AuthenticatedTsAdminUsersRoute
+  '/_authenticated/ts/admin/validation': typeof AuthenticatedTsAdminValidationRoute
   '/_authenticated/ts/admin/warnings': typeof AuthenticatedTsAdminWarningsRoute
   '/_authenticated/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/_authenticated/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
@@ -486,10 +536,15 @@ export interface FileRouteTypes {
     | '/qa/reports/evaluations'
     | '/qa/reports/sales-reps'
     | '/qa/reports/teams'
+    | '/ts/admin/activation'
     | '/ts/admin/audit-log'
     | '/ts/admin/batches'
+    | '/ts/admin/call-results'
     | '/ts/admin/campaigns'
+    | '/ts/admin/forms'
+    | '/ts/admin/targets'
     | '/ts/admin/users'
+    | '/ts/admin/validation'
     | '/ts/admin/warnings'
     | '/ts/reports/agents'
     | '/ts/reports/calls'
@@ -531,10 +586,15 @@ export interface FileRouteTypes {
     | '/qa/reports/evaluations'
     | '/qa/reports/sales-reps'
     | '/qa/reports/teams'
+    | '/ts/admin/activation'
     | '/ts/admin/audit-log'
     | '/ts/admin/batches'
+    | '/ts/admin/call-results'
     | '/ts/admin/campaigns'
+    | '/ts/admin/forms'
+    | '/ts/admin/targets'
     | '/ts/admin/users'
+    | '/ts/admin/validation'
     | '/ts/admin/warnings'
     | '/ts/reports/agents'
     | '/ts/reports/calls'
@@ -577,10 +637,15 @@ export interface FileRouteTypes {
     | '/_authenticated/qa/reports/evaluations'
     | '/_authenticated/qa/reports/sales-reps'
     | '/_authenticated/qa/reports/teams'
+    | '/_authenticated/ts/admin/activation'
     | '/_authenticated/ts/admin/audit-log'
     | '/_authenticated/ts/admin/batches'
+    | '/_authenticated/ts/admin/call-results'
     | '/_authenticated/ts/admin/campaigns'
+    | '/_authenticated/ts/admin/forms'
+    | '/_authenticated/ts/admin/targets'
     | '/_authenticated/ts/admin/users'
+    | '/_authenticated/ts/admin/validation'
     | '/_authenticated/ts/admin/warnings'
     | '/_authenticated/ts/reports/agents'
     | '/_authenticated/ts/reports/calls'
@@ -708,6 +773,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTsAdminWarningsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/ts/admin/validation': {
+      id: '/_authenticated/ts/admin/validation'
+      path: '/ts/admin/validation'
+      fullPath: '/ts/admin/validation'
+      preLoaderRoute: typeof AuthenticatedTsAdminValidationRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/ts/admin/users': {
       id: '/_authenticated/ts/admin/users'
       path: '/ts/admin/users'
@@ -715,11 +787,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTsAdminUsersRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/ts/admin/targets': {
+      id: '/_authenticated/ts/admin/targets'
+      path: '/ts/admin/targets'
+      fullPath: '/ts/admin/targets'
+      preLoaderRoute: typeof AuthenticatedTsAdminTargetsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/forms': {
+      id: '/_authenticated/ts/admin/forms'
+      path: '/ts/admin/forms'
+      fullPath: '/ts/admin/forms'
+      preLoaderRoute: typeof AuthenticatedTsAdminFormsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/ts/admin/campaigns': {
       id: '/_authenticated/ts/admin/campaigns'
       path: '/ts/admin/campaigns'
       fullPath: '/ts/admin/campaigns'
       preLoaderRoute: typeof AuthenticatedTsAdminCampaignsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/call-results': {
+      id: '/_authenticated/ts/admin/call-results'
+      path: '/ts/admin/call-results'
+      fullPath: '/ts/admin/call-results'
+      preLoaderRoute: typeof AuthenticatedTsAdminCallResultsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/ts/admin/batches': {
@@ -734,6 +827,13 @@ declare module '@tanstack/react-router' {
       path: '/ts/admin/audit-log'
       fullPath: '/ts/admin/audit-log'
       preLoaderRoute: typeof AuthenticatedTsAdminAuditLogRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/activation': {
+      id: '/_authenticated/ts/admin/activation'
+      path: '/ts/admin/activation'
+      fullPath: '/ts/admin/activation'
+      preLoaderRoute: typeof AuthenticatedTsAdminActivationRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/qa/reports/teams': {
@@ -970,10 +1070,15 @@ interface AuthenticatedRouteChildren {
   AuthenticatedQaReportsEvaluationsRoute: typeof AuthenticatedQaReportsEvaluationsRouteWithChildren
   AuthenticatedQaReportsSalesRepsRoute: typeof AuthenticatedQaReportsSalesRepsRouteWithChildren
   AuthenticatedQaReportsTeamsRoute: typeof AuthenticatedQaReportsTeamsRoute
+  AuthenticatedTsAdminActivationRoute: typeof AuthenticatedTsAdminActivationRoute
   AuthenticatedTsAdminAuditLogRoute: typeof AuthenticatedTsAdminAuditLogRoute
   AuthenticatedTsAdminBatchesRoute: typeof AuthenticatedTsAdminBatchesRoute
+  AuthenticatedTsAdminCallResultsRoute: typeof AuthenticatedTsAdminCallResultsRoute
   AuthenticatedTsAdminCampaignsRoute: typeof AuthenticatedTsAdminCampaignsRoute
+  AuthenticatedTsAdminFormsRoute: typeof AuthenticatedTsAdminFormsRoute
+  AuthenticatedTsAdminTargetsRoute: typeof AuthenticatedTsAdminTargetsRoute
   AuthenticatedTsAdminUsersRoute: typeof AuthenticatedTsAdminUsersRoute
+  AuthenticatedTsAdminValidationRoute: typeof AuthenticatedTsAdminValidationRoute
   AuthenticatedTsAdminWarningsRoute: typeof AuthenticatedTsAdminWarningsRoute
   AuthenticatedTsReportsAgentsRoute: typeof AuthenticatedTsReportsAgentsRoute
   AuthenticatedTsReportsCallsRoute: typeof AuthenticatedTsReportsCallsRoute
@@ -1017,10 +1122,15 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedQaReportsSalesRepsRoute:
     AuthenticatedQaReportsSalesRepsRouteWithChildren,
   AuthenticatedQaReportsTeamsRoute: AuthenticatedQaReportsTeamsRoute,
+  AuthenticatedTsAdminActivationRoute: AuthenticatedTsAdminActivationRoute,
   AuthenticatedTsAdminAuditLogRoute: AuthenticatedTsAdminAuditLogRoute,
   AuthenticatedTsAdminBatchesRoute: AuthenticatedTsAdminBatchesRoute,
+  AuthenticatedTsAdminCallResultsRoute: AuthenticatedTsAdminCallResultsRoute,
   AuthenticatedTsAdminCampaignsRoute: AuthenticatedTsAdminCampaignsRoute,
+  AuthenticatedTsAdminFormsRoute: AuthenticatedTsAdminFormsRoute,
+  AuthenticatedTsAdminTargetsRoute: AuthenticatedTsAdminTargetsRoute,
   AuthenticatedTsAdminUsersRoute: AuthenticatedTsAdminUsersRoute,
+  AuthenticatedTsAdminValidationRoute: AuthenticatedTsAdminValidationRoute,
   AuthenticatedTsAdminWarningsRoute: AuthenticatedTsAdminWarningsRoute,
   AuthenticatedTsReportsAgentsRoute: AuthenticatedTsReportsAgentsRoute,
   AuthenticatedTsReportsCallsRoute: AuthenticatedTsReportsCallsRoute,
