@@ -5,8 +5,8 @@
  *   3 = QAAgent
  *   4 = QAAdmin
  *   5 = TSAgent
- *   6 = TSTeamLeader   (management only — no call workflow)
- *   7 = TSAdmin        (management only — no call workflow)
+ *   6 = TSTeamLeader   (reports only)
+ *   7 = TSAdmin        (full TeleSales admin)
  *   9 = Manager        (read-only across both systems)
  */
 
@@ -20,6 +20,9 @@ export type Section =
   | "ts:agent"
   | "ts:call-history"
   | "ts:admin"
+  | "ts:admin-forms"
+  | "ts:admin-config"
+  | "ts:admin-dumps"
   | "ts:reports"
   | "ts:warnings"
   | "ts:audit"
@@ -35,28 +38,27 @@ export const ROLE_TS_TEAM_LEADER = 6;
 export const ROLE_TS_ADMIN = 7;
 export const ROLE_MANAGER = 9;
 
-// Team Leader & Admin: management only — NO ts:agent / ts:my-warnings / ts:call-history.
 const TS_ADMIN_SECTIONS: Section[] = [
   "dashboard",
   "exports",
   "ts:admin",
+  "ts:admin-forms",
+  "ts:admin-config",
+  "ts:admin-dumps",
   "ts:reports",
   "ts:warnings",
   "ts:audit",
 ];
 
+// Team Leader → reports only
+const TS_TEAM_LEADER_SECTIONS: Section[] = ["dashboard", "exports", "ts:reports"];
+
 export const ROLE_PERMISSIONS: Record<number, Section[]> = {
   [ROLE_QA_AGENT]: ["qa:agent", "qa:call-history"],
-  [ROLE_QA_ADMIN]: [
-    "dashboard",
-    "exports",
-    "qa:admin",
-    "qa:reports",
-  ],
+  [ROLE_QA_ADMIN]: ["dashboard", "exports", "qa:admin", "qa:reports"],
   [ROLE_TS_AGENT]: ["ts:agent", "ts:call-history", "ts:my-warnings"],
-  [ROLE_TS_TEAM_LEADER]: TS_ADMIN_SECTIONS,
+  [ROLE_TS_TEAM_LEADER]: TS_TEAM_LEADER_SECTIONS,
   [ROLE_TS_ADMIN]: TS_ADMIN_SECTIONS,
-  // Manager: strictly read-only. Reports across both systems + manager sections.
   [ROLE_MANAGER]: [
     "dashboard",
     "exports",
@@ -73,10 +75,7 @@ export function permissionsFor(roleId: number | undefined | null): Section[] {
   return ROLE_PERMISSIONS[Number(roleId)] ?? [];
 }
 
-export function canAccess(
-  roleId: number | undefined | null,
-  section: Section,
-): boolean {
+export function canAccess(roleId: number | undefined | null, section: Section): boolean {
   return permissionsFor(roleId).includes(section);
 }
 
@@ -89,15 +88,7 @@ export const ROLE_LABELS: Record<number, string> = {
   [ROLE_MANAGER]: "Manager",
 };
 
-export function isQaAgent(roleId?: number | null) {
-  return Number(roleId) === ROLE_QA_AGENT;
-}
-export function isTsAgent(roleId?: number | null) {
-  return Number(roleId) === ROLE_TS_AGENT;
-}
-export function isAgent(roleId?: number | null) {
-  return isQaAgent(roleId) || isTsAgent(roleId);
-}
-export function isManager(roleId?: number | null) {
-  return Number(roleId) === ROLE_MANAGER;
-}
+export const isQaAgent = (roleId?: number | null) => Number(roleId) === ROLE_QA_AGENT;
+export const isTsAgent = (roleId?: number | null) => Number(roleId) === ROLE_TS_AGENT;
+export const isAgent = (roleId?: number | null) => isQaAgent(roleId) || isTsAgent(roleId);
+export const isManager = (roleId?: number | null) => Number(roleId) === ROLE_MANAGER;
