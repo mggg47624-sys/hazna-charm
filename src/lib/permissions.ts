@@ -50,8 +50,8 @@ const TS_ADMIN_SECTIONS: Section[] = [
   "ts:audit",
 ];
 
-// Team Leader → reports only
-const TS_TEAM_LEADER_SECTIONS: Section[] = ["dashboard", "exports", "ts:reports"];
+// Team Leader → same access as TS Admin
+const TS_TEAM_LEADER_SECTIONS: Section[] = TS_ADMIN_SECTIONS;
 
 export const ROLE_PERMISSIONS: Record<number, Section[]> = {
   [ROLE_QA_AGENT]: ["qa:agent", "qa:call-history"],
