@@ -244,6 +244,9 @@ function TsWorkPage() {
 
   const s = today.data;
 
+  const campaignsList = useCampaigns();
+  const activeCampaigns = (campaignsList.data ?? []).filter((c) => c.isActive);
+
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
@@ -252,15 +255,19 @@ function TsWorkPage() {
           <p className="text-sm text-muted-foreground">
             Call assigned leads and log the outcome
           </p>
+          {activeCampaigns.length > 0 && (
+            <div className="flex items-center gap-2 mt-2 flex-wrap">
+              <span className="text-xs text-muted-foreground">Your campaign{activeCampaigns.length > 1 ? "s" : ""}:</span>
+              {activeCampaigns.map((c) => (
+                <Badge key={c.id} variant="secondary">{c.name}</Badge>
+              ))}
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-2">
           <ManualLeadButton
             open={manualOpen}
             setOpen={setManualOpen}
-            onCreated={(lead) => {
-              resetForNewLead(lead);
-              setManualOpen(false);
-            }}
           />
           {stage === "idle" && (
             <Button size="lg" onClick={fetchNext} disabled={next.isPending}>
@@ -274,6 +281,7 @@ function TsWorkPage() {
           )}
         </div>
       </div>
+
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         <StatCard label="Total Calls" value={s?.totalCalls ?? 0} icon={PhoneCall} tone="primary" />
@@ -458,11 +466,9 @@ function TsWorkPage() {
 function ManualLeadButton({
   open,
   setOpen,
-  onCreated,
 }: {
   open: boolean;
   setOpen: (v: boolean) => void;
-  onCreated: (lead: TSNextLead) => void;
 }) {
   const campaigns = useCampaigns();
   const add = useAddManualLead();
@@ -471,28 +477,29 @@ function ManualLeadButton({
   const [phone, setPhone] = useState("");
   const [company, setCompany] = useState("");
 
+  const reset = () => {
+    setCampaignId("");
+    setFullName("");
+    setPhone("");
+    setCompany("");
+  };
+
   const submit = () => {
     if (!campaignId) return toast.error("Pick a campaign");
     if (!fullName.trim() || !phone.trim()) return toast.error("Name and phone required");
     add.mutate(
       { campaignId: Number(campaignId), fullName, phone, company: company || undefined },
       {
-        onSuccess: (resp) => {
-          toast.success("Lead created — start the call");
-          onCreated({
-            leadId: resp.leadId,
-            callAttemptId: resp.callAttemptId,
-            formId: 0, // Will resolve on server side; Root form loaded when set
-            phone,
-            fullName,
-            company,
-            attemptCount: 0,
-          } as unknown as TSNextLead);
+        onSuccess: () => {
+          toast.success("Lead saved");
+          reset();
+          setOpen(false);
         },
         onError: (e: Error) => toast.error(e.message),
       },
     );
   };
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
