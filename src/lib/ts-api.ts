@@ -544,6 +544,26 @@ export function useTsReportLeads(campaignId: number | undefined) {
     enabled: enabled() && !!campaignId,
   });
 }
+export interface TSCallHistory {
+  callAttemptId: number;
+  leadId: number;
+  fullName: string;
+  phone: string;
+  companyName?: string | null;
+  campaignName?: string | null;
+  callResultId?: number | null;
+  callResult?: string | null;
+  attemptCount: number;
+  lastCallAt: string;
+  lastNotes?: string | null;
+}
+export function useTsCallHistory() {
+  return useQuery({
+    queryKey: ["ts", "callHistory"],
+    queryFn: () => api<TSCallHistory[]>("/api/ts/Queue/CallHistory"),
+    enabled: enabled(),
+  });
+}
 export function useTsReportCalls(campaignId: number | undefined) {
   return useQuery({
     queryKey: ["ts", "report", "calls", campaignId],

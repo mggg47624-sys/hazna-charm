@@ -6,16 +6,14 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import { Loader2, Phone, ArrowRight } from "lucide-react";
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { SectionGuard } from "@/components/section-guard";
 import {
-  useActiveCampaigns,
+  useTsCallHistory,
   useTsPickCallLater,
-  useTsReportCalls,
+  type TSCallHistory,
 } from "@/lib/ts-api";
 import { CopyButton } from "@/components/copy-button";
 import { ExportButton } from "@/components/export-button";
@@ -29,37 +27,36 @@ export const Route = createFileRoute("/_authenticated/ts/call-history")({
   ),
 });
 
-const isUnanswered = (row: any) => {
-  const id = row.callResultId ?? row.CallResultId;
-  if (id != null) return Number(id) !== 1;
-  const label = String(row.callResult ?? row.CallResult ?? "").toLowerCase();
-  return !!label && !label.includes("answer") ? true : /no answer|not answer|wrong|busy|unavailable/.test(label);
+const CR_ANSWERED = 1;
+const isUnanswered = (row: TSCallHistory) => {
+  if (row.callResultId != null) return Number(row.callResultId) !== CR_ANSWERED;
+  const label = String(row.callResult ?? "").toLowerCase();
+  return !!label && !label.includes("answer");
 };
 
 function TsCallHistoryPage() {
-  const campaigns = useActiveCampaigns();
   const qc = useQueryClient();
   const navigate = useNavigate();
-  const [cid, setCid] = useState<number | undefined>(undefined);
-  const activeCid = cid ?? campaigns.data?.[0]?.id;
-  const calls = useTsReportCalls(activeCid);
+  const calls = useTsCallHistory();
   const pick = useTsPickCallLater();
   const [filters, setFilters] = useState<FilterValues>({});
 
   const rowFilter = useMemo(
     () =>
-      buildRowFilter<any>(
+      buildRowFilter<TSCallHistory>(
         filters,
         {
-          mobile: (r) => r.phone ?? r.Phone,
-          dateFrom: (r) => r.callDate ?? r.CallDate,
-          callResult: (r) => r.callResult ?? r.CallResult,
+          mobile: (r) => r.phone,
+          dateFrom: (r) => r.lastCallAt,
+          callResult: (r) => r.callResult ?? "",
         },
         [
-          (r) => r.customerName ?? r.CustomerName,
-          (r) => r.phone ?? r.Phone,
-          (r) => r.notes ?? r.Notes,
-          (r) => r.callResult ?? r.CallResult,
+          (r) => r.fullName,
+          (r) => r.phone,
+          (r) => r.companyName ?? "",
+          (r) => r.campaignName ?? "",
+          (r) => r.lastNotes ?? "",
+          (r) => r.callResult ?? "",
         ],
       ),
     [filters],
@@ -67,13 +64,12 @@ function TsCallHistoryPage() {
 
   const rows = (calls.data ?? []).filter(rowFilter);
 
-  const onPickUp = (row: any) => {
-    const id = row.leadId ?? row.LeadId ?? row.customerId ?? row.CustomerId;
-    if (!id) {
+  const onPickUp = (row: TSCallHistory) => {
+    if (!row.leadId) {
       toast.error("Missing lead id for this call");
       return;
     }
-    pick.mutate(Number(id), {
+    pick.mutate(row.leadId, {
       onSuccess: (lead) => {
         qc.setQueryData(["ts", "next"], lead);
         toast.success("Lead loaded — continue in Work Queue");
@@ -88,31 +84,22 @@ function TsCallHistoryPage() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-semibold">Call History</h1>
-          <p className="text-sm text-muted-foreground">Every call you made for the selected campaign.</p>
+          <p className="text-sm text-muted-foreground">Every call you made across your campaigns.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Select value={activeCid ? String(activeCid) : ""} onValueChange={(v) => setCid(Number(v))}>
-            <SelectTrigger className="w-56"><SelectValue placeholder="Campaign" /></SelectTrigger>
-            <SelectContent>
-              {campaigns.data?.map((c) => (
-                <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <ExportButton
-            rows={rows}
-            filename="ts-call-history"
-            columns={[
-              { label: "Call ID", key: "callId" },
-              { label: "Lead", key: "customerName" },
-              { label: "Phone", key: "phone" },
-              { label: "Result", key: "callResult" },
-              { label: "Date", key: "callDate" },
-              { label: "Duration (min)", key: "durationMinutes" },
-              { label: "Notes", key: "notes" },
-            ]}
-          />
-        </div>
+        <ExportButton
+          rows={rows}
+          filename="ts-call-history"
+          columns={[
+            { label: "Lead", key: "fullName" },
+            { label: "Phone", key: "phone" },
+            { label: "Company", key: "companyName" },
+            { label: "Campaign", key: "campaignName" },
+            { label: "Result", key: "callResult" },
+            { label: "Attempts", key: "attemptCount" },
+            { label: "Last Call", key: "lastCallAt" },
+            { label: "Notes", key: "lastNotes" },
+          ]}
+        />
       </div>
 
       <Card>
@@ -136,20 +123,22 @@ function TsCallHistoryPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Date</TableHead>
+                    <TableHead>Last Call</TableHead>
                     <TableHead>Customer</TableHead>
                     <TableHead>Phone</TableHead>
+                    <TableHead>Company</TableHead>
+                    <TableHead>Campaign</TableHead>
                     <TableHead>Result</TableHead>
-                    <TableHead className="text-right">Duration (min)</TableHead>
+                    <TableHead className="text-right">Attempts</TableHead>
                     <TableHead>Notes</TableHead>
                     <TableHead className="text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {rows.map((c: any) => (
-                    <TableRow key={c.callId}>
-                      <TableCell className="text-muted-foreground">{new Date(c.callDate).toLocaleString()}</TableCell>
-                      <TableCell className="font-medium">{c.customerName}</TableCell>
+                  {rows.map((c) => (
+                    <TableRow key={c.callAttemptId}>
+                      <TableCell className="text-muted-foreground">{c.lastCallAt ? new Date(c.lastCallAt).toLocaleString() : "—"}</TableCell>
+                      <TableCell className="font-medium">{c.fullName}</TableCell>
                       <TableCell>
                         <span className="inline-flex items-center gap-2">
                           <Phone className="h-3.5 w-3.5 text-muted-foreground" />
@@ -157,9 +146,11 @@ function TsCallHistoryPage() {
                           <CopyButton value={c.phone} />
                         </span>
                       </TableCell>
-                      <TableCell>{c.callResult}</TableCell>
-                      <TableCell className="text-right">{c.durationMinutes ?? "—"}</TableCell>
-                      <TableCell className="text-muted-foreground">{c.notes || "—"}</TableCell>
+                      <TableCell className="text-muted-foreground">{c.companyName || "—"}</TableCell>
+                      <TableCell>{c.campaignName ? <Badge variant="outline">{c.campaignName}</Badge> : "—"}</TableCell>
+                      <TableCell>{c.callResult || "—"}</TableCell>
+                      <TableCell className="text-right">{c.attemptCount}</TableCell>
+                      <TableCell className="text-muted-foreground max-w-[280px] truncate">{c.lastNotes || "—"}</TableCell>
                       <TableCell className="text-right">
                         {isUnanswered(c) ? (
                           <Button

@@ -15,6 +15,7 @@ import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedManagerIndexRouteImport } from './routes/_authenticated/manager.index'
 import { Route as AuthenticatedTsWorkRouteImport } from './routes/_authenticated/ts.work'
 import { Route as AuthenticatedTsMyWarningsRouteImport } from './routes/_authenticated/ts.my-warnings'
+import { Route as AuthenticatedTsMyReportRouteImport } from './routes/_authenticated/ts.my-report'
 import { Route as AuthenticatedTsCallLaterRouteImport } from './routes/_authenticated/ts.call-later'
 import { Route as AuthenticatedTsCallHistoryRouteImport } from './routes/_authenticated/ts.call-history'
 import { Route as AuthenticatedSettingsChangePasswordRouteImport } from './routes/_authenticated/settings.change-password'
@@ -90,6 +91,11 @@ const AuthenticatedTsMyWarningsRoute =
     path: '/ts/my-warnings',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedTsMyReportRoute = AuthenticatedTsMyReportRouteImport.update({
+  id: '/ts/my-report',
+  path: '/ts/my-report',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedTsCallLaterRoute =
   AuthenticatedTsCallLaterRouteImport.update({
     id: '/ts/call-later',
@@ -357,6 +363,7 @@ export interface FileRoutesByFullPath {
   '/settings/change-password': typeof AuthenticatedSettingsChangePasswordRoute
   '/ts/call-history': typeof AuthenticatedTsCallHistoryRoute
   '/ts/call-later': typeof AuthenticatedTsCallLaterRoute
+  '/ts/my-report': typeof AuthenticatedTsMyReportRoute
   '/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/ts/work': typeof AuthenticatedTsWorkRoute
   '/manager/': typeof AuthenticatedManagerIndexRoute
@@ -407,6 +414,7 @@ export interface FileRoutesByTo {
   '/settings/change-password': typeof AuthenticatedSettingsChangePasswordRoute
   '/ts/call-history': typeof AuthenticatedTsCallHistoryRoute
   '/ts/call-later': typeof AuthenticatedTsCallLaterRoute
+  '/ts/my-report': typeof AuthenticatedTsMyReportRoute
   '/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/ts/work': typeof AuthenticatedTsWorkRoute
   '/manager': typeof AuthenticatedManagerIndexRoute
@@ -459,6 +467,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/change-password': typeof AuthenticatedSettingsChangePasswordRoute
   '/_authenticated/ts/call-history': typeof AuthenticatedTsCallHistoryRoute
   '/_authenticated/ts/call-later': typeof AuthenticatedTsCallLaterRoute
+  '/_authenticated/ts/my-report': typeof AuthenticatedTsMyReportRoute
   '/_authenticated/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/_authenticated/ts/work': typeof AuthenticatedTsWorkRoute
   '/_authenticated/manager/': typeof AuthenticatedManagerIndexRoute
@@ -511,6 +520,7 @@ export interface FileRouteTypes {
     | '/settings/change-password'
     | '/ts/call-history'
     | '/ts/call-later'
+    | '/ts/my-report'
     | '/ts/my-warnings'
     | '/ts/work'
     | '/manager/'
@@ -561,6 +571,7 @@ export interface FileRouteTypes {
     | '/settings/change-password'
     | '/ts/call-history'
     | '/ts/call-later'
+    | '/ts/my-report'
     | '/ts/my-warnings'
     | '/ts/work'
     | '/manager'
@@ -612,6 +623,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/change-password'
     | '/_authenticated/ts/call-history'
     | '/_authenticated/ts/call-later'
+    | '/_authenticated/ts/my-report'
     | '/_authenticated/ts/my-warnings'
     | '/_authenticated/ts/work'
     | '/_authenticated/manager/'
@@ -701,6 +713,13 @@ declare module '@tanstack/react-router' {
       path: '/ts/my-warnings'
       fullPath: '/ts/my-warnings'
       preLoaderRoute: typeof AuthenticatedTsMyWarningsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/my-report': {
+      id: '/_authenticated/ts/my-report'
+      path: '/ts/my-report'
+      fullPath: '/ts/my-report'
+      preLoaderRoute: typeof AuthenticatedTsMyReportRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/ts/call-later': {
@@ -1045,6 +1064,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedSettingsChangePasswordRoute: typeof AuthenticatedSettingsChangePasswordRoute
   AuthenticatedTsCallHistoryRoute: typeof AuthenticatedTsCallHistoryRoute
   AuthenticatedTsCallLaterRoute: typeof AuthenticatedTsCallLaterRoute
+  AuthenticatedTsMyReportRoute: typeof AuthenticatedTsMyReportRoute
   AuthenticatedTsMyWarningsRoute: typeof AuthenticatedTsMyWarningsRoute
   AuthenticatedTsWorkRoute: typeof AuthenticatedTsWorkRoute
   AuthenticatedManagerIndexRoute: typeof AuthenticatedManagerIndexRoute
@@ -1094,6 +1114,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedSettingsChangePasswordRoute,
   AuthenticatedTsCallHistoryRoute: AuthenticatedTsCallHistoryRoute,
   AuthenticatedTsCallLaterRoute: AuthenticatedTsCallLaterRoute,
+  AuthenticatedTsMyReportRoute: AuthenticatedTsMyReportRoute,
   AuthenticatedTsMyWarningsRoute: AuthenticatedTsMyWarningsRoute,
   AuthenticatedTsWorkRoute: AuthenticatedTsWorkRoute,
   AuthenticatedManagerIndexRoute: AuthenticatedManagerIndexRoute,
