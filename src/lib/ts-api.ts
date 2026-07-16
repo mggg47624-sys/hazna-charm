@@ -149,10 +149,14 @@ export function useUploadBatch() {
       agents: Array<{ agentId: number; maxCalls: number }>;
     }) => {
       const fd = new FormData();
-      fd.append("campaignId", String(campaignId));
-      if (followUpDays != null) fd.append("followUpDays", String(followUpDays));
-      fd.append("agents", JSON.stringify(agents));
-      fd.append("file", file);
+      fd.append("CampaignId", String(campaignId));
+      if (followUpDays != null) fd.append("FollowUpDays", String(followUpDays));
+      // ASP.NET Core model binder expects indexed form fields for a list of complex objects
+      agents.forEach((a, i) => {
+        fd.append(`Agents[${i}].AgentId`, String(a.agentId));
+        fd.append(`Agents[${i}].MaxCalls`, String(a.maxCalls));
+      });
+      fd.append("File", file);
       return api<TSBatchUploadResult>("/api/ts/Batch", {
         method: "POST",
         body: fd,
