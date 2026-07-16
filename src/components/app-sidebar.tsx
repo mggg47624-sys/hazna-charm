@@ -83,6 +83,7 @@ const groups: { label: string; items: Item[] }[] = [
       { title: "Work Queue", url: "/ts/work", icon: PhoneCall, section: "ts:agent" },
       { title: "Call Later", url: "/ts/call-later", icon: Clock, section: "ts:agent" },
       { title: "Call History", url: "/ts/call-history", icon: History, section: "ts:call-history" },
+      { title: "My Report", url: "/ts/my-report", icon: TrendingUp, section: "ts:agent" },
       { title: "My Warnings", url: "/ts/my-warnings", icon: AlertTriangle, section: "ts:my-warnings" },
     ],
   },
