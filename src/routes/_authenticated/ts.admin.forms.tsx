@@ -161,8 +161,10 @@ function FormEditor({ formId, allForms }: { formId: number; allForms: Array<{ id
   useMemo(() => { if (form.data) setName(form.data.name); }, [form.data]);
 
   const createQ = useCreateQuestion();
+  const createOpt = useCreateOption();
   const [newText, setNewText] = useState("");
-  const [newType, setNewType] = useState<TSQuestionType>(1);
+  const [newType, setNewType] = useState<TSQuestionType | "yesno">(1);
+
 
   if (form.isLoading) return <div className="p-6 flex justify-center"><Loader2 className="h-5 w-5 animate-spin" /></div>;
   if (!form.data) return null;
