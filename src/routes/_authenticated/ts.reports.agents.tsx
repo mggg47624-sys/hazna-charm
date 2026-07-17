@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import { useActiveCampaigns, useTsReportAgents } from "@/lib/ts-api";
 import { ExportButton } from "@/components/export-button";
 

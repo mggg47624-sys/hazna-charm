@@ -20,6 +20,7 @@ import { Loader2, Upload, Power, Save } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import {
   useBatch,
   useBatchesByCampaign,

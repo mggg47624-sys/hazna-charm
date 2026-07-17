@@ -10,6 +10,7 @@ import {
 import { Loader2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import { useCampaigns, useUploadValidation } from "@/lib/ts-api";
 
 export const Route = createFileRoute("/_authenticated/ts/admin/validation")({

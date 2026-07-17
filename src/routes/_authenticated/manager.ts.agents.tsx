@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import { ReportTable } from "@/components/report-table";
 import {
   FilterBar,

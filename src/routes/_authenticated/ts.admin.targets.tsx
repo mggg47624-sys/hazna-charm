@@ -15,6 +15,7 @@ import { Loader2, Save } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import { useCampaign, useCampaigns, useSetAgentTarget } from "@/lib/ts-api";
 import type { AppUser } from "@/lib/types";
 
