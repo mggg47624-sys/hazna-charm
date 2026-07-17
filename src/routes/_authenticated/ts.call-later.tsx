@@ -91,9 +91,10 @@ function TsCallLaterPage() {
                       <TableCell>
                         <span className="inline-flex items-center gap-2">
                           <Phone className="h-3.5 w-3.5 text-muted-foreground" />
-                          <a className="text-primary hover:underline" href={`tel:${l.phone}`}>{l.phone}</a>
+                          <span className="text-foreground">{l.phone}</span>
                           <CopyButton value={l.phone} />
                         </span>
+
                       </TableCell>
                       <TableCell>{l.companyName || "—"}</TableCell>
                       <TableCell>{l.attemptCount ?? 0}</TableCell>

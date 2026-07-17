@@ -107,12 +107,11 @@ function CallLaterPage() {
                     <TableRow key={c.customerId}>
                       <TableCell className="font-medium">{c.customerName}</TableCell>
                       <TableCell>
-                        <a
-                          href={`tel:${c.phone}`}
-                          className="text-primary inline-flex items-center gap-1"
-                        >
-                          <Phone className="h-3 w-3" /> {c.phone}
-                        </a>
+                        <span className="inline-flex items-center gap-2 text-foreground">
+                          <Phone className="h-3 w-3 text-muted-foreground" /> {c.phone}
+                          <CopyButton value={c.phone} />
+                        </span>
+
                       </TableCell>
                       <TableCell>{c.companyName || "—"}</TableCell>
                       <TableCell>{c.transactionType || "—"}</TableCell>
