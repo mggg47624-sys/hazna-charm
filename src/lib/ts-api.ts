@@ -268,6 +268,18 @@ export const useAddReferral = () => {
 };
 
 // ===================== Forms =====================
+// Endpoints (KhaznaSalesQA.API.TS.FormController):
+//   GET    /api/ts/Form/ByCampaign/{campaignId}   -> FormListItemDTO[]
+//   GET    /api/ts/Form/ById/{id}                 -> FormDetailsDTO
+//   POST   /api/ts/Form/AddForm                   -> int (new form id)
+//   PUT    /api/ts/Form/EditForm/{id}
+//   POST   /api/ts/Form/AddQuestion               -> int
+//   PUT    /api/ts/Form/EditQuestion/{id}
+//   DELETE /api/ts/Form/Questions/{id}
+//   POST   /api/ts/Form/AddOption                 -> int
+//   PUT    /api/ts/Form/EditOption/{id}
+//   DELETE /api/ts/Form/Delete/{id}               (option delete)
+
 export function useFormsByCampaign(campaignId: number | undefined) {
   return useQuery({
     queryKey: ["ts", "forms", "campaign", campaignId],
@@ -278,7 +290,7 @@ export function useFormsByCampaign(campaignId: number | undefined) {
 export function useForm(id: number | undefined) {
   return useQuery({
     queryKey: ["ts", "form", id],
-    queryFn: () => api<TSForm>(`/api/ts/Form/${id}`),
+    queryFn: () => api<TSForm>(`/api/ts/Form/ById/${id}`),
     enabled: enabled() && !!id,
   });
 }
@@ -288,14 +300,16 @@ export function useCampaignForm(campaignId: number | undefined) {
 }
 
 export function fetchForm(id: number) {
-  return api<TSForm>(`/api/ts/Form/${id}`);
+  return api<TSForm>(`/api/ts/Form/ById/${id}`);
 }
 
 export function useCreateForm() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (body: { campaignId: number; name: string; isRoot: boolean }) =>
-      api<TSForm>("/api/ts/Form", { method: "POST", body }),
+    mutationFn: async (body: { campaignId: number; name: string; isRoot: boolean }) => {
+      const id = await api<number>("/api/ts/Form/AddForm", { method: "POST", body });
+      return { id, campaignId: body.campaignId, name: body.name, isRoot: body.isRoot, questions: [] } as TSForm;
+    },
     onSuccess: (_d, v) =>
       qc.invalidateQueries({ queryKey: ["ts", "forms", "campaign", v.campaignId] }),
   });
@@ -303,8 +317,8 @@ export function useCreateForm() {
 export function useUpdateForm() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, name }: { id: number; name: string }) =>
-      api(`/api/ts/Form/${id}`, { method: "PUT", body: { name } }),
+    mutationFn: ({ id, name, isRoot }: { id: number; name: string; isRoot?: boolean }) =>
+      api(`/api/ts/Form/EditForm/${id}`, { method: "PUT", body: { name, isRoot } }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "forms"] }),
   });
 }
@@ -317,7 +331,7 @@ export function useCreateQuestion() {
       questionType: TSQuestionType;
       nextFormId?: number | null;
       displayOrder?: number;
-    }) => api<TSFormQuestion>("/api/ts/Form/Questions", { method: "POST", body }),
+    }) => api<number>("/api/ts/Form/AddQuestion", { method: "POST", body }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "form"] }),
   });
 }
@@ -333,7 +347,7 @@ export function useUpdateQuestion() {
       questionType: TSQuestionType;
       nextFormId?: number | null;
       displayOrder?: number;
-    }) => api(`/api/ts/Form/Questions/${id}`, { method: "PUT", body }),
+    }) => api(`/api/ts/Form/EditQuestion/${id}`, { method: "PUT", body }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "form"] }),
   });
 }
@@ -352,7 +366,7 @@ export function useCreateOption() {
       optionText: string;
       nextFormId?: number | null;
       displayOrder?: number;
-    }) => api<TSFormOption>("/api/ts/Form/Options", { method: "POST", body }),
+    }) => api<number>("/api/ts/Form/AddOption", { method: "POST", body }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "form"] }),
   });
 }
@@ -367,14 +381,14 @@ export function useUpdateOption() {
       optionText: string;
       nextFormId?: number | null;
       displayOrder?: number;
-    }) => api(`/api/ts/Form/Options/${id}`, { method: "PUT", body }),
+    }) => api(`/api/ts/Form/EditOption/${id}`, { method: "PUT", body }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "form"] }),
   });
 }
 export function useDeleteOption() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (id: number) => api(`/api/ts/Form/Options/${id}`, { method: "DELETE" }),
+    mutationFn: (id: number) => api(`/api/ts/Form/Delete/${id}`, { method: "DELETE" }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "form"] }),
   });
 }
