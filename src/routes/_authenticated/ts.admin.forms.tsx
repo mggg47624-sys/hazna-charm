@@ -198,32 +198,49 @@ function FormEditor({ formId, allForms }: { formId: number; allForms: Array<{ id
 
         <div className="border rounded p-3 space-y-3">
           <div className="text-sm font-medium">Add Question</div>
-          <div className="grid grid-cols-1 sm:grid-cols-[1fr_160px_auto] gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_180px_auto] gap-2">
             <Input placeholder="Question text" value={newText} onChange={(e) => setNewText(e.target.value)} />
-            <Select value={String(newType)} onValueChange={(v) => setNewType(Number(v) as TSQuestionType)}>
+            <Select value={newType === "yesno" ? "yesno" : String(newType)} onValueChange={(v) => setNewType(v === "yesno" ? ("yesno" as any) : (Number(v) as TSQuestionType))}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="1">Options</SelectItem>
-                <SelectItem value="2">Calendar</SelectItem>
+                <SelectItem value="1">Options (multiple choice)</SelectItem>
+                <SelectItem value="yesno">Yes / No</SelectItem>
+                <SelectItem value="2">Calendar (date)</SelectItem>
                 <SelectItem value="3">Text</SelectItem>
               </SelectContent>
             </Select>
             <Button
-              disabled={!newText.trim() || createQ.isPending}
-              onClick={() =>
-                createQ.mutate(
-                  { formId, questionText: newText, questionType: newType, displayOrder: form.data!.questions.length + 1 },
-                  {
-                    onSuccess: () => { toast.success("Question added"); setNewText(""); form.refetch(); },
-                    onError: (e: Error) => toast.error(e.message),
-                  },
-                )
-              }
+              disabled={!newText.trim() || createQ.isPending || createOpt.isPending}
+              onClick={async () => {
+                const isYesNo = (newType as any) === "yesno";
+                const qType: TSQuestionType = isYesNo ? 1 : (newType as TSQuestionType);
+                try {
+                  const newId = await createQ.mutateAsync({
+                    formId,
+                    questionText: newText,
+                    questionType: qType,
+                    displayOrder: form.data!.questions.length + 1,
+                  });
+                  if (isYesNo && typeof newId === "number") {
+                    await createOpt.mutateAsync({ questionId: newId, optionText: "Yes", nextFormId: null, displayOrder: 1 });
+                    await createOpt.mutateAsync({ questionId: newId, optionText: "No", nextFormId: null, displayOrder: 2 });
+                  }
+                  toast.success("Question added");
+                  setNewText("");
+                  form.refetch();
+                } catch (e: any) {
+                  toast.error(e?.message ?? "Failed to add question");
+                }
+              }}
             >
               <Plus className="h-4 w-4 mr-1" /> Add
             </Button>
           </div>
+          <p className="text-xs text-muted-foreground">
+            Options: each choice can branch to another form. Yes/No: shortcut for a 2-option question. Calendar / Text: leaf answers.
+          </p>
         </div>
+
       </CardContent>
     </Card>
   );
