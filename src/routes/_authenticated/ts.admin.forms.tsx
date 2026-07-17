@@ -45,7 +45,7 @@ const QTYPE_LABEL: Record<TSQuestionType, string> = { 1: "Options", 2: "Calendar
 function Page() {
   const campaigns = useCampaigns();
   const [cid, setCid] = useState<number | undefined>(undefined);
-  const activeCid = cid ?? campaigns.data?.[0]?.id;
+  const activeCid = cid;
   const formsQ = useFormsByCampaign(activeCid);
   const [selectedFormId, setSelectedFormId] = useState<number | null>(null);
   useMemo(() => {
@@ -66,19 +66,13 @@ function Page() {
             Design the question tree: Options with per-choice branching, Calendar or Text leaves.
           </p>
         </div>
-        <div className="flex gap-2">
-          <Select value={activeCid ? String(activeCid) : ""} onValueChange={(v) => { setCid(Number(v)); setSelectedFormId(null); }}>
-            <SelectTrigger className="w-56"><SelectValue placeholder="Campaign" /></SelectTrigger>
-            <SelectContent>
-              {campaigns.data?.map((c) => (
-                <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="flex gap-2 items-center">
+          <CampaignSelector value={activeCid} onChange={(v) => { setCid(v); setSelectedFormId(null); }} />
           <Dialog open={newFormOpen} onOpenChange={setNewFormOpen}>
             <DialogTrigger asChild>
               <Button disabled={!activeCid}><Plus className="h-4 w-4 mr-2" /> New Form</Button>
             </DialogTrigger>
+
             <DialogContent>
               <DialogHeader><DialogTitle>New Form</DialogTitle></DialogHeader>
               <div className="space-y-3">

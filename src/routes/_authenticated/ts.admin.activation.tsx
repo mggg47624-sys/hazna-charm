@@ -51,16 +51,15 @@ function Page() {
         <CardHeader><CardTitle className="text-base">Upload</CardTitle></CardHeader>
         <CardContent className="space-y-3">
           <div>
-            <Label>Campaign</Label>
-            <Select value={cid} onValueChange={setCid}>
-              <SelectTrigger><SelectValue placeholder="Select campaign" /></SelectTrigger>
-              <SelectContent>
-                {campaigns.data?.map((c) => (
-                  <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Label>Select Campaign</Label>
+            <CampaignSelector
+              value={cid ? Number(cid) : undefined}
+              onChange={(v) => setCid(v ? String(v) : "")}
+              hideLabel
+              triggerClassName="w-full"
+            />
           </div>
+
           <div>
             <Label>Excel file</Label>
             <Input type="file" accept=".xlsx,.xls" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />

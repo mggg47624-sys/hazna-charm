@@ -46,8 +46,9 @@ export const Route = createFileRoute("/_authenticated/ts/admin/batches")({
 function BatchesPage() {
   const campaigns = useCampaigns();
   const [cid, setCid] = useState<number | undefined>(undefined);
-  const activeCid = cid ?? campaigns.data?.[0]?.id;
+  const activeCid = cid;
   const list = useBatchesByCampaign(activeCid);
+
   const upload = useUploadBatch();
   const toggleAv = useToggleBatchAvailability();
   const users = useQuery({
@@ -112,14 +113,8 @@ function BatchesPage() {
           <p className="text-sm text-muted-foreground">Upload lead batches and assign max-calls per agent.</p>
         </div>
         <div className="flex items-center gap-2">
-          <Select value={activeCid ? String(activeCid) : ""} onValueChange={(v) => setCid(Number(v))}>
-            <SelectTrigger className="w-56"><SelectValue placeholder="Campaign" /></SelectTrigger>
-            <SelectContent>
-              {campaigns.data?.map((c) => (
-                <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <CampaignSelector value={activeCid} onChange={setCid} />
+
           <ExportButton
             rows={rows}
             filename="ts-batches"
