@@ -4,18 +4,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import { Loader2, Save } from "lucide-react";
 import { toast } from "sonner";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import {
   useCampaignCallResults,
   useCampaigns,
   useSetCampaignCallResults,
 } from "@/lib/ts-api";
 import { useCallResults } from "@/lib/lookups";
+
 
 export const Route = createFileRoute("/_authenticated/ts/admin/call-results")({
   component: () => (
@@ -28,16 +28,23 @@ export const Route = createFileRoute("/_authenticated/ts/admin/call-results")({
 function Page() {
   const campaigns = useCampaigns();
   const [cid, setCid] = useState<number | undefined>(undefined);
-  const activeCid = cid ?? campaigns.data?.[0]?.id;
+  const activeCid = cid;
   const current = useCampaignCallResults(activeCid);
   const allCr = useCallResults();
   const save = useSetCampaignCallResults();
   const [sel, setSel] = useState<Set<number> | null>(null);
 
+  // Normalize server payload — backend may return {id,name} OR {callResultId, callResultName}
+  const currentIds = useMemo(() => {
+    return (current.data ?? [])
+      .map((r: any) => Number(r?.id ?? r?.callResultId ?? r?.CallResultId))
+      .filter((n) => Number.isFinite(n));
+  }, [current.data]);
+
   const selected = useMemo(() => {
     if (sel) return sel;
-    return new Set((current.data ?? []).map((r) => r.id));
-  }, [sel, current.data]);
+    return new Set<number>(currentIds);
+  }, [sel, currentIds]);
 
   return (
     <div className="space-y-6">
@@ -48,20 +55,39 @@ function Page() {
             Pick which call-result pool feeds this campaign. Leave empty for the Normal Queue (all leads).
           </p>
         </div>
-        <Select value={activeCid ? String(activeCid) : ""} onValueChange={(v) => { setCid(Number(v)); setSel(null); }}>
-          <SelectTrigger className="w-56"><SelectValue placeholder="Campaign" /></SelectTrigger>
-          <SelectContent>
-            {campaigns.data?.map((c) => (
-              <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <CampaignSelector value={activeCid} onChange={(v) => { setCid(v); setSel(null); }} />
       </div>
 
+
       <Card>
-        <CardHeader><CardTitle className="text-base">Call Results</CardTitle></CardHeader>
+        <CardHeader>
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <CardTitle className="text-base">Call Results</CardTitle>
+            {activeCid && !current.isLoading && (
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-xs text-muted-foreground">Currently selected:</span>
+                {currentIds.length === 0 ? (
+                  <Badge variant="outline">Normal Queue (all leads)</Badge>
+                ) : (
+                  currentIds.map((id) => {
+                    const r = (allCr.data ?? []).find((x) => x.id === id);
+                    return (
+                      <Badge key={id} variant="secondary">
+                        {r ? (r.nameEn ?? r.name) : `#${id}`}
+                      </Badge>
+                    );
+                  })
+                )}
+              </div>
+            )}
+          </div>
+        </CardHeader>
         <CardContent className="space-y-3">
-          {current.isLoading || allCr.isLoading ? (
+          {!activeCid ? (
+            <p className="text-sm text-muted-foreground p-4 text-center">
+              Select a campaign to configure its call-result pool.
+            </p>
+          ) : current.isLoading || allCr.isLoading ? (
             <div className="p-6 flex justify-center"><Loader2 className="h-5 w-5 animate-spin" /></div>
           ) : (
             <>
@@ -87,7 +113,7 @@ function Page() {
                     save.mutate(
                       { campaignId: activeCid!, callResultIds: [...selected] },
                       {
-                        onSuccess: () => { toast.success("Saved — lead availability updated"); current.refetch(); },
+                        onSuccess: () => { toast.success("Saved — lead availability updated"); current.refetch(); setSel(null); },
                         onError: (e: Error) => toast.error(e.message),
                       },
                     )
@@ -112,3 +138,4 @@ export default Page;
 export { Page as CampaignCallResultsPage };
 export const __hint = <Label />;
 void useCampaigns; void useCampaignCallResults; void useSetCampaignCallResults;
+

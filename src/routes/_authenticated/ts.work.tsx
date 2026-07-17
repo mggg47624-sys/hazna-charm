@@ -334,11 +334,10 @@ function TsWorkPage() {
                 label="Phone"
                 value={
                   <span className="inline-flex items-center gap-2">
-                    <a href={`tel:${lead.phone}`} className="text-primary font-medium hover:underline">
-                      {lead.phone}
-                    </a>
+                    <span className="text-foreground font-medium">{lead.phone}</span>
                     <CopyButton value={lead.phone} />
                   </span>
+
                 }
               />
               <InfoRow icon={Building2} label="Company" value={lead.company || lead.companyName || "—"} />

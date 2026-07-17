@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import { useActiveCampaigns, useTsReportCalls } from "@/lib/ts-api";
 import { ExportButton } from "@/components/export-button";
 import { CopyButton } from "@/components/copy-button";
@@ -27,9 +28,8 @@ export const Route = createFileRoute("/_authenticated/ts/reports/calls")({
 });
 
 function TsCallsReport() {
-  const campaigns = useActiveCampaigns();
   const [cid, setCid] = useState<number | undefined>(undefined);
-  const activeCid = cid ?? campaigns.data?.[0]?.id;
+  const activeCid = cid;
   const q = useTsReportCalls(activeCid);
   const [values, setValues] = useState<FilterValues>({});
 
@@ -59,14 +59,8 @@ function TsCallsReport() {
           <p className="text-sm text-muted-foreground">All TS calls for the selected campaign.</p>
         </div>
         <div className="flex items-center gap-2">
-          <Select value={activeCid ? String(activeCid) : ""} onValueChange={(v) => setCid(Number(v))}>
-            <SelectTrigger className="w-56"><SelectValue placeholder="Campaign" /></SelectTrigger>
-            <SelectContent>
-              {campaigns.data?.map((c) => (
-                <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <CampaignSelector value={activeCid} onChange={setCid} activeOnly />
+
           <ExportButton
             rows={rows}
             filename="ts-calls"

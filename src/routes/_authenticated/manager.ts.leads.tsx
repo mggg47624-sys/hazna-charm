@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import { ReportTable } from "@/components/report-table";
 import {
   FilterBar,
@@ -25,9 +26,8 @@ export const Route = createFileRoute("/_authenticated/manager/ts/leads")({
 });
 
 function Page() {
-  const campaigns = useActiveCampaigns();
   const [cid, setCid] = useState<number | undefined>(undefined);
-  const activeCid = cid ?? campaigns.data?.[0]?.id;
+  const activeCid = cid;
   const [values, setValues] = useState<FilterValues>({});
   const predicate = useMemo(
     () =>
@@ -51,22 +51,9 @@ function Page() {
             All leads for the selected campaign (read-only).
           </p>
         </div>
-        <Select
-          value={activeCid ? String(activeCid) : ""}
-          onValueChange={(v) => setCid(Number(v))}
-        >
-          <SelectTrigger className="w-56">
-            <SelectValue placeholder="Campaign" />
-          </SelectTrigger>
-          <SelectContent>
-            {campaigns.data?.map((c) => (
-              <SelectItem key={c.id} value={String(c.id)}>
-                {c.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <CampaignSelector value={activeCid} onChange={setCid} activeOnly />
       </div>
+
       {activeCid ? (
         <ReportTable
           queryKey={["manager", "ts", "leads", activeCid]}

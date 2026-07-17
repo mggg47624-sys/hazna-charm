@@ -15,6 +15,7 @@ import { Loader2, Save } from "lucide-react";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { SectionGuard } from "@/components/section-guard";
+import { CampaignSelector } from "@/components/campaign-selector";
 import { useCampaign, useCampaigns, useSetAgentTarget } from "@/lib/ts-api";
 import type { AppUser } from "@/lib/types";
 
@@ -27,9 +28,8 @@ export const Route = createFileRoute("/_authenticated/ts/admin/targets")({
 });
 
 function Page() {
-  const campaigns = useCampaigns();
   const [cid, setCid] = useState<number | undefined>(undefined);
-  const activeCid = cid ?? campaigns.data?.[0]?.id;
+  const activeCid = cid;
   const campaign = useCampaign(activeCid);
   const users = useQuery({
     queryKey: ["users", "all"],
@@ -50,15 +50,9 @@ function Page() {
           <h1 className="text-2xl font-semibold">Agent Daily Targets</h1>
           <p className="text-sm text-muted-foreground">Set the minimum calls per day per agent per campaign.</p>
         </div>
-        <Select value={activeCid ? String(activeCid) : ""} onValueChange={(v) => setCid(Number(v))}>
-          <SelectTrigger className="w-56"><SelectValue placeholder="Campaign" /></SelectTrigger>
-          <SelectContent>
-            {campaigns.data?.map((c) => (
-              <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <CampaignSelector value={activeCid} onChange={setCid} />
       </div>
+
       <Card>
         <CardHeader><CardTitle className="text-base">Agents</CardTitle></CardHeader>
         <CardContent className="p-0">
