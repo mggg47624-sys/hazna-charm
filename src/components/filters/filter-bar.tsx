@@ -329,3 +329,26 @@ export function buildRowFilter<T>(
     return true;
   };
 }
+
+/** Lazy: only fetches TransactionTypes when this filter is actually rendered. */
+function OperationTypeFilter({
+  value,
+  onValueChange,
+}: {
+  value: string;
+  onValueChange: (v: string) => void;
+}) {
+  const txTypes = useTransactionTypes();
+  return (
+    <SelectFilter
+      value={value}
+      onValueChange={onValueChange}
+      placeholder="Operation"
+      all="All operations"
+      options={(txTypes.data ?? []).map((t) => ({
+        value: t.name,
+        label: t.nameEn || t.name,
+      }))}
+    />
+  );
+}
