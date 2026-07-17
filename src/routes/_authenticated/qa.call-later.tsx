@@ -14,6 +14,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Loader2, Phone, ArrowRight } from "lucide-react";
+import { CopyButton } from "@/components/copy-button";
+
 import { toast } from "sonner";
 import { FilterBar, buildRowFilter, type FilterValues } from "@/components/filters/filter-bar";
 
