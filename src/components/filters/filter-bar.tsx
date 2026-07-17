@@ -16,6 +16,7 @@ import {
 } from "@/lib/lookups";
 import { useCampaigns } from "@/lib/ts-api";
 
+
 /**
  * Composable filter bar — reusable across report / list pages.
  * Pass `fields` to opt into any subset. State is stored in the parent
@@ -62,8 +63,9 @@ export function FilterBar({ fields, values, onChange, options = {} }: Props) {
   const set = setter(values, onChange);
   const callResults = useCallResults();
   const customerStatuses = useCustomerStatuses();
-  const txTypes = useTransactionTypes();
   const campaigns = useCampaigns();
+
+
 
   const has = (k: FilterKey) => fields.includes(k);
 
@@ -205,17 +207,12 @@ export function FilterBar({ fields, values, onChange, options = {} }: Props) {
         />
       )}
       {has("operationType") && (
-        <SelectFilter
+        <OperationTypeFilter
           value={values.operationType ?? ""}
           onValueChange={(v) => set("operationType", v)}
-          placeholder="Operation"
-          all="All operations"
-          options={(txTypes.data ?? []).map((t) => ({
-            value: t.name,
-            label: t.nameEn || t.name,
-          }))}
         />
       )}
+
       {has("warningStatus") && (
         <SelectFilter
           value={values.warningStatus ?? ""}
