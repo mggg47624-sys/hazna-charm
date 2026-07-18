@@ -22,7 +22,6 @@ import { api } from "@/lib/api";
 import { SectionGuard } from "@/components/section-guard";
 import { CampaignSelector } from "@/components/campaign-selector";
 import {
-  useBatch,
   useBatchesByCampaign,
   useCampaign,
   useCampaigns,
@@ -69,7 +68,7 @@ function BatchesPage() {
   const [uploadResult, setUploadResult] = useState<TSBatchUploadResult | null>(null);
   const confirmDup = useConfirmDuplicates();
 
-  const [manageBatchId, setManageBatchId] = useState<number | null>(null);
+  const [manageBatch, setManageBatch] = useState<any | null>(null);
   const [filters, setFilters] = useState<FilterValues>({});
   const predicate = buildRowFilter<any>(
     filters,
@@ -221,7 +220,7 @@ function BatchesPage() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="inline-flex gap-1">
-                          <Button size="sm" variant="outline" onClick={() => setManageBatchId(b.id)}>Agents</Button>
+                          <Button size="sm" variant="outline" onClick={() => setManageBatch(b)}>Agents</Button>
                           <Button
                             size="sm" variant="outline"
                             onClick={() =>
@@ -250,7 +249,7 @@ function BatchesPage() {
         </CardContent>
       </Card>
 
-      <ManageBatchAgentsDialog batchId={manageBatchId} onClose={() => setManageBatchId(null)} />
+      <ManageBatchAgentsDialog batch={manageBatch} onClose={() => setManageBatch(null)} onSaved={() => list.refetch()} />
 
       <DuplicatesDialog
         result={uploadResult}
@@ -270,65 +269,61 @@ function BatchesPage() {
   );
 }
 
-function ManageBatchAgentsDialog({ batchId, onClose }: { batchId: number | null; onClose: () => void }) {
-  const q = useBatch(batchId ?? undefined);
+function ManageBatchAgentsDialog({ batch, onClose, onSaved }: { batch: any | null; onClose: () => void; onSaved: () => void }) {
   const update = useUpdateBatchAgentMax();
   const [edited, setEdited] = useState<Record<number, string>>({});
+  const agents = batch?.agents ?? [];
   return (
-    <Dialog open={batchId != null} onOpenChange={(o) => !o && onClose()}>
+    <Dialog open={batch != null} onOpenChange={(o) => !o && (onClose(), setEdited({}))}>
       <DialogContent className="max-w-lg">
-        <DialogHeader><DialogTitle>Batch #{batchId} — Agent max calls</DialogTitle></DialogHeader>
-        {q.isLoading ? (
-          <div className="p-6 flex justify-center"><Loader2 className="h-5 w-5 animate-spin" /></div>
-        ) : (
-          <div className="border rounded">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Agent</TableHead>
-                  <TableHead className="text-right">Used</TableHead>
-                  <TableHead className="text-right">Max</TableHead>
-                  <TableHead />
+        <DialogHeader><DialogTitle>Batch #{batch?.id} — Agent max calls</DialogTitle></DialogHeader>
+        <div className="border rounded">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Agent</TableHead>
+                <TableHead className="text-right">Used</TableHead>
+                <TableHead className="text-right">Max</TableHead>
+                <TableHead />
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {agents.map((a: any) => (
+                <TableRow key={a.agentId}>
+                  <TableCell>{a.agentName ?? `#${a.agentId}`}</TableCell>
+                  <TableCell className="text-right">{a.callsUsed ?? 0}</TableCell>
+                  <TableCell className="text-right">
+                    <Input
+                      type="number" min={0} className="w-24 ml-auto"
+                      defaultValue={a.maxCalls}
+                      onChange={(e) => setEdited((prev) => ({ ...prev, [a.agentId]: e.target.value }))}
+                    />
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button
+                      size="sm" variant="outline"
+                      disabled={!edited[a.agentId] || Number(edited[a.agentId]) === a.maxCalls || update.isPending}
+                      onClick={() =>
+                        update.mutate(
+                          { batchId: batch.id, agentId: a.agentId, maxCalls: Number(edited[a.agentId]) },
+                          {
+                            onSuccess: () => { toast.success("Saved"); onSaved(); },
+                            onError: (e: Error) => toast.error(e.message),
+                          },
+                        )
+                      }
+                    >
+                      <Save className="h-3 w-3" />
+                    </Button>
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {(q.data?.agents ?? []).map((a) => (
-                  <TableRow key={a.agentId}>
-                    <TableCell>{a.agentName ?? `#${a.agentId}`}</TableCell>
-                    <TableCell className="text-right">{a.callsUsed ?? 0}</TableCell>
-                    <TableCell className="text-right">
-                      <Input
-                        type="number" min={0} className="w-24 ml-auto"
-                        defaultValue={a.maxCalls}
-                        onChange={(e) => setEdited((prev) => ({ ...prev, [a.agentId]: e.target.value }))}
-                      />
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        size="sm" variant="outline"
-                        disabled={!edited[a.agentId] || Number(edited[a.agentId]) === a.maxCalls || update.isPending}
-                        onClick={() =>
-                          update.mutate(
-                            { batchId: batchId!, agentId: a.agentId, maxCalls: Number(edited[a.agentId]) },
-                            {
-                              onSuccess: () => { toast.success("Saved"); q.refetch(); },
-                              onError: (e: Error) => toast.error(e.message),
-                            },
-                          )
-                        }
-                      >
-                        <Save className="h-3 w-3" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                {!(q.data?.agents ?? []).length && (
-                  <TableRow><TableCell colSpan={4} className="h-16 text-center text-muted-foreground">No agents</TableCell></TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        )}
+              ))}
+              {!agents.length && (
+                <TableRow><TableCell colSpan={4} className="h-16 text-center text-muted-foreground">No agents</TableCell></TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </DialogContent>
     </Dialog>
   );

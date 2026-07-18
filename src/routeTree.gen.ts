@@ -57,6 +57,7 @@ import { Route as AuthenticatedManagerQaCustomersRouteImport } from './routes/_a
 import { Route as AuthenticatedManagerQaCallsRouteImport } from './routes/_authenticated/manager.qa.calls'
 import { Route as AuthenticatedManagerQaBatchesRouteImport } from './routes/_authenticated/manager.qa.batches'
 import { Route as AuthenticatedManagerQaAgentsRouteImport } from './routes/_authenticated/manager.qa.agents'
+import { Route as AuthenticatedQaReportsEvaluationsIndexRouteImport } from './routes/_authenticated/qa.reports.evaluations.index'
 import { Route as AuthenticatedQaReportsSalesRepsIdRouteImport } from './routes/_authenticated/qa.reports.sales-reps.$id'
 import { Route as AuthenticatedQaReportsEvaluationsIdRouteImport } from './routes/_authenticated/qa.reports.evaluations.$id'
 
@@ -341,6 +342,12 @@ const AuthenticatedManagerQaAgentsRoute =
     path: '/manager/qa/agents',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedQaReportsEvaluationsIndexRoute =
+  AuthenticatedQaReportsEvaluationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
+  } as any)
 const AuthenticatedQaReportsSalesRepsIdRoute =
   AuthenticatedQaReportsSalesRepsIdRouteImport.update({
     id: '/$id',
@@ -404,6 +411,7 @@ export interface FileRoutesByFullPath {
   '/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
   '/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/qa/reports/evaluations/': typeof AuthenticatedQaReportsEvaluationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
@@ -437,7 +445,6 @@ export interface FileRoutesByTo {
   '/qa/reports/batches': typeof AuthenticatedQaReportsBatchesRoute
   '/qa/reports/calls': typeof AuthenticatedQaReportsCallsRoute
   '/qa/reports/customers': typeof AuthenticatedQaReportsCustomersRoute
-  '/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsRouteWithChildren
   '/qa/reports/sales-reps': typeof AuthenticatedQaReportsSalesRepsRouteWithChildren
   '/qa/reports/teams': typeof AuthenticatedQaReportsTeamsRoute
   '/ts/admin/activation': typeof AuthenticatedTsAdminActivationRoute
@@ -455,6 +462,7 @@ export interface FileRoutesByTo {
   '/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
   '/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -508,6 +516,7 @@ export interface FileRoutesById {
   '/_authenticated/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
   '/_authenticated/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/_authenticated/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/_authenticated/qa/reports/evaluations/': typeof AuthenticatedQaReportsEvaluationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -561,6 +570,7 @@ export interface FileRouteTypes {
     | '/ts/reports/leads'
     | '/qa/reports/evaluations/$id'
     | '/qa/reports/sales-reps/$id'
+    | '/qa/reports/evaluations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
@@ -594,7 +604,6 @@ export interface FileRouteTypes {
     | '/qa/reports/batches'
     | '/qa/reports/calls'
     | '/qa/reports/customers'
-    | '/qa/reports/evaluations'
     | '/qa/reports/sales-reps'
     | '/qa/reports/teams'
     | '/ts/admin/activation'
@@ -612,6 +621,7 @@ export interface FileRouteTypes {
     | '/ts/reports/leads'
     | '/qa/reports/evaluations/$id'
     | '/qa/reports/sales-reps/$id'
+    | '/qa/reports/evaluations'
   id:
     | '__root__'
     | '/_authenticated'
@@ -664,6 +674,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ts/reports/leads'
     | '/_authenticated/qa/reports/evaluations/$id'
     | '/_authenticated/qa/reports/sales-reps/$id'
+    | '/_authenticated/qa/reports/evaluations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1009,6 +1020,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedManagerQaAgentsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/qa/reports/evaluations/': {
+      id: '/_authenticated/qa/reports/evaluations/'
+      path: '/'
+      fullPath: '/qa/reports/evaluations/'
+      preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIndexRouteImport
+      parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
+    }
     '/_authenticated/qa/reports/sales-reps/$id': {
       id: '/_authenticated/qa/reports/sales-reps/$id'
       path: '/$id'
@@ -1028,12 +1046,15 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedQaReportsEvaluationsRouteChildren {
   AuthenticatedQaReportsEvaluationsIdRoute: typeof AuthenticatedQaReportsEvaluationsIdRoute
+  AuthenticatedQaReportsEvaluationsIndexRoute: typeof AuthenticatedQaReportsEvaluationsIndexRoute
 }
 
 const AuthenticatedQaReportsEvaluationsRouteChildren: AuthenticatedQaReportsEvaluationsRouteChildren =
   {
     AuthenticatedQaReportsEvaluationsIdRoute:
       AuthenticatedQaReportsEvaluationsIdRoute,
+    AuthenticatedQaReportsEvaluationsIndexRoute:
+      AuthenticatedQaReportsEvaluationsIndexRoute,
   }
 
 const AuthenticatedQaReportsEvaluationsRouteWithChildren =

@@ -23,6 +23,7 @@ import {
   useCreateForm,
   useCreateOption,
   useCreateQuestion,
+  useDeleteForm,
   useDeleteOption,
   useDeleteQuestion,
   useForm,
@@ -121,15 +122,16 @@ function Page() {
             ) : (
               <div className="space-y-1">
                 {formsQ.data.map((f) => (
-                  <button
+                  <FormRow
                     key={f.id}
-                    onClick={() => setSelectedFormId(f.id)}
-                    className={`w-full text-left px-3 py-2 rounded flex items-center gap-2 hover:bg-muted/50 ${selectedFormId === f.id ? "bg-muted" : ""}`}
-                  >
-                    <ChevronRight className="h-3 w-3" />
-                    <span className="flex-1 text-sm">{f.name}</span>
-                    {f.isRoot && <Badge variant="outline">Root</Badge>}
-                  </button>
+                    f={f}
+                    selected={selectedFormId === f.id}
+                    onSelect={() => setSelectedFormId(f.id)}
+                    onDeleted={() => {
+                      if (selectedFormId === f.id) setSelectedFormId(null);
+                      formsQ.refetch();
+                    }}
+                  />
                 ))}
               </div>
             )}
@@ -144,6 +146,36 @@ function Page() {
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+function FormRow({ f, selected, onSelect, onDeleted }: { f: { id: number; name: string; isRoot: boolean }; selected: boolean; onSelect: () => void; onDeleted: () => void }) {
+  const del = useDeleteForm();
+  return (
+    <div className={`flex items-center gap-1 pr-1 rounded hover:bg-muted/50 ${selected ? "bg-muted" : ""}`}>
+      <button
+        onClick={onSelect}
+        className="flex-1 text-left px-3 py-2 flex items-center gap-2"
+      >
+        <ChevronRight className="h-3 w-3" />
+        <span className="flex-1 text-sm">{f.name}</span>
+        {f.isRoot && <Badge variant="outline">Root</Badge>}
+      </button>
+      {!f.isRoot && (
+        <Button
+          size="sm" variant="ghost"
+          disabled={del.isPending}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!confirm(`Delete form "${f.name}"?`)) return;
+            del.mutate(f.id, {
+              onSuccess: () => { toast.success("Form deleted"); onDeleted(); },
+              onError: (err: Error) => toast.error(err.message),
+            });
+          }}
+        ><Trash2 className="h-3 w-3 text-destructive" /></Button>
+      )}
     </div>
   );
 }

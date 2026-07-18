@@ -322,6 +322,13 @@ export function useUpdateForm() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "forms"] }),
   });
 }
+export function useDeleteForm() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => api(`/api/ts/Form/DeleteForm/${id}`, { method: "DELETE" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "forms"] }),
+  });
+}
 export function useCreateQuestion() {
   const qc = useQueryClient();
   return useMutation({
