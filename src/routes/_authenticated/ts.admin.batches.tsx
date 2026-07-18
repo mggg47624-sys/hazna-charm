@@ -221,7 +221,7 @@ function BatchesPage() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="inline-flex gap-1">
-                          <Button size="sm" variant="outline" onClick={() => setManageBatchId(b.id)}>Agents</Button>
+                          <Button size="sm" variant="outline" onClick={() => setManageBatch(b)}>Agents</Button>
                           <Button
                             size="sm" variant="outline"
                             onClick={() =>
