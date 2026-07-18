@@ -250,7 +250,7 @@ function BatchesPage() {
         </CardContent>
       </Card>
 
-      <ManageBatchAgentsDialog batchId={manageBatchId} onClose={() => setManageBatchId(null)} />
+      <ManageBatchAgentsDialog batch={manageBatch} onClose={() => setManageBatch(null)} onSaved={() => list.refetch()} />
 
       <DuplicatesDialog
         result={uploadResult}
