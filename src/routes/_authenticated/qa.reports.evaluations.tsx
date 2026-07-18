@@ -225,15 +225,17 @@ function EvalReport() {
               key: "actions",
               header: "",
               render: (r) => (
-                <Link
-                  to="/qa/reports/evaluations/$id"
-                  params={{ id: String(r.evaluationId) }}
-                  className="text-primary hover:underline text-sm"
-                >
-                  View
-                </Link>
+                <Button asChild size="sm" variant="outline">
+                  <Link
+                    to="/qa/reports/evaluations/$id"
+                    params={{ id: String(r.evaluationId) }}
+                  >
+                    View
+                  </Link>
+                </Button>
               ),
             },
+
           ]}
         />
       </div>
