@@ -196,16 +196,15 @@ export function AppSidebar() {
 
       <SidebarFooter className="border-t">
         <SidebarMenu>
-          {!agentOnly && (
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link to="/settings/change-password">
-                  <KeyRound className="h-4 w-4" />
-                  {!collapsed && <span>Change Password</span>}
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          )}
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link to="/settings/change-password">
+                <KeyRound className="h-4 w-4" />
+                {!collapsed && <span>Change Password</span>}
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
           <SidebarMenuItem>
             <SidebarMenuButton onClick={logout}>
               <LogOut className="h-4 w-4" />

@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
@@ -225,15 +227,17 @@ function EvalReport() {
               key: "actions",
               header: "",
               render: (r) => (
-                <Link
-                  to="/qa/reports/evaluations/$id"
-                  params={{ id: String(r.evaluationId) }}
-                  className="text-primary hover:underline text-sm"
-                >
-                  View
-                </Link>
+                <Button asChild size="sm" variant="outline">
+                  <Link
+                    to="/qa/reports/evaluations/$id"
+                    params={{ id: String(r.evaluationId) }}
+                  >
+                    View
+                  </Link>
+                </Button>
               ),
             },
+
           ]}
         />
       </div>

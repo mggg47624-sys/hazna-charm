@@ -573,17 +573,39 @@ function QuestionField({
   return (
     <div>
       <Label className="text-sm">{q.questionText} <span className="text-destructive">*</span></Label>
-      <Select value={value ?? ""} onValueChange={onChange}>
-        <SelectTrigger className="mt-1"><SelectValue placeholder="Choose..." /></SelectTrigger>
-        <SelectContent>
-          {(q.options ?? []).map((o: any) => (
-            <SelectItem key={o.id} value={String(o.id)}>{o.optionText}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="mt-2 grid gap-2">
+        {(q.options ?? []).map((o: any) => {
+          const selected = String(value ?? "") === String(o.id);
+          return (
+            <button
+              key={o.id}
+              type="button"
+              onClick={() => onChange(String(o.id))}
+              className={`text-left w-full rounded-md border px-3 py-2 text-sm transition-colors flex items-center gap-2 ${
+                selected
+                  ? "border-primary bg-primary/10 text-foreground"
+                  : "border-border hover:bg-muted/50"
+              }`}
+            >
+              <span
+                className={`inline-flex h-4 w-4 rounded-full border items-center justify-center ${
+                  selected ? "border-primary" : "border-muted-foreground/40"
+                }`}
+              >
+                {selected && <span className="h-2 w-2 rounded-full bg-primary" />}
+              </span>
+              <span className="flex-1">{o.optionText}</span>
+            </button>
+          );
+        })}
+        {(!q.options || q.options.length === 0) && (
+          <div className="text-xs text-muted-foreground">No options configured.</div>
+        )}
+      </div>
     </div>
   );
 }
+
 
 function InfoRow({ icon: Icon, label, value }: { icon: any; label: string; value: React.ReactNode }) {
   return (
