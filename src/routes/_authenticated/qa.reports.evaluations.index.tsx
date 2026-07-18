@@ -46,7 +46,7 @@ export interface EvaluationRow {
   batchUploadedAt?: string;
 }
 
-export const Route = createFileRoute("/_authenticated/qa/reports/evaluations")({
+export const Route = createFileRoute("/_authenticated/qa/reports/evaluations/")({
   component: EvalReport,
 });
 
