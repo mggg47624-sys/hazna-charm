@@ -37,6 +37,7 @@ import { Route as AuthenticatedTsAdminAuditLogRouteImport } from './routes/_auth
 import { Route as AuthenticatedTsAdminActivationRouteImport } from './routes/_authenticated/ts.admin.activation'
 import { Route as AuthenticatedQaReportsTeamsRouteImport } from './routes/_authenticated/qa.reports.teams'
 import { Route as AuthenticatedQaReportsSalesRepsRouteImport } from './routes/_authenticated/qa.reports.sales-reps'
+import { Route as AuthenticatedQaReportsEvaluationsRouteImport } from './routes/_authenticated/qa.reports.evaluations'
 import { Route as AuthenticatedQaReportsCustomersRouteImport } from './routes/_authenticated/qa.reports.customers'
 import { Route as AuthenticatedQaReportsCallsRouteImport } from './routes/_authenticated/qa.reports.calls'
 import { Route as AuthenticatedQaReportsBatchesRouteImport } from './routes/_authenticated/qa.reports.batches'
@@ -221,6 +222,12 @@ const AuthenticatedQaReportsSalesRepsRoute =
     path: '/qa/reports/sales-reps',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedQaReportsEvaluationsRoute =
+  AuthenticatedQaReportsEvaluationsRouteImport.update({
+    id: '/qa/reports/evaluations',
+    path: '/qa/reports/evaluations',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedQaReportsCustomersRoute =
   AuthenticatedQaReportsCustomersRouteImport.update({
     id: '/qa/reports/customers',
@@ -337,9 +344,9 @@ const AuthenticatedManagerQaAgentsRoute =
   } as any)
 const AuthenticatedQaReportsEvaluationsIndexRoute =
   AuthenticatedQaReportsEvaluationsIndexRouteImport.update({
-    id: '/qa/reports/evaluations/',
-    path: '/qa/reports/evaluations/',
-    getParentRoute: () => AuthenticatedRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
   } as any)
 const AuthenticatedQaReportsSalesRepsIdRoute =
   AuthenticatedQaReportsSalesRepsIdRouteImport.update({
@@ -349,9 +356,9 @@ const AuthenticatedQaReportsSalesRepsIdRoute =
   } as any)
 const AuthenticatedQaReportsEvaluationsIdRoute =
   AuthenticatedQaReportsEvaluationsIdRouteImport.update({
-    id: '/qa/reports/evaluations/$id',
-    path: '/qa/reports/evaluations/$id',
-    getParentRoute: () => AuthenticatedRoute,
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -386,6 +393,7 @@ export interface FileRoutesByFullPath {
   '/qa/reports/batches': typeof AuthenticatedQaReportsBatchesRoute
   '/qa/reports/calls': typeof AuthenticatedQaReportsCallsRoute
   '/qa/reports/customers': typeof AuthenticatedQaReportsCustomersRoute
+  '/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsRouteWithChildren
   '/qa/reports/sales-reps': typeof AuthenticatedQaReportsSalesRepsRouteWithChildren
   '/qa/reports/teams': typeof AuthenticatedQaReportsTeamsRoute
   '/ts/admin/activation': typeof AuthenticatedTsAdminActivationRoute
@@ -490,6 +498,7 @@ export interface FileRoutesById {
   '/_authenticated/qa/reports/batches': typeof AuthenticatedQaReportsBatchesRoute
   '/_authenticated/qa/reports/calls': typeof AuthenticatedQaReportsCallsRoute
   '/_authenticated/qa/reports/customers': typeof AuthenticatedQaReportsCustomersRoute
+  '/_authenticated/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsRouteWithChildren
   '/_authenticated/qa/reports/sales-reps': typeof AuthenticatedQaReportsSalesRepsRouteWithChildren
   '/_authenticated/qa/reports/teams': typeof AuthenticatedQaReportsTeamsRoute
   '/_authenticated/ts/admin/activation': typeof AuthenticatedTsAdminActivationRoute
@@ -543,6 +552,7 @@ export interface FileRouteTypes {
     | '/qa/reports/batches'
     | '/qa/reports/calls'
     | '/qa/reports/customers'
+    | '/qa/reports/evaluations'
     | '/qa/reports/sales-reps'
     | '/qa/reports/teams'
     | '/ts/admin/activation'
@@ -646,6 +656,7 @@ export interface FileRouteTypes {
     | '/_authenticated/qa/reports/batches'
     | '/_authenticated/qa/reports/calls'
     | '/_authenticated/qa/reports/customers'
+    | '/_authenticated/qa/reports/evaluations'
     | '/_authenticated/qa/reports/sales-reps'
     | '/_authenticated/qa/reports/teams'
     | '/_authenticated/ts/admin/activation'
@@ -869,6 +880,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedQaReportsSalesRepsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/qa/reports/evaluations': {
+      id: '/_authenticated/qa/reports/evaluations'
+      path: '/qa/reports/evaluations'
+      fullPath: '/qa/reports/evaluations'
+      preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/qa/reports/customers': {
       id: '/_authenticated/qa/reports/customers'
       path: '/qa/reports/customers'
@@ -1004,10 +1022,10 @@ declare module '@tanstack/react-router' {
     }
     '/_authenticated/qa/reports/evaluations/': {
       id: '/_authenticated/qa/reports/evaluations/'
-      path: '/qa/reports/evaluations'
+      path: '/'
       fullPath: '/qa/reports/evaluations/'
       preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
     }
     '/_authenticated/qa/reports/sales-reps/$id': {
       id: '/_authenticated/qa/reports/sales-reps/$id'
@@ -1018,13 +1036,31 @@ declare module '@tanstack/react-router' {
     }
     '/_authenticated/qa/reports/evaluations/$id': {
       id: '/_authenticated/qa/reports/evaluations/$id'
-      path: '/qa/reports/evaluations/$id'
+      path: '/$id'
       fullPath: '/qa/reports/evaluations/$id'
       preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIdRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
     }
   }
 }
+
+interface AuthenticatedQaReportsEvaluationsRouteChildren {
+  AuthenticatedQaReportsEvaluationsIdRoute: typeof AuthenticatedQaReportsEvaluationsIdRoute
+  AuthenticatedQaReportsEvaluationsIndexRoute: typeof AuthenticatedQaReportsEvaluationsIndexRoute
+}
+
+const AuthenticatedQaReportsEvaluationsRouteChildren: AuthenticatedQaReportsEvaluationsRouteChildren =
+  {
+    AuthenticatedQaReportsEvaluationsIdRoute:
+      AuthenticatedQaReportsEvaluationsIdRoute,
+    AuthenticatedQaReportsEvaluationsIndexRoute:
+      AuthenticatedQaReportsEvaluationsIndexRoute,
+  }
+
+const AuthenticatedQaReportsEvaluationsRouteWithChildren =
+  AuthenticatedQaReportsEvaluationsRoute._addFileChildren(
+    AuthenticatedQaReportsEvaluationsRouteChildren,
+  )
 
 interface AuthenticatedQaReportsSalesRepsRouteChildren {
   AuthenticatedQaReportsSalesRepsIdRoute: typeof AuthenticatedQaReportsSalesRepsIdRoute
@@ -1072,6 +1108,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedQaReportsBatchesRoute: typeof AuthenticatedQaReportsBatchesRoute
   AuthenticatedQaReportsCallsRoute: typeof AuthenticatedQaReportsCallsRoute
   AuthenticatedQaReportsCustomersRoute: typeof AuthenticatedQaReportsCustomersRoute
+  AuthenticatedQaReportsEvaluationsRoute: typeof AuthenticatedQaReportsEvaluationsRouteWithChildren
   AuthenticatedQaReportsSalesRepsRoute: typeof AuthenticatedQaReportsSalesRepsRouteWithChildren
   AuthenticatedQaReportsTeamsRoute: typeof AuthenticatedQaReportsTeamsRoute
   AuthenticatedTsAdminActivationRoute: typeof AuthenticatedTsAdminActivationRoute
@@ -1087,8 +1124,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTsReportsAgentsRoute: typeof AuthenticatedTsReportsAgentsRoute
   AuthenticatedTsReportsCallsRoute: typeof AuthenticatedTsReportsCallsRoute
   AuthenticatedTsReportsLeadsRoute: typeof AuthenticatedTsReportsLeadsRoute
-  AuthenticatedQaReportsEvaluationsIdRoute: typeof AuthenticatedQaReportsEvaluationsIdRoute
-  AuthenticatedQaReportsEvaluationsIndexRoute: typeof AuthenticatedQaReportsEvaluationsIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -1124,6 +1159,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedQaReportsBatchesRoute: AuthenticatedQaReportsBatchesRoute,
   AuthenticatedQaReportsCallsRoute: AuthenticatedQaReportsCallsRoute,
   AuthenticatedQaReportsCustomersRoute: AuthenticatedQaReportsCustomersRoute,
+  AuthenticatedQaReportsEvaluationsRoute:
+    AuthenticatedQaReportsEvaluationsRouteWithChildren,
   AuthenticatedQaReportsSalesRepsRoute:
     AuthenticatedQaReportsSalesRepsRouteWithChildren,
   AuthenticatedQaReportsTeamsRoute: AuthenticatedQaReportsTeamsRoute,
@@ -1140,10 +1177,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedTsReportsAgentsRoute: AuthenticatedTsReportsAgentsRoute,
   AuthenticatedTsReportsCallsRoute: AuthenticatedTsReportsCallsRoute,
   AuthenticatedTsReportsLeadsRoute: AuthenticatedTsReportsLeadsRoute,
-  AuthenticatedQaReportsEvaluationsIdRoute:
-    AuthenticatedQaReportsEvaluationsIdRoute,
-  AuthenticatedQaReportsEvaluationsIndexRoute:
-    AuthenticatedQaReportsEvaluationsIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

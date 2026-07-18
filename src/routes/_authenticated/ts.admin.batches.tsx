@@ -69,7 +69,7 @@ function BatchesPage() {
   const [uploadResult, setUploadResult] = useState<TSBatchUploadResult | null>(null);
   const confirmDup = useConfirmDuplicates();
 
-  const [manageBatchId, setManageBatchId] = useState<number | null>(null);
+  const [manageBatch, setManageBatch] = useState<any | null>(null);
   const [filters, setFilters] = useState<FilterValues>({});
   const predicate = buildRowFilter<any>(
     filters,
