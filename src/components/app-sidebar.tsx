@@ -123,6 +123,7 @@ const groups: { label: string; items: Item[] }[] = [
       { title: "Leads", url: "/manager/ts/leads", icon: ClipboardList, section: "manager:ts" },
       { title: "Agents", url: "/manager/ts/agents", icon: UserCheck, section: "manager:ts" },
       { title: "Batches", url: "/manager/ts/batches", icon: FileSpreadsheet, section: "manager:ts" },
+      { title: "Agent Daily Work", url: "/ts/admin/daily-stats", icon: Clock, section: "ts:daily-stats" },
     ],
   },
   {
