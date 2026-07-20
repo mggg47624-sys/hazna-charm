@@ -99,6 +99,7 @@ const groups: { label: string; items: Item[] }[] = [
       { title: "Activation Dump", url: "/ts/admin/activation", icon: FileUp, section: "ts:admin-dumps" },
       { title: "Users", url: "/ts/admin/users", icon: Users, section: "ts:admin" },
       { title: "Warnings", url: "/ts/admin/warnings", icon: AlertTriangle, section: "ts:warnings" },
+      { title: "Agent Daily Work", url: "/ts/admin/daily-stats", icon: Clock, section: "ts:daily-stats" },
       { title: "Audit Log", url: "/ts/admin/audit-log", icon: ScrollText, section: "ts:audit" },
     ],
   },
