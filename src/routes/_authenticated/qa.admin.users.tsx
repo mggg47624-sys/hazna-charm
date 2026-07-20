@@ -82,7 +82,7 @@ function UsersPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
-  const teamLeaders = (users || []).filter((u) => u.roleId === 3);
+  
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
