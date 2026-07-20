@@ -202,7 +202,54 @@ export function useUpdateBatchAgentMax() {
   });
 }
 
+export function useEditLead() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body: { leadId: number; fullName: string; phone: string; company: string }) =>
+      api("/api/ts/Batch/EditLead", {
+        method: "POST",
+        body: {
+          LeadID: body.leadId,
+          FullName: body.fullName,
+          Phone: body.phone,
+          Company: body.company,
+        },
+      }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["ts", "report", "leads"] }),
+  });
+}
+
+// ===================== Agent Daily Stats (leaders / admin / manager) =====================
+export interface AgentDailyStats {
+  id: number;
+  agentId: number;
+  agentName?: string;
+  statDate: string;
+  loginTime?: string | null;
+  lastActionTime?: string | null;
+  firstCallTime?: string | null;
+  lastCallTime?: string | null;
+  totalCalls: number;
+  completedCalls: number;
+  totalCallSeconds: number;
+  totalIdleSeconds: number;
+  targetCalls: number;
+  targetAchieved: boolean;
+  updatedAt?: string;
+}
+export function useAgentDailyStats(date: string | undefined) {
+  return useQuery({
+    queryKey: ["ts", "agent-daily-stats", date],
+    queryFn: () =>
+      api<AgentDailyStats[]>("/api/ts/AgentReport/DailyStats", {
+        query: date ? { date } : undefined,
+      }),
+    enabled: enabled(),
+  });
+}
+
 // ===================== Leads =====================
+
 export function useToggleBatchAvailability() {
   const qc = useQueryClient();
   return useMutation({
