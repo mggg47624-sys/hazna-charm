@@ -27,6 +27,7 @@ export type Section =
   | "ts:warnings"
   | "ts:audit"
   | "ts:my-warnings"
+  | "ts:daily-stats"
   | "manager:dashboard"
   | "manager:ts"
   | "manager:qa";
@@ -48,6 +49,7 @@ const TS_ADMIN_SECTIONS: Section[] = [
   "ts:reports",
   "ts:warnings",
   "ts:audit",
+  "ts:daily-stats",
 ];
 
 // Team Leader → same access as TS Admin
@@ -67,6 +69,7 @@ export const ROLE_PERMISSIONS: Record<number, Section[]> = {
     "manager:qa",
     "qa:reports",
     "ts:reports",
+    "ts:daily-stats",
   ],
 };
 

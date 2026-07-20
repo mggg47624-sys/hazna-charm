@@ -28,7 +28,7 @@ import { ExportButton } from "@/components/export-button";
 // TeleSales roles: 5 = TS Agent, 6 = TS Team Leader, 7 = TS Admin
 const TS_ROLE_IDS = [5, 6, 7];
 const TS_AGENT = 5;
-const TS_TEAM_LEADER = 6;
+
 
 export const Route = createFileRoute("/_authenticated/ts/admin/users")({
   component: () => (
@@ -94,7 +94,7 @@ function TsUsersPage() {
   });
 
   const tsUsers = (users || []).filter((u) => TS_ROLE_IDS.includes(Number(u.roleId)));
-  const teamLeaders = tsUsers.filter((u) => Number(u.roleId) === TS_TEAM_LEADER);
+  
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -244,19 +244,6 @@ function TsUsersPage() {
                 </SelectContent>
               </Select>
             </div>
-            {form.roleId === TS_AGENT && (
-              <div className="space-y-1.5">
-                <Label>Team Leader</Label>
-                <Select value={form.teamLeaderId ? String(form.teamLeaderId) : ""} onValueChange={(v) => setForm({ ...form, teamLeaderId: Number(v) })}>
-                  <SelectTrigger><SelectValue placeholder="Select..." /></SelectTrigger>
-                  <SelectContent>
-                    {teamLeaders.map((t) => (
-                      <SelectItem key={t.id} value={String(t.id)}>{t.fullName || "—"}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>

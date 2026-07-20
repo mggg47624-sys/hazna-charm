@@ -30,6 +30,7 @@ import { Route as AuthenticatedTsAdminValidationRouteImport } from './routes/_au
 import { Route as AuthenticatedTsAdminUsersRouteImport } from './routes/_authenticated/ts.admin.users'
 import { Route as AuthenticatedTsAdminTargetsRouteImport } from './routes/_authenticated/ts.admin.targets'
 import { Route as AuthenticatedTsAdminFormsRouteImport } from './routes/_authenticated/ts.admin.forms'
+import { Route as AuthenticatedTsAdminDailyStatsRouteImport } from './routes/_authenticated/ts.admin.daily-stats'
 import { Route as AuthenticatedTsAdminCampaignsRouteImport } from './routes/_authenticated/ts.admin.campaigns'
 import { Route as AuthenticatedTsAdminCallResultsRouteImport } from './routes/_authenticated/ts.admin.call-results'
 import { Route as AuthenticatedTsAdminBatchesRouteImport } from './routes/_authenticated/ts.admin.batches'
@@ -178,6 +179,12 @@ const AuthenticatedTsAdminFormsRoute =
   AuthenticatedTsAdminFormsRouteImport.update({
     id: '/ts/admin/forms',
     path: '/ts/admin/forms',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminDailyStatsRoute =
+  AuthenticatedTsAdminDailyStatsRouteImport.update({
+    id: '/ts/admin/daily-stats',
+    path: '/ts/admin/daily-stats',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedTsAdminCampaignsRoute =
@@ -401,6 +408,7 @@ export interface FileRoutesByFullPath {
   '/ts/admin/batches': typeof AuthenticatedTsAdminBatchesRoute
   '/ts/admin/call-results': typeof AuthenticatedTsAdminCallResultsRoute
   '/ts/admin/campaigns': typeof AuthenticatedTsAdminCampaignsRoute
+  '/ts/admin/daily-stats': typeof AuthenticatedTsAdminDailyStatsRoute
   '/ts/admin/forms': typeof AuthenticatedTsAdminFormsRoute
   '/ts/admin/targets': typeof AuthenticatedTsAdminTargetsRoute
   '/ts/admin/users': typeof AuthenticatedTsAdminUsersRoute
@@ -452,6 +460,7 @@ export interface FileRoutesByTo {
   '/ts/admin/batches': typeof AuthenticatedTsAdminBatchesRoute
   '/ts/admin/call-results': typeof AuthenticatedTsAdminCallResultsRoute
   '/ts/admin/campaigns': typeof AuthenticatedTsAdminCampaignsRoute
+  '/ts/admin/daily-stats': typeof AuthenticatedTsAdminDailyStatsRoute
   '/ts/admin/forms': typeof AuthenticatedTsAdminFormsRoute
   '/ts/admin/targets': typeof AuthenticatedTsAdminTargetsRoute
   '/ts/admin/users': typeof AuthenticatedTsAdminUsersRoute
@@ -506,6 +515,7 @@ export interface FileRoutesById {
   '/_authenticated/ts/admin/batches': typeof AuthenticatedTsAdminBatchesRoute
   '/_authenticated/ts/admin/call-results': typeof AuthenticatedTsAdminCallResultsRoute
   '/_authenticated/ts/admin/campaigns': typeof AuthenticatedTsAdminCampaignsRoute
+  '/_authenticated/ts/admin/daily-stats': typeof AuthenticatedTsAdminDailyStatsRoute
   '/_authenticated/ts/admin/forms': typeof AuthenticatedTsAdminFormsRoute
   '/_authenticated/ts/admin/targets': typeof AuthenticatedTsAdminTargetsRoute
   '/_authenticated/ts/admin/users': typeof AuthenticatedTsAdminUsersRoute
@@ -560,6 +570,7 @@ export interface FileRouteTypes {
     | '/ts/admin/batches'
     | '/ts/admin/call-results'
     | '/ts/admin/campaigns'
+    | '/ts/admin/daily-stats'
     | '/ts/admin/forms'
     | '/ts/admin/targets'
     | '/ts/admin/users'
@@ -611,6 +622,7 @@ export interface FileRouteTypes {
     | '/ts/admin/batches'
     | '/ts/admin/call-results'
     | '/ts/admin/campaigns'
+    | '/ts/admin/daily-stats'
     | '/ts/admin/forms'
     | '/ts/admin/targets'
     | '/ts/admin/users'
@@ -664,6 +676,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ts/admin/batches'
     | '/_authenticated/ts/admin/call-results'
     | '/_authenticated/ts/admin/campaigns'
+    | '/_authenticated/ts/admin/daily-stats'
     | '/_authenticated/ts/admin/forms'
     | '/_authenticated/ts/admin/targets'
     | '/_authenticated/ts/admin/users'
@@ -829,6 +842,13 @@ declare module '@tanstack/react-router' {
       path: '/ts/admin/forms'
       fullPath: '/ts/admin/forms'
       preLoaderRoute: typeof AuthenticatedTsAdminFormsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/daily-stats': {
+      id: '/_authenticated/ts/admin/daily-stats'
+      path: '/ts/admin/daily-stats'
+      fullPath: '/ts/admin/daily-stats'
+      preLoaderRoute: typeof AuthenticatedTsAdminDailyStatsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/ts/admin/campaigns': {
@@ -1116,6 +1136,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTsAdminBatchesRoute: typeof AuthenticatedTsAdminBatchesRoute
   AuthenticatedTsAdminCallResultsRoute: typeof AuthenticatedTsAdminCallResultsRoute
   AuthenticatedTsAdminCampaignsRoute: typeof AuthenticatedTsAdminCampaignsRoute
+  AuthenticatedTsAdminDailyStatsRoute: typeof AuthenticatedTsAdminDailyStatsRoute
   AuthenticatedTsAdminFormsRoute: typeof AuthenticatedTsAdminFormsRoute
   AuthenticatedTsAdminTargetsRoute: typeof AuthenticatedTsAdminTargetsRoute
   AuthenticatedTsAdminUsersRoute: typeof AuthenticatedTsAdminUsersRoute
@@ -1169,6 +1190,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedTsAdminBatchesRoute: AuthenticatedTsAdminBatchesRoute,
   AuthenticatedTsAdminCallResultsRoute: AuthenticatedTsAdminCallResultsRoute,
   AuthenticatedTsAdminCampaignsRoute: AuthenticatedTsAdminCampaignsRoute,
+  AuthenticatedTsAdminDailyStatsRoute: AuthenticatedTsAdminDailyStatsRoute,
   AuthenticatedTsAdminFormsRoute: AuthenticatedTsAdminFormsRoute,
   AuthenticatedTsAdminTargetsRoute: AuthenticatedTsAdminTargetsRoute,
   AuthenticatedTsAdminUsersRoute: AuthenticatedTsAdminUsersRoute,
