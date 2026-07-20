@@ -28,7 +28,7 @@ import { ExportButton } from "@/components/export-button";
 // TeleSales roles: 5 = TS Agent, 6 = TS Team Leader, 7 = TS Admin
 const TS_ROLE_IDS = [5, 6, 7];
 const TS_AGENT = 5;
-const TS_TEAM_LEADER = 6;
+
 
 export const Route = createFileRoute("/_authenticated/ts/admin/users")({
   component: () => (
