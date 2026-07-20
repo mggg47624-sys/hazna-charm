@@ -27,6 +27,7 @@ export type Section =
   | "ts:warnings"
   | "ts:audit"
   | "ts:my-warnings"
+  | "ts:daily-stats"
   | "manager:dashboard"
   | "manager:ts"
   | "manager:qa";
