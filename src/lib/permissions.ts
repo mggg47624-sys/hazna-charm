@@ -69,6 +69,7 @@ export const ROLE_PERMISSIONS: Record<number, Section[]> = {
     "manager:qa",
     "qa:reports",
     "ts:reports",
+    "ts:daily-stats",
   ],
 };
 
