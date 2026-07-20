@@ -216,19 +216,6 @@ function UsersPage() {
                 </SelectContent>
               </Select>
             </div>
-            {form.roleId === 2 && (
-              <div className="space-y-1.5">
-                <Label>Team Leader</Label>
-                <Select value={form.teamLeaderId ? String(form.teamLeaderId) : ""} onValueChange={(v) => setForm({ ...form, teamLeaderId: Number(v) })}>
-                  <SelectTrigger><SelectValue placeholder="Select..." /></SelectTrigger>
-                  <SelectContent>
-                    {teamLeaders.map((t) => (
-                      <SelectItem key={t.id} value={String(t.id)}>{t.fullName || "—"}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
