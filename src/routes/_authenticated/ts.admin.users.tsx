@@ -94,7 +94,7 @@ function TsUsersPage() {
   });
 
   const tsUsers = (users || []).filter((u) => TS_ROLE_IDS.includes(Number(u.roleId)));
-  const teamLeaders = tsUsers.filter((u) => Number(u.roleId) === TS_TEAM_LEADER);
+  
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
