@@ -49,6 +49,7 @@ const TS_ADMIN_SECTIONS: Section[] = [
   "ts:reports",
   "ts:warnings",
   "ts:audit",
+  "ts:daily-stats",
 ];
 
 // Team Leader → same access as TS Admin
