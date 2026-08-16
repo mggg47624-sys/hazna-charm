@@ -119,9 +119,10 @@ function LoginPage() {
         {/* Brand / value panel */}
         <section className="hidden lg:flex flex-col auth-rise">
           <div className="flex items-center gap-3">
-            <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/30 flex items-center justify-center auth-sheen">
-              <Shield className="h-6 w-6" />
+            <div className="relative h-12 w-12 overflow-hidden rounded-2xl bg-white shadow-lg shadow-primary/30 flex items-center justify-center auth-sheen">
+              <img src={khaznaLogo.url} alt="Khazna logo" className="h-8 w-8 object-contain" />
             </div>
+
             <div>
               <p className="text-lg font-semibold leading-tight">Khazna Sales QA</p>
               <p className="text-xs text-muted-foreground">Quality Assurance &amp; TeleSales Platform</p>
