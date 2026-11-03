@@ -22,6 +22,10 @@ import { Route as AuthenticatedSettingsChangePasswordRouteImport } from './route
 import { Route as AuthenticatedQaWorkRouteImport } from './routes/_authenticated/qa.work'
 import { Route as AuthenticatedQaCallLaterRouteImport } from './routes/_authenticated/qa.call-later'
 import { Route as AuthenticatedQaCallHistoryRouteImport } from './routes/_authenticated/qa.call-history'
+import { Route as AuthenticatedCfTeamRouteImport } from './routes/_authenticated/cf.team'
+import { Route as AuthenticatedCfOpsIndexRouteImport } from './routes/_authenticated/cf.ops.index'
+import { Route as AuthenticatedCfAgentIndexRouteImport } from './routes/_authenticated/cf.agent.index'
+import { Route as AuthenticatedCfAdminIndexRouteImport } from './routes/_authenticated/cf.admin.index'
 import { Route as AuthenticatedTsReportsLeadsRouteImport } from './routes/_authenticated/ts.reports.leads'
 import { Route as AuthenticatedTsReportsCallsRouteImport } from './routes/_authenticated/ts.reports.calls'
 import { Route as AuthenticatedTsReportsAgentsRouteImport } from './routes/_authenticated/ts.reports.agents'
@@ -58,9 +62,20 @@ import { Route as AuthenticatedManagerQaCustomersRouteImport } from './routes/_a
 import { Route as AuthenticatedManagerQaCallsRouteImport } from './routes/_authenticated/manager.qa.calls'
 import { Route as AuthenticatedManagerQaBatchesRouteImport } from './routes/_authenticated/manager.qa.batches'
 import { Route as AuthenticatedManagerQaAgentsRouteImport } from './routes/_authenticated/manager.qa.agents'
+import { Route as AuthenticatedCfAgentNewRouteImport } from './routes/_authenticated/cf.agent.new'
+import { Route as AuthenticatedCfAdminImportRouteImport } from './routes/_authenticated/cf.admin.import'
+import { Route as AuthenticatedCfAdminCustomersRouteImport } from './routes/_authenticated/cf.admin.customers'
+import { Route as AuthenticatedCfAdminBatchesRouteImport } from './routes/_authenticated/cf.admin.batches'
 import { Route as AuthenticatedQaReportsEvaluationsIndexRouteImport } from './routes/_authenticated/qa.reports.evaluations.index'
+import { Route as AuthenticatedCfOpsHistoryIndexRouteImport } from './routes/_authenticated/cf.ops.history.index'
+import { Route as AuthenticatedCfAgentRegistrationsIndexRouteImport } from './routes/_authenticated/cf.agent.registrations.index'
+import { Route as AuthenticatedCfAdminRegistrationsIndexRouteImport } from './routes/_authenticated/cf.admin.registrations.index'
 import { Route as AuthenticatedQaReportsSalesRepsIdRouteImport } from './routes/_authenticated/qa.reports.sales-reps.$id'
 import { Route as AuthenticatedQaReportsEvaluationsIdRouteImport } from './routes/_authenticated/qa.reports.evaluations.$id'
+import { Route as AuthenticatedCfOpsReviewIdRouteImport } from './routes/_authenticated/cf.ops.review.$id'
+import { Route as AuthenticatedCfOpsHistoryIdRouteImport } from './routes/_authenticated/cf.ops.history.$id'
+import { Route as AuthenticatedCfAdminRegistrationsIdRouteImport } from './routes/_authenticated/cf.admin.registrations.$id'
+import { Route as AuthenticatedCfAgentRegistrationsIdEditRouteImport } from './routes/_authenticated/cf.agent.registrations.$id.edit'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -131,6 +146,28 @@ const AuthenticatedQaCallHistoryRoute =
   AuthenticatedQaCallHistoryRouteImport.update({
     id: '/qa/call-history',
     path: '/qa/call-history',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfTeamRoute = AuthenticatedCfTeamRouteImport.update({
+  id: '/cf/team',
+  path: '/cf/team',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedCfOpsIndexRoute = AuthenticatedCfOpsIndexRouteImport.update({
+  id: '/cf/ops/',
+  path: '/cf/ops/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedCfAgentIndexRoute =
+  AuthenticatedCfAgentIndexRouteImport.update({
+    id: '/cf/agent/',
+    path: '/cf/agent/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAdminIndexRoute =
+  AuthenticatedCfAdminIndexRouteImport.update({
+    id: '/cf/admin/',
+    path: '/cf/admin/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedTsReportsLeadsRoute =
@@ -349,11 +386,52 @@ const AuthenticatedManagerQaAgentsRoute =
     path: '/manager/qa/agents',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedCfAgentNewRoute = AuthenticatedCfAgentNewRouteImport.update({
+  id: '/cf/agent/new',
+  path: '/cf/agent/new',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedCfAdminImportRoute =
+  AuthenticatedCfAdminImportRouteImport.update({
+    id: '/cf/admin/import',
+    path: '/cf/admin/import',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAdminCustomersRoute =
+  AuthenticatedCfAdminCustomersRouteImport.update({
+    id: '/cf/admin/customers',
+    path: '/cf/admin/customers',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAdminBatchesRoute =
+  AuthenticatedCfAdminBatchesRouteImport.update({
+    id: '/cf/admin/batches',
+    path: '/cf/admin/batches',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedQaReportsEvaluationsIndexRoute =
   AuthenticatedQaReportsEvaluationsIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
+  } as any)
+const AuthenticatedCfOpsHistoryIndexRoute =
+  AuthenticatedCfOpsHistoryIndexRouteImport.update({
+    id: '/cf/ops/history/',
+    path: '/cf/ops/history/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAgentRegistrationsIndexRoute =
+  AuthenticatedCfAgentRegistrationsIndexRouteImport.update({
+    id: '/cf/agent/registrations/',
+    path: '/cf/agent/registrations/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAdminRegistrationsIndexRoute =
+  AuthenticatedCfAdminRegistrationsIndexRouteImport.update({
+    id: '/cf/admin/registrations/',
+    path: '/cf/admin/registrations/',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedQaReportsSalesRepsIdRoute =
   AuthenticatedQaReportsSalesRepsIdRouteImport.update({
@@ -367,10 +445,35 @@ const AuthenticatedQaReportsEvaluationsIdRoute =
     path: '/$id',
     getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
   } as any)
+const AuthenticatedCfOpsReviewIdRoute =
+  AuthenticatedCfOpsReviewIdRouteImport.update({
+    id: '/cf/ops/review/$id',
+    path: '/cf/ops/review/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfOpsHistoryIdRoute =
+  AuthenticatedCfOpsHistoryIdRouteImport.update({
+    id: '/cf/ops/history/$id',
+    path: '/cf/ops/history/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAdminRegistrationsIdRoute =
+  AuthenticatedCfAdminRegistrationsIdRouteImport.update({
+    id: '/cf/admin/registrations/$id',
+    path: '/cf/admin/registrations/$id',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAgentRegistrationsIdEditRoute =
+  AuthenticatedCfAgentRegistrationsIdEditRouteImport.update({
+    id: '/cf/agent/registrations/$id/edit',
+    path: '/cf/agent/registrations/$id/edit',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/login': typeof LoginRoute
+  '/cf/team': typeof AuthenticatedCfTeamRoute
   '/qa/call-history': typeof AuthenticatedQaCallHistoryRoute
   '/qa/call-later': typeof AuthenticatedQaCallLaterRoute
   '/qa/work': typeof AuthenticatedQaWorkRoute
@@ -381,6 +484,10 @@ export interface FileRoutesByFullPath {
   '/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/ts/work': typeof AuthenticatedTsWorkRoute
   '/manager/': typeof AuthenticatedManagerIndexRoute
+  '/cf/admin/batches': typeof AuthenticatedCfAdminBatchesRoute
+  '/cf/admin/customers': typeof AuthenticatedCfAdminCustomersRoute
+  '/cf/admin/import': typeof AuthenticatedCfAdminImportRoute
+  '/cf/agent/new': typeof AuthenticatedCfAgentNewRoute
   '/manager/qa/agents': typeof AuthenticatedManagerQaAgentsRoute
   '/manager/qa/batches': typeof AuthenticatedManagerQaBatchesRoute
   '/manager/qa/calls': typeof AuthenticatedManagerQaCallsRoute
@@ -417,13 +524,24 @@ export interface FileRoutesByFullPath {
   '/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
   '/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
+  '/cf/admin/': typeof AuthenticatedCfAdminIndexRoute
+  '/cf/agent/': typeof AuthenticatedCfAgentIndexRoute
+  '/cf/ops/': typeof AuthenticatedCfOpsIndexRoute
+  '/cf/admin/registrations/$id': typeof AuthenticatedCfAdminRegistrationsIdRoute
+  '/cf/ops/history/$id': typeof AuthenticatedCfOpsHistoryIdRoute
+  '/cf/ops/review/$id': typeof AuthenticatedCfOpsReviewIdRoute
   '/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/cf/admin/registrations/': typeof AuthenticatedCfAdminRegistrationsIndexRoute
+  '/cf/agent/registrations/': typeof AuthenticatedCfAgentRegistrationsIndexRoute
+  '/cf/ops/history/': typeof AuthenticatedCfOpsHistoryIndexRoute
   '/qa/reports/evaluations/': typeof AuthenticatedQaReportsEvaluationsIndexRoute
+  '/cf/agent/registrations/$id/edit': typeof AuthenticatedCfAgentRegistrationsIdEditRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/': typeof AuthenticatedIndexRoute
+  '/cf/team': typeof AuthenticatedCfTeamRoute
   '/qa/call-history': typeof AuthenticatedQaCallHistoryRoute
   '/qa/call-later': typeof AuthenticatedQaCallLaterRoute
   '/qa/work': typeof AuthenticatedQaWorkRoute
@@ -434,6 +552,10 @@ export interface FileRoutesByTo {
   '/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/ts/work': typeof AuthenticatedTsWorkRoute
   '/manager': typeof AuthenticatedManagerIndexRoute
+  '/cf/admin/batches': typeof AuthenticatedCfAdminBatchesRoute
+  '/cf/admin/customers': typeof AuthenticatedCfAdminCustomersRoute
+  '/cf/admin/import': typeof AuthenticatedCfAdminImportRoute
+  '/cf/agent/new': typeof AuthenticatedCfAgentNewRoute
   '/manager/qa/agents': typeof AuthenticatedManagerQaAgentsRoute
   '/manager/qa/batches': typeof AuthenticatedManagerQaBatchesRoute
   '/manager/qa/calls': typeof AuthenticatedManagerQaCallsRoute
@@ -469,15 +591,26 @@ export interface FileRoutesByTo {
   '/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
   '/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
+  '/cf/admin': typeof AuthenticatedCfAdminIndexRoute
+  '/cf/agent': typeof AuthenticatedCfAgentIndexRoute
+  '/cf/ops': typeof AuthenticatedCfOpsIndexRoute
+  '/cf/admin/registrations/$id': typeof AuthenticatedCfAdminRegistrationsIdRoute
+  '/cf/ops/history/$id': typeof AuthenticatedCfOpsHistoryIdRoute
+  '/cf/ops/review/$id': typeof AuthenticatedCfOpsReviewIdRoute
   '/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/cf/admin/registrations': typeof AuthenticatedCfAdminRegistrationsIndexRoute
+  '/cf/agent/registrations': typeof AuthenticatedCfAgentRegistrationsIndexRoute
+  '/cf/ops/history': typeof AuthenticatedCfOpsHistoryIndexRoute
   '/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsIndexRoute
+  '/cf/agent/registrations/$id/edit': typeof AuthenticatedCfAgentRegistrationsIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/cf/team': typeof AuthenticatedCfTeamRoute
   '/_authenticated/qa/call-history': typeof AuthenticatedQaCallHistoryRoute
   '/_authenticated/qa/call-later': typeof AuthenticatedQaCallLaterRoute
   '/_authenticated/qa/work': typeof AuthenticatedQaWorkRoute
@@ -488,6 +621,10 @@ export interface FileRoutesById {
   '/_authenticated/ts/my-warnings': typeof AuthenticatedTsMyWarningsRoute
   '/_authenticated/ts/work': typeof AuthenticatedTsWorkRoute
   '/_authenticated/manager/': typeof AuthenticatedManagerIndexRoute
+  '/_authenticated/cf/admin/batches': typeof AuthenticatedCfAdminBatchesRoute
+  '/_authenticated/cf/admin/customers': typeof AuthenticatedCfAdminCustomersRoute
+  '/_authenticated/cf/admin/import': typeof AuthenticatedCfAdminImportRoute
+  '/_authenticated/cf/agent/new': typeof AuthenticatedCfAgentNewRoute
   '/_authenticated/manager/qa/agents': typeof AuthenticatedManagerQaAgentsRoute
   '/_authenticated/manager/qa/batches': typeof AuthenticatedManagerQaBatchesRoute
   '/_authenticated/manager/qa/calls': typeof AuthenticatedManagerQaCallsRoute
@@ -524,15 +661,26 @@ export interface FileRoutesById {
   '/_authenticated/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/_authenticated/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
   '/_authenticated/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
+  '/_authenticated/cf/admin/': typeof AuthenticatedCfAdminIndexRoute
+  '/_authenticated/cf/agent/': typeof AuthenticatedCfAgentIndexRoute
+  '/_authenticated/cf/ops/': typeof AuthenticatedCfOpsIndexRoute
+  '/_authenticated/cf/admin/registrations/$id': typeof AuthenticatedCfAdminRegistrationsIdRoute
+  '/_authenticated/cf/ops/history/$id': typeof AuthenticatedCfOpsHistoryIdRoute
+  '/_authenticated/cf/ops/review/$id': typeof AuthenticatedCfOpsReviewIdRoute
   '/_authenticated/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/_authenticated/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/_authenticated/cf/admin/registrations/': typeof AuthenticatedCfAdminRegistrationsIndexRoute
+  '/_authenticated/cf/agent/registrations/': typeof AuthenticatedCfAgentRegistrationsIndexRoute
+  '/_authenticated/cf/ops/history/': typeof AuthenticatedCfOpsHistoryIndexRoute
   '/_authenticated/qa/reports/evaluations/': typeof AuthenticatedQaReportsEvaluationsIndexRoute
+  '/_authenticated/cf/agent/registrations/$id/edit': typeof AuthenticatedCfAgentRegistrationsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/login'
+    | '/cf/team'
     | '/qa/call-history'
     | '/qa/call-later'
     | '/qa/work'
@@ -543,6 +691,10 @@ export interface FileRouteTypes {
     | '/ts/my-warnings'
     | '/ts/work'
     | '/manager/'
+    | '/cf/admin/batches'
+    | '/cf/admin/customers'
+    | '/cf/admin/import'
+    | '/cf/agent/new'
     | '/manager/qa/agents'
     | '/manager/qa/batches'
     | '/manager/qa/calls'
@@ -579,13 +731,24 @@ export interface FileRouteTypes {
     | '/ts/reports/agents'
     | '/ts/reports/calls'
     | '/ts/reports/leads'
+    | '/cf/admin/'
+    | '/cf/agent/'
+    | '/cf/ops/'
+    | '/cf/admin/registrations/$id'
+    | '/cf/ops/history/$id'
+    | '/cf/ops/review/$id'
     | '/qa/reports/evaluations/$id'
     | '/qa/reports/sales-reps/$id'
+    | '/cf/admin/registrations/'
+    | '/cf/agent/registrations/'
+    | '/cf/ops/history/'
     | '/qa/reports/evaluations/'
+    | '/cf/agent/registrations/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
     | '/'
+    | '/cf/team'
     | '/qa/call-history'
     | '/qa/call-later'
     | '/qa/work'
@@ -596,6 +759,10 @@ export interface FileRouteTypes {
     | '/ts/my-warnings'
     | '/ts/work'
     | '/manager'
+    | '/cf/admin/batches'
+    | '/cf/admin/customers'
+    | '/cf/admin/import'
+    | '/cf/agent/new'
     | '/manager/qa/agents'
     | '/manager/qa/batches'
     | '/manager/qa/calls'
@@ -631,14 +798,25 @@ export interface FileRouteTypes {
     | '/ts/reports/agents'
     | '/ts/reports/calls'
     | '/ts/reports/leads'
+    | '/cf/admin'
+    | '/cf/agent'
+    | '/cf/ops'
+    | '/cf/admin/registrations/$id'
+    | '/cf/ops/history/$id'
+    | '/cf/ops/review/$id'
     | '/qa/reports/evaluations/$id'
     | '/qa/reports/sales-reps/$id'
+    | '/cf/admin/registrations'
+    | '/cf/agent/registrations'
+    | '/cf/ops/history'
     | '/qa/reports/evaluations'
+    | '/cf/agent/registrations/$id/edit'
   id:
     | '__root__'
     | '/_authenticated'
     | '/login'
     | '/_authenticated/'
+    | '/_authenticated/cf/team'
     | '/_authenticated/qa/call-history'
     | '/_authenticated/qa/call-later'
     | '/_authenticated/qa/work'
@@ -649,6 +827,10 @@ export interface FileRouteTypes {
     | '/_authenticated/ts/my-warnings'
     | '/_authenticated/ts/work'
     | '/_authenticated/manager/'
+    | '/_authenticated/cf/admin/batches'
+    | '/_authenticated/cf/admin/customers'
+    | '/_authenticated/cf/admin/import'
+    | '/_authenticated/cf/agent/new'
     | '/_authenticated/manager/qa/agents'
     | '/_authenticated/manager/qa/batches'
     | '/_authenticated/manager/qa/calls'
@@ -685,9 +867,19 @@ export interface FileRouteTypes {
     | '/_authenticated/ts/reports/agents'
     | '/_authenticated/ts/reports/calls'
     | '/_authenticated/ts/reports/leads'
+    | '/_authenticated/cf/admin/'
+    | '/_authenticated/cf/agent/'
+    | '/_authenticated/cf/ops/'
+    | '/_authenticated/cf/admin/registrations/$id'
+    | '/_authenticated/cf/ops/history/$id'
+    | '/_authenticated/cf/ops/review/$id'
     | '/_authenticated/qa/reports/evaluations/$id'
     | '/_authenticated/qa/reports/sales-reps/$id'
+    | '/_authenticated/cf/admin/registrations/'
+    | '/_authenticated/cf/agent/registrations/'
+    | '/_authenticated/cf/ops/history/'
     | '/_authenticated/qa/reports/evaluations/'
+    | '/_authenticated/cf/agent/registrations/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -786,6 +978,34 @@ declare module '@tanstack/react-router' {
       path: '/qa/call-history'
       fullPath: '/qa/call-history'
       preLoaderRoute: typeof AuthenticatedQaCallHistoryRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/team': {
+      id: '/_authenticated/cf/team'
+      path: '/cf/team'
+      fullPath: '/cf/team'
+      preLoaderRoute: typeof AuthenticatedCfTeamRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/ops/': {
+      id: '/_authenticated/cf/ops/'
+      path: '/cf/ops'
+      fullPath: '/cf/ops/'
+      preLoaderRoute: typeof AuthenticatedCfOpsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/agent/': {
+      id: '/_authenticated/cf/agent/'
+      path: '/cf/agent'
+      fullPath: '/cf/agent/'
+      preLoaderRoute: typeof AuthenticatedCfAgentIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/admin/': {
+      id: '/_authenticated/cf/admin/'
+      path: '/cf/admin'
+      fullPath: '/cf/admin/'
+      preLoaderRoute: typeof AuthenticatedCfAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/ts/reports/leads': {
@@ -1040,12 +1260,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedManagerQaAgentsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/cf/agent/new': {
+      id: '/_authenticated/cf/agent/new'
+      path: '/cf/agent/new'
+      fullPath: '/cf/agent/new'
+      preLoaderRoute: typeof AuthenticatedCfAgentNewRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/admin/import': {
+      id: '/_authenticated/cf/admin/import'
+      path: '/cf/admin/import'
+      fullPath: '/cf/admin/import'
+      preLoaderRoute: typeof AuthenticatedCfAdminImportRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/admin/customers': {
+      id: '/_authenticated/cf/admin/customers'
+      path: '/cf/admin/customers'
+      fullPath: '/cf/admin/customers'
+      preLoaderRoute: typeof AuthenticatedCfAdminCustomersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/admin/batches': {
+      id: '/_authenticated/cf/admin/batches'
+      path: '/cf/admin/batches'
+      fullPath: '/cf/admin/batches'
+      preLoaderRoute: typeof AuthenticatedCfAdminBatchesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/qa/reports/evaluations/': {
       id: '/_authenticated/qa/reports/evaluations/'
       path: '/'
       fullPath: '/qa/reports/evaluations/'
       preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIndexRouteImport
       parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
+    }
+    '/_authenticated/cf/ops/history/': {
+      id: '/_authenticated/cf/ops/history/'
+      path: '/cf/ops/history'
+      fullPath: '/cf/ops/history/'
+      preLoaderRoute: typeof AuthenticatedCfOpsHistoryIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/agent/registrations/': {
+      id: '/_authenticated/cf/agent/registrations/'
+      path: '/cf/agent/registrations'
+      fullPath: '/cf/agent/registrations/'
+      preLoaderRoute: typeof AuthenticatedCfAgentRegistrationsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/admin/registrations/': {
+      id: '/_authenticated/cf/admin/registrations/'
+      path: '/cf/admin/registrations'
+      fullPath: '/cf/admin/registrations/'
+      preLoaderRoute: typeof AuthenticatedCfAdminRegistrationsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/qa/reports/sales-reps/$id': {
       id: '/_authenticated/qa/reports/sales-reps/$id'
@@ -1060,6 +1329,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/qa/reports/evaluations/$id'
       preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIdRouteImport
       parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
+    }
+    '/_authenticated/cf/ops/review/$id': {
+      id: '/_authenticated/cf/ops/review/$id'
+      path: '/cf/ops/review/$id'
+      fullPath: '/cf/ops/review/$id'
+      preLoaderRoute: typeof AuthenticatedCfOpsReviewIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/ops/history/$id': {
+      id: '/_authenticated/cf/ops/history/$id'
+      path: '/cf/ops/history/$id'
+      fullPath: '/cf/ops/history/$id'
+      preLoaderRoute: typeof AuthenticatedCfOpsHistoryIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/admin/registrations/$id': {
+      id: '/_authenticated/cf/admin/registrations/$id'
+      path: '/cf/admin/registrations/$id'
+      fullPath: '/cf/admin/registrations/$id'
+      preLoaderRoute: typeof AuthenticatedCfAdminRegistrationsIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/agent/registrations/$id/edit': {
+      id: '/_authenticated/cf/agent/registrations/$id/edit'
+      path: '/cf/agent/registrations/$id/edit'
+      fullPath: '/cf/agent/registrations/$id/edit'
+      preLoaderRoute: typeof AuthenticatedCfAgentRegistrationsIdEditRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
   }
 }
@@ -1099,6 +1396,7 @@ const AuthenticatedQaReportsSalesRepsRouteWithChildren =
 
 interface AuthenticatedRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedCfTeamRoute: typeof AuthenticatedCfTeamRoute
   AuthenticatedQaCallHistoryRoute: typeof AuthenticatedQaCallHistoryRoute
   AuthenticatedQaCallLaterRoute: typeof AuthenticatedQaCallLaterRoute
   AuthenticatedQaWorkRoute: typeof AuthenticatedQaWorkRoute
@@ -1109,6 +1407,10 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTsMyWarningsRoute: typeof AuthenticatedTsMyWarningsRoute
   AuthenticatedTsWorkRoute: typeof AuthenticatedTsWorkRoute
   AuthenticatedManagerIndexRoute: typeof AuthenticatedManagerIndexRoute
+  AuthenticatedCfAdminBatchesRoute: typeof AuthenticatedCfAdminBatchesRoute
+  AuthenticatedCfAdminCustomersRoute: typeof AuthenticatedCfAdminCustomersRoute
+  AuthenticatedCfAdminImportRoute: typeof AuthenticatedCfAdminImportRoute
+  AuthenticatedCfAgentNewRoute: typeof AuthenticatedCfAgentNewRoute
   AuthenticatedManagerQaAgentsRoute: typeof AuthenticatedManagerQaAgentsRoute
   AuthenticatedManagerQaBatchesRoute: typeof AuthenticatedManagerQaBatchesRoute
   AuthenticatedManagerQaCallsRoute: typeof AuthenticatedManagerQaCallsRoute
@@ -1145,10 +1447,21 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTsReportsAgentsRoute: typeof AuthenticatedTsReportsAgentsRoute
   AuthenticatedTsReportsCallsRoute: typeof AuthenticatedTsReportsCallsRoute
   AuthenticatedTsReportsLeadsRoute: typeof AuthenticatedTsReportsLeadsRoute
+  AuthenticatedCfAdminIndexRoute: typeof AuthenticatedCfAdminIndexRoute
+  AuthenticatedCfAgentIndexRoute: typeof AuthenticatedCfAgentIndexRoute
+  AuthenticatedCfOpsIndexRoute: typeof AuthenticatedCfOpsIndexRoute
+  AuthenticatedCfAdminRegistrationsIdRoute: typeof AuthenticatedCfAdminRegistrationsIdRoute
+  AuthenticatedCfOpsHistoryIdRoute: typeof AuthenticatedCfOpsHistoryIdRoute
+  AuthenticatedCfOpsReviewIdRoute: typeof AuthenticatedCfOpsReviewIdRoute
+  AuthenticatedCfAdminRegistrationsIndexRoute: typeof AuthenticatedCfAdminRegistrationsIndexRoute
+  AuthenticatedCfAgentRegistrationsIndexRoute: typeof AuthenticatedCfAgentRegistrationsIndexRoute
+  AuthenticatedCfOpsHistoryIndexRoute: typeof AuthenticatedCfOpsHistoryIndexRoute
+  AuthenticatedCfAgentRegistrationsIdEditRoute: typeof AuthenticatedCfAgentRegistrationsIdEditRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedCfTeamRoute: AuthenticatedCfTeamRoute,
   AuthenticatedQaCallHistoryRoute: AuthenticatedQaCallHistoryRoute,
   AuthenticatedQaCallLaterRoute: AuthenticatedQaCallLaterRoute,
   AuthenticatedQaWorkRoute: AuthenticatedQaWorkRoute,
@@ -1160,6 +1473,10 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedTsMyWarningsRoute: AuthenticatedTsMyWarningsRoute,
   AuthenticatedTsWorkRoute: AuthenticatedTsWorkRoute,
   AuthenticatedManagerIndexRoute: AuthenticatedManagerIndexRoute,
+  AuthenticatedCfAdminBatchesRoute: AuthenticatedCfAdminBatchesRoute,
+  AuthenticatedCfAdminCustomersRoute: AuthenticatedCfAdminCustomersRoute,
+  AuthenticatedCfAdminImportRoute: AuthenticatedCfAdminImportRoute,
+  AuthenticatedCfAgentNewRoute: AuthenticatedCfAgentNewRoute,
   AuthenticatedManagerQaAgentsRoute: AuthenticatedManagerQaAgentsRoute,
   AuthenticatedManagerQaBatchesRoute: AuthenticatedManagerQaBatchesRoute,
   AuthenticatedManagerQaCallsRoute: AuthenticatedManagerQaCallsRoute,
@@ -1199,6 +1516,20 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedTsReportsAgentsRoute: AuthenticatedTsReportsAgentsRoute,
   AuthenticatedTsReportsCallsRoute: AuthenticatedTsReportsCallsRoute,
   AuthenticatedTsReportsLeadsRoute: AuthenticatedTsReportsLeadsRoute,
+  AuthenticatedCfAdminIndexRoute: AuthenticatedCfAdminIndexRoute,
+  AuthenticatedCfAgentIndexRoute: AuthenticatedCfAgentIndexRoute,
+  AuthenticatedCfOpsIndexRoute: AuthenticatedCfOpsIndexRoute,
+  AuthenticatedCfAdminRegistrationsIdRoute:
+    AuthenticatedCfAdminRegistrationsIdRoute,
+  AuthenticatedCfOpsHistoryIdRoute: AuthenticatedCfOpsHistoryIdRoute,
+  AuthenticatedCfOpsReviewIdRoute: AuthenticatedCfOpsReviewIdRoute,
+  AuthenticatedCfAdminRegistrationsIndexRoute:
+    AuthenticatedCfAdminRegistrationsIndexRoute,
+  AuthenticatedCfAgentRegistrationsIndexRoute:
+    AuthenticatedCfAgentRegistrationsIndexRoute,
+  AuthenticatedCfOpsHistoryIndexRoute: AuthenticatedCfOpsHistoryIndexRoute,
+  AuthenticatedCfAgentRegistrationsIdEditRoute:
+    AuthenticatedCfAgentRegistrationsIdEditRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
