@@ -8,6 +8,10 @@ import {
   ROLE_QA_ADMIN,
   ROLE_TS_ADMIN,
   ROLE_TS_TEAM_LEADER,
+  ROLE_CF_ON_GROUND,
+  ROLE_CF_TEAM_LEADER,
+  ROLE_CF_ADMIN,
+  ROLE_CF_OPS,
 } from "@/lib/permissions";
 import { KpiCard } from "@/components/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,6 +43,14 @@ import {
 import { useCampaigns, useWarnings } from "@/lib/ts-api";
 
 export const Route = createFileRoute("/_authenticated/")({
+  head: () => ({ meta: [
+    { title: "Workspace — Khazna Portal" },
+    { name: "description", content: "Your Khazna team workspace and reporting dashboard." },
+    { property: "og:title", content: "Workspace — Khazna Portal" },
+    { property: "og:description", content: "Your Khazna team workspace and reporting dashboard." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: DashboardRouter,
 });
 
@@ -62,6 +74,10 @@ function DashboardRouter() {
     if (roleId === 3) navigate({ to: "/qa/work", replace: true });
     else if (roleId === 5) navigate({ to: "/ts/work", replace: true });
     else if (roleId === ROLE_MANAGER) navigate({ to: "/manager", replace: true });
+    else if (roleId === ROLE_CF_ON_GROUND) navigate({ to: "/cf/agent", replace: true });
+    else if (roleId === ROLE_CF_TEAM_LEADER) navigate({ to: "/cf/team", replace: true });
+    else if (roleId === ROLE_CF_ADMIN) navigate({ to: "/cf/admin", replace: true });
+    else if (roleId === ROLE_CF_OPS) navigate({ to: "/cf/ops", replace: true });
   }, [loading, user, roleId, navigate]);
 
   if (!user) return null;

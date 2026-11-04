@@ -13,6 +13,11 @@
 export type Section =
   | "dashboard"
   | "exports"
+  | "cf:agent"
+  | "cf:team"
+  | "cf:admin"
+  | "cf:ops"
+  | "cf:ops-view"
   | "qa:agent"
   | "qa:call-history"
   | "qa:admin"
@@ -32,6 +37,10 @@ export type Section =
   | "manager:ts"
   | "manager:qa";
 
+export const ROLE_CF_ON_GROUND = 1;
+export const ROLE_CF_TEAM_LEADER = 2;
+export const ROLE_CF_ADMIN = 10;
+export const ROLE_CF_OPS = 11;
 export const ROLE_QA_AGENT = 3;
 export const ROLE_QA_ADMIN = 4;
 export const ROLE_TS_AGENT = 5;
@@ -56,6 +65,10 @@ const TS_ADMIN_SECTIONS: Section[] = [
 const TS_TEAM_LEADER_SECTIONS: Section[] = TS_ADMIN_SECTIONS;
 
 export const ROLE_PERMISSIONS: Record<number, Section[]> = {
+  [ROLE_CF_ON_GROUND]: ["cf:agent"],
+  [ROLE_CF_TEAM_LEADER]: ["cf:team"],
+  [ROLE_CF_ADMIN]: ["cf:admin", "cf:ops-view", "exports"],
+  [ROLE_CF_OPS]: ["cf:ops", "cf:ops-view"],
   [ROLE_QA_AGENT]: ["qa:agent", "qa:call-history"],
   [ROLE_QA_ADMIN]: ["dashboard", "exports", "qa:admin", "qa:reports"],
   [ROLE_TS_AGENT]: ["ts:agent", "ts:call-history", "ts:my-warnings"],
@@ -83,6 +96,10 @@ export function canAccess(roleId: number | undefined | null, section: Section): 
 }
 
 export const ROLE_LABELS: Record<number, string> = {
+  [ROLE_CF_ON_GROUND]: "OnGround",
+  [ROLE_CF_TEAM_LEADER]: "QA Team Leader",
+  [ROLE_CF_ADMIN]: "CF Admin",
+  [ROLE_CF_OPS]: "CF Ops",
   [ROLE_QA_AGENT]: "QA Agent",
   [ROLE_QA_ADMIN]: "QA Admin",
   [ROLE_TS_AGENT]: "TeleSales Agent",

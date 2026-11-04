@@ -46,6 +46,22 @@ type Item = { title: string; url: string; icon: any; section: Section };
 
 const groups: { label: string; items: Item[] }[] = [
   {
+    label: "Consumer Finance",
+    items: [
+      { title: "Dashboard", url: "/cf/agent", icon: LayoutDashboard, section: "cf:agent" },
+      { title: "Add customer", url: "/cf/agent/new", icon: UserCheck, section: "cf:agent" },
+      { title: "My customers", url: "/cf/agent/registrations", icon: Users, section: "cf:agent" },
+      { title: "Team summary", url: "/cf/team", icon: Users2, section: "cf:team" },
+      { title: "Dashboard", url: "/cf/admin", icon: LayoutDashboard, section: "cf:admin" },
+      { title: "Import", url: "/cf/admin/import", icon: Upload, section: "cf:admin" },
+      { title: "Batches", url: "/cf/admin/batches", icon: FileSpreadsheet, section: "cf:admin" },
+      { title: "Registrations", url: "/cf/admin/registrations", icon: ClipboardList, section: "cf:admin" },
+      { title: "Customers", url: "/cf/admin/customers", icon: Users, section: "cf:admin" },
+      { title: "Ops queue", url: "/cf/ops", icon: ListChecks, section: "cf:ops-view" },
+      { title: "History", url: "/cf/ops/history", icon: History, section: "cf:ops-view" },
+    ],
+  },
+  {
     label: "Overview",
     items: [{ title: "Dashboard", url: "/", icon: LayoutDashboard, section: "dashboard" }],
   },
@@ -183,7 +199,7 @@ export function AppSidebar() {
                         <SidebarMenuButton asChild isActive={active}>
                           <Link to={item.url}>
                             <item.icon className="h-4 w-4" />
-                            {!collapsed && <span>{item.title}</span>}
+                            {!collapsed && <span>{g.label === "Consumer Finance" && user?.roleId === 10 && item.url === "/cf/ops/history" ? "Ops history" : item.title}</span>}
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>

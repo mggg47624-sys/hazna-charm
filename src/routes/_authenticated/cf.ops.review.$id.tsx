@@ -15,7 +15,14 @@ import { PageHeader, RegistrationDetail } from "@/components/cf/cf-ui";
 import { fetchCfOpsQueue, useCfClaim, useCfDecision, useCfOpsRegistration, useCfReasons } from "@/lib/cf-api";
 
 export const Route = createFileRoute("/_authenticated/cf/ops/review/$id")({
-  head: () => ({ meta: [{ title: "Review Registration — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Review Registration — Consumer Finance" },
+    { name: "description", content: "Review Consumer Finance documents and registration details." },
+    { property: "og:title", content: "Review Registration — Consumer Finance" },
+    { property: "og:description", content: "Review Consumer Finance documents and registration details." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:ops"><Page /></SectionGuard>,
 });
 

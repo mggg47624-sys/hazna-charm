@@ -16,7 +16,14 @@ import { toWesternDigits, validateNationalId } from "@/lib/cf-validation";
 import { mockNid } from "@/lib/cf-mock";
 
 export const Route = createFileRoute("/_authenticated/cf/agent/new")({
-  head: () => ({ meta: [{ title: "Add Customer — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Add Customer — Consumer Finance" },
+    { name: "description", content: "Check Consumer Finance eligibility and register eligible customers." },
+    { property: "og:title", content: "Add Customer — Consumer Finance" },
+    { property: "og:description", content: "Check Consumer Finance eligibility and register eligible customers." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:agent"><Page /></SectionGuard>,
 });
 
@@ -61,7 +68,7 @@ function Page() {
           <Button className="h-14 w-full text-base" onClick={doCheck} disabled={checker.isPending}>
             {checker.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Check
           </Button>
-          {CF_MOCK && <p className="text-xs text-muted-foreground">Mock: eligible {mockNid(20)} · registered {mockNid(1)} · rejected {mockNid(2)}</p>}
+          {CF_MOCK && <p className="break-words text-xs text-muted-foreground">Mock: 1 eligible {mockNid(20)} · 2 registered {mockNid(1)} · 3 rejected & editable {mockNid(8)} · 4 not eligible {mockNid(30)} · 5 expired ID {mockNid(31)} · 6 outdated check {mockNid(32)}</p>}
         </CardContent>
       </Card>
       {check?.result === 1 && (
@@ -71,6 +78,9 @@ function Page() {
         </AlertDescription></Alert>
       )}
       {check?.result === 0 && <Alert variant="destructive"><AlertDescription>Customer is not eligible</AlertDescription></Alert>}
+      {check?.result === 4 && <Alert variant="destructive"><AlertDescription>Customer is not eligible for financing</AlertDescription></Alert>}
+      {check?.result === 5 && <Alert variant="destructive"><AlertDescription>The customer's national ID card has expired. The customer must renew the ID before registration.</AlertDescription></Alert>}
+      {check?.result === 6 && <Alert className="border-[color:var(--warning)] text-[color:var(--warning)]"><AlertDescription>The eligibility check for this customer is older than 30 days. Ask the admin to refresh the list.</AlertDescription></Alert>}
       {check?.result === 2 && <Alert className="border-[color:var(--warning)]"><AlertDescription>This customer is already registered</AlertDescription></Alert>}
       {check?.result === 3 && check.registrationId && (
         <Alert variant="destructive"><AlertDescription className="space-y-3">

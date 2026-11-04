@@ -5,7 +5,14 @@ import { PageHeader, RegistrationDetail } from "@/components/cf/cf-ui";
 import { useCfOpsRegistration } from "@/lib/cf-api";
 
 export const Route = createFileRoute("/_authenticated/cf/ops/history/$id")({
-  head: () => ({ meta: [{ title: "Registration (read-only) — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Registration (read-only) — Consumer Finance" },
+    { name: "description", content: "Read Consumer Finance registration documents and review rounds." },
+    { property: "og:title", content: "Registration (read-only) — Consumer Finance" },
+    { property: "og:description", content: "Read Consumer Finance registration documents and review rounds." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:ops-view"><Page /></SectionGuard>,
 });
 

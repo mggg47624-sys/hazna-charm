@@ -40,12 +40,23 @@ export interface MockReg {
   files: CfFile[]; rounds: CfRound[]; statusHistory: CfStatusHistory[];
 }
 
-export const db = {
-  customers: [] as CfCustomer[],
+const store = {
+  customers: [] as (CfCustomer & { eligibilityResult?: 4 | 5 | 6 })[],
   regs: [] as MockReg[],
   history: [] as CfHistoryItem[],
   batches: [] as CfBatch[],
 };
+let initialized = false;
+export const db = {
+  get customers() { initialize(); return store.customers; },
+  get regs() { initialize(); return store.regs; },
+  get history() { initialize(); return store.history; },
+  get batches() { initialize(); return store.batches; },
+};
+
+function initialize() {
+  if (initialized) return;
+  initialized = true;
 
 // Eligibility list: 30 customers in 2 batches
 for (let i = 0; i < 30; i++) {
@@ -53,6 +64,13 @@ for (let i = 0; i < 30; i++) {
     nationalId: mockNid(i), customerName: NAMES[i % NAMES.length], company: COMPANIES[i % COMPANIES.length],
     contactNumber: `010${pad(1000000 + i * 3791, 8)}`, approvedLimit: 5000 + (i % 6) * 2500,
     hasContract: i < 18, batchId: i < 20 ? 1 : 2, batchName: i < 20 ? "customers_oct.xlsx" : "customers_nov.xlsx",
+  });
+}
+for (const [i, result] of [[30, 4], [31, 5], [32, 6]] as const) {
+  db.customers.push({
+    nationalId: mockNid(i), customerName: NAMES[i % NAMES.length], company: COMPANIES[i % COMPANIES.length],
+    contactNumber: `010${pad(1000000 + i * 3791, 8)}`, approvedLimit: 5000,
+    hasContract: false, batchId: 2, batchName: "customers_nov.xlsx", eligibilityResult: result,
   });
 }
 db.batches.push(
@@ -92,7 +110,13 @@ for (let i = 0; i < 18; i++) {
   }
 }
 
-export const customerOf = (r: MockReg) => db.customers.find((c) => c.nationalId === r.nationalId)!;
+}
+
+export const customerOf = (r: MockReg) => {
+  const customer = db.customers.find((c) => c.nationalId === r.nationalId);
+  if (!customer) throw new Error("Customer not found");
+  return customer;
+};
 export const agentName = (id: number) => MOCK_AGENTS.find((a) => a.id === id)?.name ?? "—";
 export const channelName = (id: number) => CF_CHANNELS.find((c) => c.id === id)?.name ?? "—";
 export const listExpiry = (r: MockReg) => "2030-06-30" + (r ? "" : "");

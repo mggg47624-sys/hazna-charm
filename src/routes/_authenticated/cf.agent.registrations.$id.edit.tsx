@@ -9,7 +9,14 @@ import { RegistrationForm } from "@/components/cf/registration-form";
 import { useCfAgentRegistration, useCfUpdateRegistration } from "@/lib/cf-api";
 
 export const Route = createFileRoute("/_authenticated/cf/agent/registrations/$id/edit")({
-  head: () => ({ meta: [{ title: "Edit Registration — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Edit Registration — Consumer Finance" },
+    { name: "description", content: "Correct and resubmit rejected Consumer Finance registrations." },
+    { property: "og:title", content: "Edit Registration — Consumer Finance" },
+    { property: "og:description", content: "Correct and resubmit rejected Consumer Finance registrations." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:agent"><Page /></SectionGuard>,
 });
 

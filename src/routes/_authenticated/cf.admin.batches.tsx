@@ -7,7 +7,14 @@ import { CfTable, PageHeader, fmtDateTime } from "@/components/cf/cf-ui";
 import { useCfBatches } from "@/lib/cf-api";
 
 export const Route = createFileRoute("/_authenticated/cf/admin/batches")({
-  head: () => ({ meta: [{ title: "Import Batches — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Import Batches — Consumer Finance" },
+    { name: "description", content: "Browse Consumer Finance eligibility import batches and results." },
+    { property: "og:title", content: "Import Batches — Consumer Finance" },
+    { property: "og:description", content: "Browse Consumer Finance eligibility import batches and results." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:admin"><Page /></SectionGuard>,
 });
 

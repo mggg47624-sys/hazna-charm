@@ -8,7 +8,14 @@ import { useCfAdminDashboard } from "@/lib/cf-api";
 import { CheckCircle2, Clock, FileText, Users, XCircle } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/cf/admin/")({
-  head: () => ({ meta: [{ title: "CF Admin Dashboard — Khazna" }] }),
+  head: () => ({ meta: [
+    { title: "CF Admin Dashboard — Khazna" },
+    { name: "description", content: "Monitor Consumer Finance customer lists, registrations and performance." },
+    { property: "og:title", content: "CF Admin Dashboard — Khazna" },
+    { property: "og:description", content: "Monitor Consumer Finance customer lists, registrations and performance." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:admin"><Page /></SectionGuard>,
 });
 

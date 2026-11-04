@@ -12,7 +12,14 @@ import type { CfImportSummary } from "@/lib/cf-types";
 import { AlertTriangle, CheckCircle2, Download, FileSpreadsheet, Loader2, RefreshCw, SkipForward, Upload, XCircle } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/cf/admin/import")({
-  head: () => ({ meta: [{ title: "Import Eligible Customers — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Import Eligible Customers — Consumer Finance" },
+    { name: "description", content: "Import Consumer Finance customer eligibility lists and inspect results." },
+    { property: "og:title", content: "Import Eligible Customers — Consumer Finance" },
+    { property: "og:description", content: "Import Consumer Finance customer eligibility lists and inspect results." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:admin"><Page /></SectionGuard>,
 });
 

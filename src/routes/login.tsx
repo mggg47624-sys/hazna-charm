@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CF_MOCK } from "@/lib/cf-types";
 import {
   Loader2,
   Shield,
@@ -62,13 +64,14 @@ const highlights = [
 ];
 
 function LoginPage() {
-  const { login, user, loading } = useAuth();
+  const { login, mockLogin, user, loading } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [mockRole, setMockRole] = useState("1");
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -292,6 +295,24 @@ function LoginPage() {
                   )}
                 </Button>
               </form>
+
+              {CF_MOCK && (
+                <div className="mt-5 space-y-2 border-t pt-4">
+                  <Label htmlFor="cf-mock-role">Mock role (CF)</Label>
+                  <div className="flex gap-2">
+                    <Select value={mockRole} onValueChange={setMockRole}>
+                      <SelectTrigger id="cf-mock-role" className="min-w-0 flex-1"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1 OnGround</SelectItem>
+                        <SelectItem value="2">2 Team Leader</SelectItem>
+                        <SelectItem value="10">10 CF Admin</SelectItem>
+                        <SelectItem value="11">11 CF Ops</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button type="button" variant="outline" onClick={() => mockLogin(Number(mockRole))}>Mock sign in</Button>
+                  </div>
+                </div>
+              )}
 
               <p className="mt-7 text-center text-xs text-muted-foreground">
                 © {new Date().getFullYear()} Khazna Financial Services

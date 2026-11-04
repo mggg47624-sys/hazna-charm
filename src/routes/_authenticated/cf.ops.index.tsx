@@ -9,7 +9,14 @@ import { useCanAccess } from "@/lib/auth";
 import { CheckCircle2, Clock, ListChecks, XCircle } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/cf/ops/")({
-  head: () => ({ meta: [{ title: "CF Ops Review Queue — Khazna" }] }),
+  head: () => ({ meta: [
+    { title: "CF Ops Review Queue — Khazna" },
+    { name: "description", content: "View pending Consumer Finance registrations and review statistics." },
+    { property: "og:title", content: "CF Ops Review Queue — Khazna" },
+    { property: "og:description", content: "View pending Consumer Finance registrations and review statistics." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:ops-view"><Page /></SectionGuard>,
 });
 

@@ -9,7 +9,14 @@ import { CfTable, DecisionBadge, PageHeader, fmtDateTime } from "@/components/cf
 import { useCfOpsHistory } from "@/lib/cf-api";
 
 export const Route = createFileRoute("/_authenticated/cf/ops/history/")({
-  head: () => ({ meta: [{ title: "Review History — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Review History — Consumer Finance" },
+    { name: "description", content: "Browse Consumer Finance approval and rejection history." },
+    { property: "og:title", content: "Review History — Consumer Finance" },
+    { property: "og:description", content: "Browse Consumer Finance approval and rejection history." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:ops-view"><Page /></SectionGuard>,
 });
 
