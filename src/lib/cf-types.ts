@@ -30,7 +30,7 @@ export const CF_FILE_SLOTS: { type: CfFileType; label: string; capture: "user" |
 export interface Paged<T> { items: T[]; total: number; page: number; pageSize: number }
 
 export interface CfCounts { total: number; underReview: number; approved: number; rejected: number }
-export interface CfCheckResult { result: 0 | 1 | 2 | 3; registrationId?: number }
+export interface CfCheckResult { result: 0 | 1 | 2 | 3 | 4 | 5 | 6; registrationId?: number }
 export interface CfFile { type: CfFileType; url: string }
 export interface CfRejection { reasons: string[]; note?: string | null; reviewedAt?: string }
 

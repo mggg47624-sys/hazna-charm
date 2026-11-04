@@ -85,7 +85,8 @@ export const useCfCheckNationalId = () =>
     (nationalId) => {
       const reg = M.db.regs.find((r) => r.nationalId === nationalId);
       if (reg) return reg.status === 3 && reg.agentId === M.MOCK_AGENT_ID ? { result: 3, registrationId: reg.id } : { result: 2 };
-      return M.db.customers.some((c) => c.nationalId === nationalId) ? { result: 1 } : { result: 0 };
+      const customer = M.db.customers.find((c) => c.nationalId === nationalId);
+      return { result: customer ? customer.eligibilityResult ?? 1 : 0 };
     },
   );
 
@@ -110,7 +111,8 @@ export const useCfUpdateRegistration = (id: number) =>
   useCfMutation<FormData>(
     (fd) => api(`${BASE}/agent/registrations/${id}`, { method: "PUT", body: fd, isForm: true }),
     (fd) => {
-      const r = M.db.regs.find((x) => x.id === id)!;
+      const r = M.db.regs.find((x) => x.id === id);
+      if (!r) throw new Error("Registration not found");
       Object.assign(r, {
         khaznaMobile: String(fd.get("khaznaMobile")), idExpirationDate: String(fd.get("idExpirationDate")),
         amount: Number(fd.get("amount")), channelId: Number(fd.get("channelId")), status: 1,
@@ -185,7 +187,8 @@ export const useCfDecision = (id: number) =>
   useCfMutation<{ decision: "approve" | "reject"; reasonIds: number[]; note?: string }>(
     (body) => api(`${BASE}/ops/registrations/${id}/decision`, { method: "POST", body }),
     (body) => {
-      const r = M.db.regs.find((x) => x.id === id)!;
+      const r = M.db.regs.find((x) => x.id === id);
+      if (!r) throw new Error("Registration not found");
       const now = new Date().toISOString();
       const reasons = M.MOCK_REASONS.filter((x) => body.reasonIds.includes(x.id)).map((x) => x.nameAr);
       r.status = body.decision === "approve" ? 2 : 3;

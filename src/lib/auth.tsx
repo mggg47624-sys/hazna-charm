@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { api, clearToken, getToken, setToken } from "./api";
 import type { CurrentUser } from "./types";
+import { CF_MOCK } from "./cf-types";
 import {
   canAccess,
   isAgent,
@@ -16,11 +17,19 @@ interface AuthCtx {
   user: CurrentUser | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  mockLogin: (roleId: number) => void;
   logout: () => void;
   refresh: () => Promise<void>;
 }
 
 const Ctx = createContext<AuthCtx | null>(null);
+const MOCK_ROLE_KEY = "cf_mock_role";
+const MOCK_TOKEN = "cf-mock-token";
+const CF_ROLES = [1, 2, 10, 11];
+
+function mockUser(roleId: number): CurrentUser {
+  return { id: 101, fullName: `Mock ${ROLE_LABELS[roleId]}`, userName: `cf-mock-${roleId}`, email: "", roleId, isActive: true };
+}
 
 function normalizeUser(raw: any): CurrentUser | null {
   if (!raw || typeof raw !== "object") return null;
@@ -44,6 +53,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const fetchMe = async () => {
+    const roleId = Number(localStorage.getItem(MOCK_ROLE_KEY));
+    if (CF_MOCK && CF_ROLES.includes(roleId) && getToken() === MOCK_TOKEN) {
+      setUser(mockUser(roleId));
+      setLoading(false);
+      return;
+    }
+    if (getToken() === MOCK_TOKEN) {
+      clearToken();
+      localStorage.removeItem(MOCK_ROLE_KEY);
+    }
     if (!getToken()) {
       setUser(null);
       setLoading(false);
@@ -78,18 +97,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         : resp?.token || resp?.accessToken || resp?.access_token ||
           resp?.data?.token || resp?.jwt;
     if (!token) throw new Error("No token returned");
+    localStorage.removeItem(MOCK_ROLE_KEY);
     setToken(token);
     await fetchMe();
   };
 
+  const mockLogin = (roleId: number) => {
+    if (!CF_MOCK || !CF_ROLES.includes(roleId)) return;
+    localStorage.setItem(MOCK_ROLE_KEY, String(roleId));
+    setToken(MOCK_TOKEN);
+    setUser(mockUser(roleId));
+    setLoading(false);
+  };
+
   const logout = () => {
+    localStorage.removeItem(MOCK_ROLE_KEY);
     clearToken();
     setUser(null);
     window.location.href = "/login";
   };
 
   return (
-    <Ctx.Provider value={{ user, loading, login, logout, refresh: fetchMe }}>
+    <Ctx.Provider value={{ user, loading, login, mockLogin, logout, refresh: fetchMe }}>
       {children}
     </Ctx.Provider>
   );
