@@ -10,7 +10,14 @@ import { useCfAdminDashboard, useCfAdminRegistrations } from "@/lib/cf-api";
 import { CF_CHANNELS } from "@/lib/cf-types";
 
 export const Route = createFileRoute("/_authenticated/cf/admin/registrations/")({
-  head: () => ({ meta: [{ title: "All Registrations — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "All Registrations — Consumer Finance" },
+    { name: "description", content: "Filter and view Consumer Finance registrations across agents and channels." },
+    { property: "og:title", content: "All Registrations — Consumer Finance" },
+    { property: "og:description", content: "Filter and view Consumer Finance registrations across agents and channels." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:admin"><Page /></SectionGuard>,
 });
 

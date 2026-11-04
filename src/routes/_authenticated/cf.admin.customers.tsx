@@ -9,7 +9,14 @@ import { CfTable, PageHeader } from "@/components/cf/cf-ui";
 import { useCfAdminCustomers, useCfBatches } from "@/lib/cf-api";
 
 export const Route = createFileRoute("/_authenticated/cf/admin/customers")({
-  head: () => ({ meta: [{ title: "Eligible Customers — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Eligible Customers — Consumer Finance" },
+    { name: "description", content: "Search Consumer Finance customer eligibility lists." },
+    { property: "og:title", content: "Eligible Customers — Consumer Finance" },
+    { property: "og:description", content: "Search Consumer Finance customer eligibility lists." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:admin"><Page /></SectionGuard>,
 });
 

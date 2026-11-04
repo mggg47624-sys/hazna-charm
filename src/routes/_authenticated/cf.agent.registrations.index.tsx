@@ -11,7 +11,14 @@ import { PageHeader, StatusBadge, fmtDate } from "@/components/cf/cf-ui";
 import { useCfAgentRegistrations } from "@/lib/cf-api";
 
 export const Route = createFileRoute("/_authenticated/cf/agent/registrations/")({
-  head: () => ({ meta: [{ title: "My Customers — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "My Customers — Consumer Finance" },
+    { name: "description", content: "View your Consumer Finance customers and registration statuses." },
+    { property: "og:title", content: "My Customers — Consumer Finance" },
+    { property: "og:description", content: "View your Consumer Finance customers and registration statuses." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:agent"><Page /></SectionGuard>,
 });
 

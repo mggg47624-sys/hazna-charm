@@ -10,7 +10,14 @@ import { useCfTeamSummary } from "@/lib/cf-api";
 import { CheckCircle2, Clock, FileText, XCircle } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/cf/team")({
-  head: () => ({ meta: [{ title: "CF Team Summary — Khazna" }] }),
+  head: () => ({ meta: [
+    { title: "CF Team Summary — Khazna" },
+    { name: "description", content: "Read-only Consumer Finance team performance by agent and channel." },
+    { property: "og:title", content: "CF Team Summary — Khazna" },
+    { property: "og:description", content: "Read-only Consumer Finance team performance by agent and channel." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:team"><Page /></SectionGuard>,
 });
 

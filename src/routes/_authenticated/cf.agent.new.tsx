@@ -16,7 +16,14 @@ import { toWesternDigits, validateNationalId } from "@/lib/cf-validation";
 import { mockNid } from "@/lib/cf-mock";
 
 export const Route = createFileRoute("/_authenticated/cf/agent/new")({
-  head: () => ({ meta: [{ title: "Add Customer — Consumer Finance" }] }),
+  head: () => ({ meta: [
+    { title: "Add Customer — Consumer Finance" },
+    { name: "description", content: "Check Consumer Finance eligibility and register eligible customers." },
+    { property: "og:title", content: "Add Customer — Consumer Finance" },
+    { property: "og:description", content: "Check Consumer Finance eligibility and register eligible customers." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:agent"><Page /></SectionGuard>,
 });
 

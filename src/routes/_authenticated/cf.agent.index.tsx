@@ -7,7 +7,14 @@ import { useCfAgentDashboard } from "@/lib/cf-api";
 import { CheckCircle2, Clock, FileText, UserPlus, XCircle, List } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/cf/agent/")({
-  head: () => ({ meta: [{ title: "CF Agent Dashboard — Khazna" }] }),
+  head: () => ({ meta: [
+    { title: "CF Agent Dashboard — Khazna" },
+    { name: "description", content: "Track your Consumer Finance customer registrations and review outcomes." },
+    { property: "og:title", content: "CF Agent Dashboard — Khazna" },
+    { property: "og:description", content: "Track your Consumer Finance customer registrations and review outcomes." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+  ] }),
   component: () => <SectionGuard section="cf:agent"><Page /></SectionGuard>,
 });
 
