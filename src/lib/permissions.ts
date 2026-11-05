@@ -29,6 +29,7 @@ export type Section =
   | "ts:admin-config"
   | "ts:admin-dumps"
   | "ts:reports"
+  | "ts:performance-report"
   | "ts:warnings"
   | "ts:audit"
   | "ts:my-warnings"
@@ -56,6 +57,7 @@ const TS_ADMIN_SECTIONS: Section[] = [
   "ts:admin-config",
   "ts:admin-dumps",
   "ts:reports",
+  "ts:performance-report",
   "ts:warnings",
   "ts:audit",
   "ts:daily-stats",

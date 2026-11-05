@@ -25,6 +25,8 @@ import {
   Target,
   FileUp,
   UserCog,
+  BarChart3,
+  Building2,
 } from "lucide-react";
 import {
   Sidebar,
@@ -122,6 +124,10 @@ const groups: { label: string; items: Item[] }[] = [
   {
     label: "TeleSales — Reports",
     items: [
+      { title: "Monthly Overview", url: "/ts/reports/monthly", icon: BarChart3, section: "ts:performance-report" },
+      { title: "Campaign Performance", url: "/ts/reports/monthly/campaigns", icon: Megaphone, section: "ts:performance-report" },
+      { title: "Company Performance", url: "/ts/reports/monthly/companies", icon: Building2, section: "ts:performance-report" },
+      { title: "Agent Performance", url: "/ts/reports/monthly/agents", icon: UserCheck, section: "ts:performance-report" },
       { title: "Calls", url: "/ts/reports/calls", icon: Phone, section: "ts:reports" },
       { title: "Agents", url: "/ts/reports/agents", icon: UserCheck, section: "ts:reports" },
       { title: "Leads", url: "/ts/reports/leads", icon: ClipboardList, section: "ts:reports" },
