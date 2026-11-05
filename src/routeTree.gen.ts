@@ -26,6 +26,7 @@ import { Route as AuthenticatedCfTeamRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedCfOpsIndexRouteImport } from './routes/_authenticated/cf.ops.index'
 import { Route as AuthenticatedCfAgentIndexRouteImport } from './routes/_authenticated/cf.agent.index'
 import { Route as AuthenticatedCfAdminIndexRouteImport } from './routes/_authenticated/cf.admin.index'
+import { Route as AuthenticatedTsReportsMonthlyRouteImport } from './routes/_authenticated/ts.reports.monthly'
 import { Route as AuthenticatedTsReportsLeadsRouteImport } from './routes/_authenticated/ts.reports.leads'
 import { Route as AuthenticatedTsReportsCallsRouteImport } from './routes/_authenticated/ts.reports.calls'
 import { Route as AuthenticatedTsReportsAgentsRouteImport } from './routes/_authenticated/ts.reports.agents'
@@ -70,6 +71,9 @@ import { Route as AuthenticatedQaReportsEvaluationsIndexRouteImport } from './ro
 import { Route as AuthenticatedCfOpsHistoryIndexRouteImport } from './routes/_authenticated/cf.ops.history.index'
 import { Route as AuthenticatedCfAgentRegistrationsIndexRouteImport } from './routes/_authenticated/cf.agent.registrations.index'
 import { Route as AuthenticatedCfAdminRegistrationsIndexRouteImport } from './routes/_authenticated/cf.admin.registrations.index'
+import { Route as AuthenticatedTsReportsMonthlyCompaniesRouteImport } from './routes/_authenticated/ts.reports.monthly.companies'
+import { Route as AuthenticatedTsReportsMonthlyCampaignsRouteImport } from './routes/_authenticated/ts.reports.monthly.campaigns'
+import { Route as AuthenticatedTsReportsMonthlyAgentsRouteImport } from './routes/_authenticated/ts.reports.monthly.agents'
 import { Route as AuthenticatedQaReportsSalesRepsIdRouteImport } from './routes/_authenticated/qa.reports.sales-reps.$id'
 import { Route as AuthenticatedQaReportsEvaluationsIdRouteImport } from './routes/_authenticated/qa.reports.evaluations.$id'
 import { Route as AuthenticatedCfOpsReviewIdRouteImport } from './routes/_authenticated/cf.ops.review.$id'
@@ -168,6 +172,12 @@ const AuthenticatedCfAdminIndexRoute =
   AuthenticatedCfAdminIndexRouteImport.update({
     id: '/cf/admin/',
     path: '/cf/admin/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsReportsMonthlyRoute =
+  AuthenticatedTsReportsMonthlyRouteImport.update({
+    id: '/ts/reports/monthly',
+    path: '/ts/reports/monthly',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedTsReportsLeadsRoute =
@@ -433,6 +443,24 @@ const AuthenticatedCfAdminRegistrationsIndexRoute =
     path: '/cf/admin/registrations/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedTsReportsMonthlyCompaniesRoute =
+  AuthenticatedTsReportsMonthlyCompaniesRouteImport.update({
+    id: '/companies',
+    path: '/companies',
+    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
+  } as any)
+const AuthenticatedTsReportsMonthlyCampaignsRoute =
+  AuthenticatedTsReportsMonthlyCampaignsRouteImport.update({
+    id: '/campaigns',
+    path: '/campaigns',
+    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
+  } as any)
+const AuthenticatedTsReportsMonthlyAgentsRoute =
+  AuthenticatedTsReportsMonthlyAgentsRouteImport.update({
+    id: '/agents',
+    path: '/agents',
+    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
+  } as any)
 const AuthenticatedQaReportsSalesRepsIdRoute =
   AuthenticatedQaReportsSalesRepsIdRouteImport.update({
     id: '/$id',
@@ -524,6 +552,7 @@ export interface FileRoutesByFullPath {
   '/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
   '/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
+  '/ts/reports/monthly': typeof AuthenticatedTsReportsMonthlyRouteWithChildren
   '/cf/admin/': typeof AuthenticatedCfAdminIndexRoute
   '/cf/agent/': typeof AuthenticatedCfAgentIndexRoute
   '/cf/ops/': typeof AuthenticatedCfOpsIndexRoute
@@ -532,6 +561,9 @@ export interface FileRoutesByFullPath {
   '/cf/ops/review/$id': typeof AuthenticatedCfOpsReviewIdRoute
   '/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/ts/reports/monthly/agents': typeof AuthenticatedTsReportsMonthlyAgentsRoute
+  '/ts/reports/monthly/campaigns': typeof AuthenticatedTsReportsMonthlyCampaignsRoute
+  '/ts/reports/monthly/companies': typeof AuthenticatedTsReportsMonthlyCompaniesRoute
   '/cf/admin/registrations/': typeof AuthenticatedCfAdminRegistrationsIndexRoute
   '/cf/agent/registrations/': typeof AuthenticatedCfAgentRegistrationsIndexRoute
   '/cf/ops/history/': typeof AuthenticatedCfOpsHistoryIndexRoute
@@ -591,6 +623,7 @@ export interface FileRoutesByTo {
   '/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
   '/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
+  '/ts/reports/monthly': typeof AuthenticatedTsReportsMonthlyRouteWithChildren
   '/cf/admin': typeof AuthenticatedCfAdminIndexRoute
   '/cf/agent': typeof AuthenticatedCfAgentIndexRoute
   '/cf/ops': typeof AuthenticatedCfOpsIndexRoute
@@ -599,6 +632,9 @@ export interface FileRoutesByTo {
   '/cf/ops/review/$id': typeof AuthenticatedCfOpsReviewIdRoute
   '/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/ts/reports/monthly/agents': typeof AuthenticatedTsReportsMonthlyAgentsRoute
+  '/ts/reports/monthly/campaigns': typeof AuthenticatedTsReportsMonthlyCampaignsRoute
+  '/ts/reports/monthly/companies': typeof AuthenticatedTsReportsMonthlyCompaniesRoute
   '/cf/admin/registrations': typeof AuthenticatedCfAdminRegistrationsIndexRoute
   '/cf/agent/registrations': typeof AuthenticatedCfAgentRegistrationsIndexRoute
   '/cf/ops/history': typeof AuthenticatedCfOpsHistoryIndexRoute
@@ -661,6 +697,7 @@ export interface FileRoutesById {
   '/_authenticated/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/_authenticated/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
   '/_authenticated/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
+  '/_authenticated/ts/reports/monthly': typeof AuthenticatedTsReportsMonthlyRouteWithChildren
   '/_authenticated/cf/admin/': typeof AuthenticatedCfAdminIndexRoute
   '/_authenticated/cf/agent/': typeof AuthenticatedCfAgentIndexRoute
   '/_authenticated/cf/ops/': typeof AuthenticatedCfOpsIndexRoute
@@ -669,6 +706,9 @@ export interface FileRoutesById {
   '/_authenticated/cf/ops/review/$id': typeof AuthenticatedCfOpsReviewIdRoute
   '/_authenticated/qa/reports/evaluations/$id': typeof AuthenticatedQaReportsEvaluationsIdRoute
   '/_authenticated/qa/reports/sales-reps/$id': typeof AuthenticatedQaReportsSalesRepsIdRoute
+  '/_authenticated/ts/reports/monthly/agents': typeof AuthenticatedTsReportsMonthlyAgentsRoute
+  '/_authenticated/ts/reports/monthly/campaigns': typeof AuthenticatedTsReportsMonthlyCampaignsRoute
+  '/_authenticated/ts/reports/monthly/companies': typeof AuthenticatedTsReportsMonthlyCompaniesRoute
   '/_authenticated/cf/admin/registrations/': typeof AuthenticatedCfAdminRegistrationsIndexRoute
   '/_authenticated/cf/agent/registrations/': typeof AuthenticatedCfAgentRegistrationsIndexRoute
   '/_authenticated/cf/ops/history/': typeof AuthenticatedCfOpsHistoryIndexRoute
@@ -731,6 +771,7 @@ export interface FileRouteTypes {
     | '/ts/reports/agents'
     | '/ts/reports/calls'
     | '/ts/reports/leads'
+    | '/ts/reports/monthly'
     | '/cf/admin/'
     | '/cf/agent/'
     | '/cf/ops/'
@@ -739,6 +780,9 @@ export interface FileRouteTypes {
     | '/cf/ops/review/$id'
     | '/qa/reports/evaluations/$id'
     | '/qa/reports/sales-reps/$id'
+    | '/ts/reports/monthly/agents'
+    | '/ts/reports/monthly/campaigns'
+    | '/ts/reports/monthly/companies'
     | '/cf/admin/registrations/'
     | '/cf/agent/registrations/'
     | '/cf/ops/history/'
@@ -798,6 +842,7 @@ export interface FileRouteTypes {
     | '/ts/reports/agents'
     | '/ts/reports/calls'
     | '/ts/reports/leads'
+    | '/ts/reports/monthly'
     | '/cf/admin'
     | '/cf/agent'
     | '/cf/ops'
@@ -806,6 +851,9 @@ export interface FileRouteTypes {
     | '/cf/ops/review/$id'
     | '/qa/reports/evaluations/$id'
     | '/qa/reports/sales-reps/$id'
+    | '/ts/reports/monthly/agents'
+    | '/ts/reports/monthly/campaigns'
+    | '/ts/reports/monthly/companies'
     | '/cf/admin/registrations'
     | '/cf/agent/registrations'
     | '/cf/ops/history'
@@ -867,6 +915,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ts/reports/agents'
     | '/_authenticated/ts/reports/calls'
     | '/_authenticated/ts/reports/leads'
+    | '/_authenticated/ts/reports/monthly'
     | '/_authenticated/cf/admin/'
     | '/_authenticated/cf/agent/'
     | '/_authenticated/cf/ops/'
@@ -875,6 +924,9 @@ export interface FileRouteTypes {
     | '/_authenticated/cf/ops/review/$id'
     | '/_authenticated/qa/reports/evaluations/$id'
     | '/_authenticated/qa/reports/sales-reps/$id'
+    | '/_authenticated/ts/reports/monthly/agents'
+    | '/_authenticated/ts/reports/monthly/campaigns'
+    | '/_authenticated/ts/reports/monthly/companies'
     | '/_authenticated/cf/admin/registrations/'
     | '/_authenticated/cf/agent/registrations/'
     | '/_authenticated/cf/ops/history/'
@@ -1006,6 +1058,13 @@ declare module '@tanstack/react-router' {
       path: '/cf/admin'
       fullPath: '/cf/admin/'
       preLoaderRoute: typeof AuthenticatedCfAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/reports/monthly': {
+      id: '/_authenticated/ts/reports/monthly'
+      path: '/ts/reports/monthly'
+      fullPath: '/ts/reports/monthly'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/ts/reports/leads': {
@@ -1316,6 +1375,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCfAdminRegistrationsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/ts/reports/monthly/companies': {
+      id: '/_authenticated/ts/reports/monthly/companies'
+      path: '/companies'
+      fullPath: '/ts/reports/monthly/companies'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyCompaniesRouteImport
+      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
+    }
+    '/_authenticated/ts/reports/monthly/campaigns': {
+      id: '/_authenticated/ts/reports/monthly/campaigns'
+      path: '/campaigns'
+      fullPath: '/ts/reports/monthly/campaigns'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyCampaignsRouteImport
+      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
+    }
+    '/_authenticated/ts/reports/monthly/agents': {
+      id: '/_authenticated/ts/reports/monthly/agents'
+      path: '/agents'
+      fullPath: '/ts/reports/monthly/agents'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyAgentsRouteImport
+      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
+    }
     '/_authenticated/qa/reports/sales-reps/$id': {
       id: '/_authenticated/qa/reports/sales-reps/$id'
       path: '/$id'
@@ -1394,6 +1474,27 @@ const AuthenticatedQaReportsSalesRepsRouteWithChildren =
     AuthenticatedQaReportsSalesRepsRouteChildren,
   )
 
+interface AuthenticatedTsReportsMonthlyRouteChildren {
+  AuthenticatedTsReportsMonthlyAgentsRoute: typeof AuthenticatedTsReportsMonthlyAgentsRoute
+  AuthenticatedTsReportsMonthlyCampaignsRoute: typeof AuthenticatedTsReportsMonthlyCampaignsRoute
+  AuthenticatedTsReportsMonthlyCompaniesRoute: typeof AuthenticatedTsReportsMonthlyCompaniesRoute
+}
+
+const AuthenticatedTsReportsMonthlyRouteChildren: AuthenticatedTsReportsMonthlyRouteChildren =
+  {
+    AuthenticatedTsReportsMonthlyAgentsRoute:
+      AuthenticatedTsReportsMonthlyAgentsRoute,
+    AuthenticatedTsReportsMonthlyCampaignsRoute:
+      AuthenticatedTsReportsMonthlyCampaignsRoute,
+    AuthenticatedTsReportsMonthlyCompaniesRoute:
+      AuthenticatedTsReportsMonthlyCompaniesRoute,
+  }
+
+const AuthenticatedTsReportsMonthlyRouteWithChildren =
+  AuthenticatedTsReportsMonthlyRoute._addFileChildren(
+    AuthenticatedTsReportsMonthlyRouteChildren,
+  )
+
 interface AuthenticatedRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedCfTeamRoute: typeof AuthenticatedCfTeamRoute
@@ -1447,6 +1548,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTsReportsAgentsRoute: typeof AuthenticatedTsReportsAgentsRoute
   AuthenticatedTsReportsCallsRoute: typeof AuthenticatedTsReportsCallsRoute
   AuthenticatedTsReportsLeadsRoute: typeof AuthenticatedTsReportsLeadsRoute
+  AuthenticatedTsReportsMonthlyRoute: typeof AuthenticatedTsReportsMonthlyRouteWithChildren
   AuthenticatedCfAdminIndexRoute: typeof AuthenticatedCfAdminIndexRoute
   AuthenticatedCfAgentIndexRoute: typeof AuthenticatedCfAgentIndexRoute
   AuthenticatedCfOpsIndexRoute: typeof AuthenticatedCfOpsIndexRoute
@@ -1516,6 +1618,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedTsReportsAgentsRoute: AuthenticatedTsReportsAgentsRoute,
   AuthenticatedTsReportsCallsRoute: AuthenticatedTsReportsCallsRoute,
   AuthenticatedTsReportsLeadsRoute: AuthenticatedTsReportsLeadsRoute,
+  AuthenticatedTsReportsMonthlyRoute:
+    AuthenticatedTsReportsMonthlyRouteWithChildren,
   AuthenticatedCfAdminIndexRoute: AuthenticatedCfAdminIndexRoute,
   AuthenticatedCfAgentIndexRoute: AuthenticatedCfAgentIndexRoute,
   AuthenticatedCfOpsIndexRoute: AuthenticatedCfOpsIndexRoute,
