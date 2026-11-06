@@ -72,8 +72,9 @@ const TITLES: Record<TsMonthlyReportKind, { title: string; subtitle: string }> =
   agents: { title: "Agent Performance", subtitle: "Review agent productivity, conversions, and target attainment." },
 };
 
+const now = new Date();
 const MONTHS = Array.from({ length: 12 }, (_, i) => {
-  const date = new Date(2026, i, 1);
+  const date = new Date(now.getFullYear(), now.getMonth() - 11 + i, 1);
   return {
     value: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`,
     label: date.toLocaleDateString("en-US", { month: "long", year: "numeric" }),
@@ -104,6 +105,7 @@ const AGENT_BASE = [
 ];
 
 const number = new Intl.NumberFormat("en-US");
+const CURRENT_MONTH = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 const rate = (part: number, total: number) => (total ? (part / total) * 100 : 0);
 const tick = { fontSize: 11, fill: "var(--muted-foreground)" };
 
@@ -196,7 +198,7 @@ function ReportTableView({ rows, kind }: { rows: any[]; kind: Exclude<TsMonthlyR
 }
 
 export function TsMonthlyReport({ kind }: { kind: TsMonthlyReportKind }) {
-  const [month, setMonth] = useState("2026-11");
+  const [month, setMonth] = useState(CURRENT_MONTH);
   const [campaign, setCampaign] = useState("all");
   const monthIndex = Math.max(0, (Number(month.slice(0, 4)) - 2025) * 12 + Number(month.slice(5, 7)) - 12);
   const title = TITLES[kind];
@@ -208,7 +210,6 @@ export function TsMonthlyReport({ kind }: { kind: TsMonthlyReportKind }) {
     const conversions = Math.round(agent.conversions * factor * (1 + ((monthIndex + index + 1) % 4) * 0.009));
     return { ...agent, calls, conversions, conversionRate: rate(conversions, calls) };
   }).sort((a, b) => b.conversions - a.conversions);
-  const activeRows = kind === "campaigns" ? campaigns : kind === "companies" ? companies : agents;
   const allCalls = campaigns.reduce((sum, row) => sum + row.calls, 0);
   const allConversions = campaigns.reduce((sum, row) => sum + row.conversions, 0);
   const allLeads = campaigns.reduce((sum, row) => sum + row.leads, 0);
