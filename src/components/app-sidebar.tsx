@@ -199,7 +199,11 @@ export function AppSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   {visible.map((item) => {
-                    const active = item.url === "/" ? path === "/" : path.startsWith(item.url);
+                    const active = item.url === "/"
+                      ? path === "/"
+                      : item.url === "/ts/reports/monthly"
+                        ? path === item.url
+                        : path.startsWith(item.url);
                     return (
                       <SidebarMenuItem key={item.url}>
                         <SidebarMenuButton asChild isActive={active}>
