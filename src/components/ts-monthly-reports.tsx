@@ -72,8 +72,9 @@ const TITLES: Record<TsMonthlyReportKind, { title: string; subtitle: string }> =
   agents: { title: "Agent Performance", subtitle: "Review agent productivity, conversions, and target attainment." },
 };
 
+const now = new Date();
 const MONTHS = Array.from({ length: 12 }, (_, i) => {
-  const date = new Date(2025, 11 + i, 1);
+  const date = new Date(now.getFullYear(), now.getMonth() - 11 + i, 1);
   return {
     value: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`,
     label: date.toLocaleDateString("en-US", { month: "long", year: "numeric" }),
@@ -104,6 +105,7 @@ const AGENT_BASE = [
 ];
 
 const number = new Intl.NumberFormat("en-US");
+const CURRENT_MONTH = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 const rate = (part: number, total: number) => (total ? (part / total) * 100 : 0);
 const tick = { fontSize: 11, fill: "var(--muted-foreground)" };
 
@@ -196,9 +198,9 @@ function ReportTableView({ rows, kind }: { rows: any[]; kind: Exclude<TsMonthlyR
 }
 
 export function TsMonthlyReport({ kind }: { kind: TsMonthlyReportKind }) {
-  const [month, setMonth] = useState("2026-11");
+  const [month, setMonth] = useState(CURRENT_MONTH);
   const [campaign, setCampaign] = useState("all");
-  const monthIndex = Math.max(0, MONTHS.findIndex((entry) => entry.value === month));
+  const monthIndex = Math.max(0, (Number(month.slice(0, 4)) - 2025) * 12 + Number(month.slice(5, 7)) - 12);
   const title = TITLES[kind];
   const campaigns = scaledRows(CAMPAIGN_BASE, monthIndex);
   const companies = scaledRows(COMPANY_BASE, monthIndex);
@@ -208,11 +210,13 @@ export function TsMonthlyReport({ kind }: { kind: TsMonthlyReportKind }) {
     const conversions = Math.round(agent.conversions * factor * (1 + ((monthIndex + index + 1) % 4) * 0.009));
     return { ...agent, calls, conversions, conversionRate: rate(conversions, calls) };
   }).sort((a, b) => b.conversions - a.conversions);
-  const activeRows = kind === "campaigns" ? campaigns : kind === "companies" ? companies : agents;
   const allCalls = campaigns.reduce((sum, row) => sum + row.calls, 0);
   const allConversions = campaigns.reduce((sum, row) => sum + row.conversions, 0);
   const allLeads = campaigns.reduce((sum, row) => sum + row.leads, 0);
   const trend = monthlyTrend(monthIndex);
+  const campaignRows = campaign === "all" ? campaigns : campaigns.filter((row) => row.name === campaign);
+  const campaignCalls = campaignRows.reduce((sum, row) => sum + row.calls, 0);
+  const campaignConversions = campaignRows.reduce((sum, row) => sum + row.conversions, 0);
   const selectedMonth = MONTHS[monthIndex]?.label ?? "November 2026";
   const outcomeData = [
     { name: "Reached", value: Math.round(allCalls * 0.69) },
@@ -314,16 +318,16 @@ export function TsMonthlyReport({ kind }: { kind: TsMonthlyReportKind }) {
       </> : <>
         {kind === "campaigns" && <>
           <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-            <KpiCard label="Campaign calls" value={number.format(campaign === "all" ? allCalls : campaigns.find((row) => row.name === campaign)?.calls ?? 0)} icon={Headset} />
-            <KpiCard label="Conversions" value={number.format(campaign === "all" ? allConversions : campaigns.find((row) => row.name === campaign)?.conversions ?? 0)} icon={Target} tone="success" />
-            <KpiCard label="Campaigns active" value={campaign === "all" ? campaigns.length : 1} icon={Megaphone} />
-            <KpiCard label="Best conversion rate" value={`${Math.max(...campaigns.map((row) => row.conversionRate)).toFixed(1)}%`} icon={TrendingUp} tone="success" />
+            <KpiCard label="Campaign calls" value={number.format(campaignCalls)} icon={Headset} />
+            <KpiCard label="Conversions" value={number.format(campaignConversions)} icon={Target} tone="success" />
+            <KpiCard label="Campaigns active" value={campaignRows.length} icon={Megaphone} />
+            <KpiCard label="Best conversion rate" value={`${Math.max(...campaignRows.map((row) => row.conversionRate)).toFixed(1)}%`} icon={TrendingUp} tone="success" />
           </div>
-          <Card><CardHeader><CardTitle className="text-base">Campaign comparison · {selectedMonth}</CardTitle><p className="text-sm text-muted-foreground">Calls, reached leads, and conversions.</p></CardHeader><CardContent><div className="h-[320px] w-full"><ResponsiveContainer width="100%" height="100%"><BarChart data={campaign === "all" ? campaigns : campaigns.filter((row) => row.name === campaign)} margin={{ top: 8, right: 10, left: 0, bottom: 5 }}>
+          <Card><CardHeader><CardTitle className="text-base">Campaign comparison · {selectedMonth}</CardTitle><p className="text-sm text-muted-foreground">Calls, reached leads, and conversions.</p></CardHeader><CardContent><div className="h-[320px] w-full"><ResponsiveContainer width="100%" height="100%"><BarChart data={campaignRows} margin={{ top: 8, right: 10, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} /><XAxis dataKey="name" tick={tick} axisLine={false} tickLine={false} /><YAxis tick={tick} axisLine={false} tickLine={false} /><Tooltip /><Legend />
             <Bar dataKey="calls" name="Calls" fill="var(--chart-1)" radius={[4, 4, 0, 0]} /><Bar dataKey="leads" name="Reached" fill="var(--chart-2)" radius={[4, 4, 0, 0]} /><Bar dataKey="conversions" name="Conversions" fill="var(--chart-4)" radius={[4, 4, 0, 0]} />
           </BarChart></ResponsiveContainer></div></CardContent></Card>
-          <ReportTableView rows={campaign === "all" ? campaigns : campaigns.filter((row) => row.name === campaign)} kind="campaigns" />
+          <ReportTableView rows={campaignRows} kind="campaigns" />
         </>}
         {kind === "companies" && <>
           <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">

@@ -9,90 +9,95 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
-import { Route as AuthenticatedManagerIndexRouteImport } from './routes/_authenticated/manager.index'
-import { Route as AuthenticatedTsWorkRouteImport } from './routes/_authenticated/ts.work'
-import { Route as AuthenticatedTsMyWarningsRouteImport } from './routes/_authenticated/ts.my-warnings'
-import { Route as AuthenticatedTsMyReportRouteImport } from './routes/_authenticated/ts.my-report'
-import { Route as AuthenticatedTsCallLaterRouteImport } from './routes/_authenticated/ts.call-later'
-import { Route as AuthenticatedTsCallHistoryRouteImport } from './routes/_authenticated/ts.call-history'
-import { Route as AuthenticatedSettingsChangePasswordRouteImport } from './routes/_authenticated/settings.change-password'
-import { Route as AuthenticatedQaWorkRouteImport } from './routes/_authenticated/qa.work'
-import { Route as AuthenticatedQaCallLaterRouteImport } from './routes/_authenticated/qa.call-later'
-import { Route as AuthenticatedQaCallHistoryRouteImport } from './routes/_authenticated/qa.call-history'
 import { Route as AuthenticatedCfTeamRouteImport } from './routes/_authenticated/cf.team'
-import { Route as AuthenticatedCfOpsIndexRouteImport } from './routes/_authenticated/cf.ops.index'
-import { Route as AuthenticatedCfAgentIndexRouteImport } from './routes/_authenticated/cf.agent.index'
+import { Route as AuthenticatedManagerIndexRouteImport } from './routes/_authenticated/manager.index'
+import { Route as AuthenticatedQaCallHistoryRouteImport } from './routes/_authenticated/qa.call-history'
+import { Route as AuthenticatedQaCallLaterRouteImport } from './routes/_authenticated/qa.call-later'
+import { Route as AuthenticatedQaWorkRouteImport } from './routes/_authenticated/qa.work'
+import { Route as AuthenticatedSettingsChangePasswordRouteImport } from './routes/_authenticated/settings.change-password'
+import { Route as AuthenticatedTsCallHistoryRouteImport } from './routes/_authenticated/ts.call-history'
+import { Route as AuthenticatedTsCallLaterRouteImport } from './routes/_authenticated/ts.call-later'
+import { Route as AuthenticatedTsMyReportRouteImport } from './routes/_authenticated/ts.my-report'
+import { Route as AuthenticatedTsMyWarningsRouteImport } from './routes/_authenticated/ts.my-warnings'
+import { Route as AuthenticatedTsWorkRouteImport } from './routes/_authenticated/ts.work'
 import { Route as AuthenticatedCfAdminIndexRouteImport } from './routes/_authenticated/cf.admin.index'
-import { Route as AuthenticatedTsReportsMonthlyRouteImport } from './routes/_authenticated/ts.reports.monthly'
-import { Route as AuthenticatedTsReportsLeadsRouteImport } from './routes/_authenticated/ts.reports.leads'
-import { Route as AuthenticatedTsReportsCallsRouteImport } from './routes/_authenticated/ts.reports.calls'
-import { Route as AuthenticatedTsReportsAgentsRouteImport } from './routes/_authenticated/ts.reports.agents'
-import { Route as AuthenticatedTsAdminWarningsRouteImport } from './routes/_authenticated/ts.admin.warnings'
-import { Route as AuthenticatedTsAdminValidationRouteImport } from './routes/_authenticated/ts.admin.validation'
-import { Route as AuthenticatedTsAdminUsersRouteImport } from './routes/_authenticated/ts.admin.users'
-import { Route as AuthenticatedTsAdminTargetsRouteImport } from './routes/_authenticated/ts.admin.targets'
-import { Route as AuthenticatedTsAdminFormsRouteImport } from './routes/_authenticated/ts.admin.forms'
-import { Route as AuthenticatedTsAdminDailyStatsRouteImport } from './routes/_authenticated/ts.admin.daily-stats'
-import { Route as AuthenticatedTsAdminCampaignsRouteImport } from './routes/_authenticated/ts.admin.campaigns'
-import { Route as AuthenticatedTsAdminCallResultsRouteImport } from './routes/_authenticated/ts.admin.call-results'
-import { Route as AuthenticatedTsAdminBatchesRouteImport } from './routes/_authenticated/ts.admin.batches'
-import { Route as AuthenticatedTsAdminAuditLogRouteImport } from './routes/_authenticated/ts.admin.audit-log'
-import { Route as AuthenticatedTsAdminActivationRouteImport } from './routes/_authenticated/ts.admin.activation'
-import { Route as AuthenticatedQaReportsTeamsRouteImport } from './routes/_authenticated/qa.reports.teams'
-import { Route as AuthenticatedQaReportsSalesRepsRouteImport } from './routes/_authenticated/qa.reports.sales-reps'
-import { Route as AuthenticatedQaReportsEvaluationsRouteImport } from './routes/_authenticated/qa.reports.evaluations'
-import { Route as AuthenticatedQaReportsCustomersRouteImport } from './routes/_authenticated/qa.reports.customers'
-import { Route as AuthenticatedQaReportsCallsRouteImport } from './routes/_authenticated/qa.reports.calls'
-import { Route as AuthenticatedQaReportsBatchesRouteImport } from './routes/_authenticated/qa.reports.batches'
-import { Route as AuthenticatedQaReportsAgentsRouteImport } from './routes/_authenticated/qa.reports.agents'
-import { Route as AuthenticatedQaAdminUsersRouteImport } from './routes/_authenticated/qa.admin.users'
-import { Route as AuthenticatedQaAdminSalesRepsRouteImport } from './routes/_authenticated/qa.admin.sales-reps'
-import { Route as AuthenticatedQaAdminImportRouteImport } from './routes/_authenticated/qa.admin.import'
-import { Route as AuthenticatedManagerTsLeadsRouteImport } from './routes/_authenticated/manager.ts.leads'
-import { Route as AuthenticatedManagerTsCampaignsRouteImport } from './routes/_authenticated/manager.ts.campaigns'
-import { Route as AuthenticatedManagerTsCallsRouteImport } from './routes/_authenticated/manager.ts.calls'
-import { Route as AuthenticatedManagerTsBatchesRouteImport } from './routes/_authenticated/manager.ts.batches'
-import { Route as AuthenticatedManagerTsAgentsRouteImport } from './routes/_authenticated/manager.ts.agents'
-import { Route as AuthenticatedManagerQaTeamsRouteImport } from './routes/_authenticated/manager.qa.teams'
-import { Route as AuthenticatedManagerQaSalesRepsRouteImport } from './routes/_authenticated/manager.qa.sales-reps'
-import { Route as AuthenticatedManagerQaEvaluationsRouteImport } from './routes/_authenticated/manager.qa.evaluations'
-import { Route as AuthenticatedManagerQaCustomersRouteImport } from './routes/_authenticated/manager.qa.customers'
-import { Route as AuthenticatedManagerQaCallsRouteImport } from './routes/_authenticated/manager.qa.calls'
-import { Route as AuthenticatedManagerQaBatchesRouteImport } from './routes/_authenticated/manager.qa.batches'
-import { Route as AuthenticatedManagerQaAgentsRouteImport } from './routes/_authenticated/manager.qa.agents'
-import { Route as AuthenticatedCfAgentNewRouteImport } from './routes/_authenticated/cf.agent.new'
-import { Route as AuthenticatedCfAdminImportRouteImport } from './routes/_authenticated/cf.admin.import'
-import { Route as AuthenticatedCfAdminCustomersRouteImport } from './routes/_authenticated/cf.admin.customers'
 import { Route as AuthenticatedCfAdminBatchesRouteImport } from './routes/_authenticated/cf.admin.batches'
-import { Route as AuthenticatedQaReportsEvaluationsIndexRouteImport } from './routes/_authenticated/qa.reports.evaluations.index'
-import { Route as AuthenticatedCfOpsHistoryIndexRouteImport } from './routes/_authenticated/cf.ops.history.index'
-import { Route as AuthenticatedCfAgentRegistrationsIndexRouteImport } from './routes/_authenticated/cf.agent.registrations.index'
+import { Route as AuthenticatedCfAdminCustomersRouteImport } from './routes/_authenticated/cf.admin.customers'
+import { Route as AuthenticatedCfAdminImportRouteImport } from './routes/_authenticated/cf.admin.import'
+import { Route as AuthenticatedCfAgentIndexRouteImport } from './routes/_authenticated/cf.agent.index'
+import { Route as AuthenticatedCfAgentNewRouteImport } from './routes/_authenticated/cf.agent.new'
+import { Route as AuthenticatedCfOpsIndexRouteImport } from './routes/_authenticated/cf.ops.index'
+import { Route as AuthenticatedManagerQaAgentsRouteImport } from './routes/_authenticated/manager.qa.agents'
+import { Route as AuthenticatedManagerQaBatchesRouteImport } from './routes/_authenticated/manager.qa.batches'
+import { Route as AuthenticatedManagerQaCallsRouteImport } from './routes/_authenticated/manager.qa.calls'
+import { Route as AuthenticatedManagerQaCustomersRouteImport } from './routes/_authenticated/manager.qa.customers'
+import { Route as AuthenticatedManagerQaEvaluationsRouteImport } from './routes/_authenticated/manager.qa.evaluations'
+import { Route as AuthenticatedManagerQaSalesRepsRouteImport } from './routes/_authenticated/manager.qa.sales-reps'
+import { Route as AuthenticatedManagerQaTeamsRouteImport } from './routes/_authenticated/manager.qa.teams'
+import { Route as AuthenticatedManagerTsAgentsRouteImport } from './routes/_authenticated/manager.ts.agents'
+import { Route as AuthenticatedManagerTsBatchesRouteImport } from './routes/_authenticated/manager.ts.batches'
+import { Route as AuthenticatedManagerTsCallsRouteImport } from './routes/_authenticated/manager.ts.calls'
+import { Route as AuthenticatedManagerTsCampaignsRouteImport } from './routes/_authenticated/manager.ts.campaigns'
+import { Route as AuthenticatedManagerTsLeadsRouteImport } from './routes/_authenticated/manager.ts.leads'
+import { Route as AuthenticatedQaAdminImportRouteImport } from './routes/_authenticated/qa.admin.import'
+import { Route as AuthenticatedQaAdminSalesRepsRouteImport } from './routes/_authenticated/qa.admin.sales-reps'
+import { Route as AuthenticatedQaAdminUsersRouteImport } from './routes/_authenticated/qa.admin.users'
+import { Route as AuthenticatedQaReportsAgentsRouteImport } from './routes/_authenticated/qa.reports.agents'
+import { Route as AuthenticatedQaReportsBatchesRouteImport } from './routes/_authenticated/qa.reports.batches'
+import { Route as AuthenticatedQaReportsCallsRouteImport } from './routes/_authenticated/qa.reports.calls'
+import { Route as AuthenticatedQaReportsCustomersRouteImport } from './routes/_authenticated/qa.reports.customers'
+import { Route as AuthenticatedQaReportsEvaluationsRouteImport } from './routes/_authenticated/qa.reports.evaluations'
+import { Route as AuthenticatedQaReportsSalesRepsRouteImport } from './routes/_authenticated/qa.reports.sales-reps'
+import { Route as AuthenticatedQaReportsTeamsRouteImport } from './routes/_authenticated/qa.reports.teams'
+import { Route as AuthenticatedTsAdminActivationRouteImport } from './routes/_authenticated/ts.admin.activation'
+import { Route as AuthenticatedTsAdminAuditLogRouteImport } from './routes/_authenticated/ts.admin.audit-log'
+import { Route as AuthenticatedTsAdminBatchesRouteImport } from './routes/_authenticated/ts.admin.batches'
+import { Route as AuthenticatedTsAdminCallResultsRouteImport } from './routes/_authenticated/ts.admin.call-results'
+import { Route as AuthenticatedTsAdminCampaignsRouteImport } from './routes/_authenticated/ts.admin.campaigns'
+import { Route as AuthenticatedTsAdminDailyStatsRouteImport } from './routes/_authenticated/ts.admin.daily-stats'
+import { Route as AuthenticatedTsAdminFormsRouteImport } from './routes/_authenticated/ts.admin.forms'
+import { Route as AuthenticatedTsAdminTargetsRouteImport } from './routes/_authenticated/ts.admin.targets'
+import { Route as AuthenticatedTsAdminUsersRouteImport } from './routes/_authenticated/ts.admin.users'
+import { Route as AuthenticatedTsAdminValidationRouteImport } from './routes/_authenticated/ts.admin.validation'
+import { Route as AuthenticatedTsAdminWarningsRouteImport } from './routes/_authenticated/ts.admin.warnings'
+import { Route as AuthenticatedTsReportsAgentsRouteImport } from './routes/_authenticated/ts.reports.agents'
+import { Route as AuthenticatedTsReportsCallsRouteImport } from './routes/_authenticated/ts.reports.calls'
+import { Route as AuthenticatedTsReportsLeadsRouteImport } from './routes/_authenticated/ts.reports.leads'
+import { Route as AuthenticatedTsReportsMonthlyRouteImport } from './routes/_authenticated/ts.reports.monthly'
 import { Route as AuthenticatedCfAdminRegistrationsIndexRouteImport } from './routes/_authenticated/cf.admin.registrations.index'
-import { Route as AuthenticatedTsReportsMonthlyCompaniesRouteImport } from './routes/_authenticated/ts.reports.monthly.companies'
-import { Route as AuthenticatedTsReportsMonthlyCampaignsRouteImport } from './routes/_authenticated/ts.reports.monthly.campaigns'
-import { Route as AuthenticatedTsReportsMonthlyAgentsRouteImport } from './routes/_authenticated/ts.reports.monthly.agents'
-import { Route as AuthenticatedQaReportsSalesRepsIdRouteImport } from './routes/_authenticated/qa.reports.sales-reps.$id'
-import { Route as AuthenticatedQaReportsEvaluationsIdRouteImport } from './routes/_authenticated/qa.reports.evaluations.$id'
-import { Route as AuthenticatedCfOpsReviewIdRouteImport } from './routes/_authenticated/cf.ops.review.$id'
-import { Route as AuthenticatedCfOpsHistoryIdRouteImport } from './routes/_authenticated/cf.ops.history.$id'
 import { Route as AuthenticatedCfAdminRegistrationsIdRouteImport } from './routes/_authenticated/cf.admin.registrations.$id'
+import { Route as AuthenticatedCfAgentRegistrationsIndexRouteImport } from './routes/_authenticated/cf.agent.registrations.index'
+import { Route as AuthenticatedCfOpsHistoryIndexRouteImport } from './routes/_authenticated/cf.ops.history.index'
+import { Route as AuthenticatedCfOpsHistoryIdRouteImport } from './routes/_authenticated/cf.ops.history.$id'
+import { Route as AuthenticatedCfOpsReviewIdRouteImport } from './routes/_authenticated/cf.ops.review.$id'
+import { Route as AuthenticatedQaReportsEvaluationsIndexRouteImport } from './routes/_authenticated/qa.reports.evaluations.index'
+import { Route as AuthenticatedQaReportsEvaluationsIdRouteImport } from './routes/_authenticated/qa.reports.evaluations.$id'
+import { Route as AuthenticatedQaReportsSalesRepsIdRouteImport } from './routes/_authenticated/qa.reports.sales-reps.$id'
+import { Route as AuthenticatedTsReportsMonthlyAgentsRouteImport } from './routes/_authenticated/ts.reports.monthly.agents'
+import { Route as AuthenticatedTsReportsMonthlyCampaignsRouteImport } from './routes/_authenticated/ts.reports.monthly.campaigns'
+import { Route as AuthenticatedTsReportsMonthlyCompaniesRouteImport } from './routes/_authenticated/ts.reports.monthly.companies'
 import { Route as AuthenticatedCfAgentRegistrationsIdEditRouteImport } from './routes/_authenticated/cf.agent.registrations.$id.edit'
 
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedCfTeamRoute = AuthenticatedCfTeamRouteImport.update({
+  id: '/cf/team',
+  path: '/cf/team',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedManagerIndexRoute =
@@ -101,26 +106,27 @@ const AuthenticatedManagerIndexRoute =
     path: '/manager/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedTsWorkRoute = AuthenticatedTsWorkRouteImport.update({
-  id: '/ts/work',
-  path: '/ts/work',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedTsMyWarningsRoute =
-  AuthenticatedTsMyWarningsRouteImport.update({
-    id: '/ts/my-warnings',
-    path: '/ts/my-warnings',
+const AuthenticatedQaCallHistoryRoute =
+  AuthenticatedQaCallHistoryRouteImport.update({
+    id: '/qa/call-history',
+    path: '/qa/call-history',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedTsMyReportRoute = AuthenticatedTsMyReportRouteImport.update({
-  id: '/ts/my-report',
-  path: '/ts/my-report',
+const AuthenticatedQaCallLaterRoute =
+  AuthenticatedQaCallLaterRouteImport.update({
+    id: '/qa/call-later',
+    path: '/qa/call-later',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaWorkRoute = AuthenticatedQaWorkRouteImport.update({
+  id: '/qa/work',
+  path: '/qa/work',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedTsCallLaterRoute =
-  AuthenticatedTsCallLaterRouteImport.update({
-    id: '/ts/call-later',
-    path: '/ts/call-later',
+const AuthenticatedSettingsChangePasswordRoute =
+  AuthenticatedSettingsChangePasswordRouteImport.update({
+    id: '/settings/change-password',
+    path: '/settings/change-password',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedTsCallHistoryRoute =
@@ -129,288 +135,32 @@ const AuthenticatedTsCallHistoryRoute =
     path: '/ts/call-history',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedSettingsChangePasswordRoute =
-  AuthenticatedSettingsChangePasswordRouteImport.update({
-    id: '/settings/change-password',
-    path: '/settings/change-password',
+const AuthenticatedTsCallLaterRoute =
+  AuthenticatedTsCallLaterRouteImport.update({
+    id: '/ts/call-later',
+    path: '/ts/call-later',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedQaWorkRoute = AuthenticatedQaWorkRouteImport.update({
-  id: '/qa/work',
-  path: '/qa/work',
+const AuthenticatedTsMyReportRoute = AuthenticatedTsMyReportRouteImport.update({
+  id: '/ts/my-report',
+  path: '/ts/my-report',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedQaCallLaterRoute =
-  AuthenticatedQaCallLaterRouteImport.update({
-    id: '/qa/call-later',
-    path: '/qa/call-later',
+const AuthenticatedTsMyWarningsRoute =
+  AuthenticatedTsMyWarningsRouteImport.update({
+    id: '/ts/my-warnings',
+    path: '/ts/my-warnings',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedQaCallHistoryRoute =
-  AuthenticatedQaCallHistoryRouteImport.update({
-    id: '/qa/call-history',
-    path: '/qa/call-history',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedCfTeamRoute = AuthenticatedCfTeamRouteImport.update({
-  id: '/cf/team',
-  path: '/cf/team',
+const AuthenticatedTsWorkRoute = AuthenticatedTsWorkRouteImport.update({
+  id: '/ts/work',
+  path: '/ts/work',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedCfOpsIndexRoute = AuthenticatedCfOpsIndexRouteImport.update({
-  id: '/cf/ops/',
-  path: '/cf/ops/',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedCfAgentIndexRoute =
-  AuthenticatedCfAgentIndexRouteImport.update({
-    id: '/cf/agent/',
-    path: '/cf/agent/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedCfAdminIndexRoute =
   AuthenticatedCfAdminIndexRouteImport.update({
     id: '/cf/admin/',
     path: '/cf/admin/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsReportsMonthlyRoute =
-  AuthenticatedTsReportsMonthlyRouteImport.update({
-    id: '/ts/reports/monthly',
-    path: '/ts/reports/monthly',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsReportsLeadsRoute =
-  AuthenticatedTsReportsLeadsRouteImport.update({
-    id: '/ts/reports/leads',
-    path: '/ts/reports/leads',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsReportsCallsRoute =
-  AuthenticatedTsReportsCallsRouteImport.update({
-    id: '/ts/reports/calls',
-    path: '/ts/reports/calls',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsReportsAgentsRoute =
-  AuthenticatedTsReportsAgentsRouteImport.update({
-    id: '/ts/reports/agents',
-    path: '/ts/reports/agents',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminWarningsRoute =
-  AuthenticatedTsAdminWarningsRouteImport.update({
-    id: '/ts/admin/warnings',
-    path: '/ts/admin/warnings',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminValidationRoute =
-  AuthenticatedTsAdminValidationRouteImport.update({
-    id: '/ts/admin/validation',
-    path: '/ts/admin/validation',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminUsersRoute =
-  AuthenticatedTsAdminUsersRouteImport.update({
-    id: '/ts/admin/users',
-    path: '/ts/admin/users',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminTargetsRoute =
-  AuthenticatedTsAdminTargetsRouteImport.update({
-    id: '/ts/admin/targets',
-    path: '/ts/admin/targets',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminFormsRoute =
-  AuthenticatedTsAdminFormsRouteImport.update({
-    id: '/ts/admin/forms',
-    path: '/ts/admin/forms',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminDailyStatsRoute =
-  AuthenticatedTsAdminDailyStatsRouteImport.update({
-    id: '/ts/admin/daily-stats',
-    path: '/ts/admin/daily-stats',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminCampaignsRoute =
-  AuthenticatedTsAdminCampaignsRouteImport.update({
-    id: '/ts/admin/campaigns',
-    path: '/ts/admin/campaigns',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminCallResultsRoute =
-  AuthenticatedTsAdminCallResultsRouteImport.update({
-    id: '/ts/admin/call-results',
-    path: '/ts/admin/call-results',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminBatchesRoute =
-  AuthenticatedTsAdminBatchesRouteImport.update({
-    id: '/ts/admin/batches',
-    path: '/ts/admin/batches',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminAuditLogRoute =
-  AuthenticatedTsAdminAuditLogRouteImport.update({
-    id: '/ts/admin/audit-log',
-    path: '/ts/admin/audit-log',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedTsAdminActivationRoute =
-  AuthenticatedTsAdminActivationRouteImport.update({
-    id: '/ts/admin/activation',
-    path: '/ts/admin/activation',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaReportsTeamsRoute =
-  AuthenticatedQaReportsTeamsRouteImport.update({
-    id: '/qa/reports/teams',
-    path: '/qa/reports/teams',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaReportsSalesRepsRoute =
-  AuthenticatedQaReportsSalesRepsRouteImport.update({
-    id: '/qa/reports/sales-reps',
-    path: '/qa/reports/sales-reps',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaReportsEvaluationsRoute =
-  AuthenticatedQaReportsEvaluationsRouteImport.update({
-    id: '/qa/reports/evaluations',
-    path: '/qa/reports/evaluations',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaReportsCustomersRoute =
-  AuthenticatedQaReportsCustomersRouteImport.update({
-    id: '/qa/reports/customers',
-    path: '/qa/reports/customers',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaReportsCallsRoute =
-  AuthenticatedQaReportsCallsRouteImport.update({
-    id: '/qa/reports/calls',
-    path: '/qa/reports/calls',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaReportsBatchesRoute =
-  AuthenticatedQaReportsBatchesRouteImport.update({
-    id: '/qa/reports/batches',
-    path: '/qa/reports/batches',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaReportsAgentsRoute =
-  AuthenticatedQaReportsAgentsRouteImport.update({
-    id: '/qa/reports/agents',
-    path: '/qa/reports/agents',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaAdminUsersRoute =
-  AuthenticatedQaAdminUsersRouteImport.update({
-    id: '/qa/admin/users',
-    path: '/qa/admin/users',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaAdminSalesRepsRoute =
-  AuthenticatedQaAdminSalesRepsRouteImport.update({
-    id: '/qa/admin/sales-reps',
-    path: '/qa/admin/sales-reps',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedQaAdminImportRoute =
-  AuthenticatedQaAdminImportRouteImport.update({
-    id: '/qa/admin/import',
-    path: '/qa/admin/import',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerTsLeadsRoute =
-  AuthenticatedManagerTsLeadsRouteImport.update({
-    id: '/manager/ts/leads',
-    path: '/manager/ts/leads',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerTsCampaignsRoute =
-  AuthenticatedManagerTsCampaignsRouteImport.update({
-    id: '/manager/ts/campaigns',
-    path: '/manager/ts/campaigns',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerTsCallsRoute =
-  AuthenticatedManagerTsCallsRouteImport.update({
-    id: '/manager/ts/calls',
-    path: '/manager/ts/calls',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerTsBatchesRoute =
-  AuthenticatedManagerTsBatchesRouteImport.update({
-    id: '/manager/ts/batches',
-    path: '/manager/ts/batches',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerTsAgentsRoute =
-  AuthenticatedManagerTsAgentsRouteImport.update({
-    id: '/manager/ts/agents',
-    path: '/manager/ts/agents',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerQaTeamsRoute =
-  AuthenticatedManagerQaTeamsRouteImport.update({
-    id: '/manager/qa/teams',
-    path: '/manager/qa/teams',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerQaSalesRepsRoute =
-  AuthenticatedManagerQaSalesRepsRouteImport.update({
-    id: '/manager/qa/sales-reps',
-    path: '/manager/qa/sales-reps',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerQaEvaluationsRoute =
-  AuthenticatedManagerQaEvaluationsRouteImport.update({
-    id: '/manager/qa/evaluations',
-    path: '/manager/qa/evaluations',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerQaCustomersRoute =
-  AuthenticatedManagerQaCustomersRouteImport.update({
-    id: '/manager/qa/customers',
-    path: '/manager/qa/customers',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerQaCallsRoute =
-  AuthenticatedManagerQaCallsRouteImport.update({
-    id: '/manager/qa/calls',
-    path: '/manager/qa/calls',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerQaBatchesRoute =
-  AuthenticatedManagerQaBatchesRouteImport.update({
-    id: '/manager/qa/batches',
-    path: '/manager/qa/batches',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedManagerQaAgentsRoute =
-  AuthenticatedManagerQaAgentsRouteImport.update({
-    id: '/manager/qa/agents',
-    path: '/manager/qa/agents',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedCfAgentNewRoute = AuthenticatedCfAgentNewRouteImport.update({
-  id: '/cf/agent/new',
-  path: '/cf/agent/new',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedCfAdminImportRoute =
-  AuthenticatedCfAdminImportRouteImport.update({
-    id: '/cf/admin/import',
-    path: '/cf/admin/import',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedCfAdminCustomersRoute =
-  AuthenticatedCfAdminCustomersRouteImport.update({
-    id: '/cf/admin/customers',
-    path: '/cf/admin/customers',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedCfAdminBatchesRoute =
@@ -419,22 +169,254 @@ const AuthenticatedCfAdminBatchesRoute =
     path: '/cf/admin/batches',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedQaReportsEvaluationsIndexRoute =
-  AuthenticatedQaReportsEvaluationsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
-  } as any)
-const AuthenticatedCfOpsHistoryIndexRoute =
-  AuthenticatedCfOpsHistoryIndexRouteImport.update({
-    id: '/cf/ops/history/',
-    path: '/cf/ops/history/',
+const AuthenticatedCfAdminCustomersRoute =
+  AuthenticatedCfAdminCustomersRouteImport.update({
+    id: '/cf/admin/customers',
+    path: '/cf/admin/customers',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedCfAgentRegistrationsIndexRoute =
-  AuthenticatedCfAgentRegistrationsIndexRouteImport.update({
-    id: '/cf/agent/registrations/',
-    path: '/cf/agent/registrations/',
+const AuthenticatedCfAdminImportRoute =
+  AuthenticatedCfAdminImportRouteImport.update({
+    id: '/cf/admin/import',
+    path: '/cf/admin/import',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAgentIndexRoute =
+  AuthenticatedCfAgentIndexRouteImport.update({
+    id: '/cf/agent/',
+    path: '/cf/agent/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCfAgentNewRoute = AuthenticatedCfAgentNewRouteImport.update({
+  id: '/cf/agent/new',
+  path: '/cf/agent/new',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedCfOpsIndexRoute = AuthenticatedCfOpsIndexRouteImport.update({
+  id: '/cf/ops/',
+  path: '/cf/ops/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedManagerQaAgentsRoute =
+  AuthenticatedManagerQaAgentsRouteImport.update({
+    id: '/manager/qa/agents',
+    path: '/manager/qa/agents',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaBatchesRoute =
+  AuthenticatedManagerQaBatchesRouteImport.update({
+    id: '/manager/qa/batches',
+    path: '/manager/qa/batches',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaCallsRoute =
+  AuthenticatedManagerQaCallsRouteImport.update({
+    id: '/manager/qa/calls',
+    path: '/manager/qa/calls',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaCustomersRoute =
+  AuthenticatedManagerQaCustomersRouteImport.update({
+    id: '/manager/qa/customers',
+    path: '/manager/qa/customers',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaEvaluationsRoute =
+  AuthenticatedManagerQaEvaluationsRouteImport.update({
+    id: '/manager/qa/evaluations',
+    path: '/manager/qa/evaluations',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaSalesRepsRoute =
+  AuthenticatedManagerQaSalesRepsRouteImport.update({
+    id: '/manager/qa/sales-reps',
+    path: '/manager/qa/sales-reps',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerQaTeamsRoute =
+  AuthenticatedManagerQaTeamsRouteImport.update({
+    id: '/manager/qa/teams',
+    path: '/manager/qa/teams',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsAgentsRoute =
+  AuthenticatedManagerTsAgentsRouteImport.update({
+    id: '/manager/ts/agents',
+    path: '/manager/ts/agents',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsBatchesRoute =
+  AuthenticatedManagerTsBatchesRouteImport.update({
+    id: '/manager/ts/batches',
+    path: '/manager/ts/batches',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsCallsRoute =
+  AuthenticatedManagerTsCallsRouteImport.update({
+    id: '/manager/ts/calls',
+    path: '/manager/ts/calls',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsCampaignsRoute =
+  AuthenticatedManagerTsCampaignsRouteImport.update({
+    id: '/manager/ts/campaigns',
+    path: '/manager/ts/campaigns',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedManagerTsLeadsRoute =
+  AuthenticatedManagerTsLeadsRouteImport.update({
+    id: '/manager/ts/leads',
+    path: '/manager/ts/leads',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaAdminImportRoute =
+  AuthenticatedQaAdminImportRouteImport.update({
+    id: '/qa/admin/import',
+    path: '/qa/admin/import',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaAdminSalesRepsRoute =
+  AuthenticatedQaAdminSalesRepsRouteImport.update({
+    id: '/qa/admin/sales-reps',
+    path: '/qa/admin/sales-reps',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaAdminUsersRoute =
+  AuthenticatedQaAdminUsersRouteImport.update({
+    id: '/qa/admin/users',
+    path: '/qa/admin/users',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaReportsAgentsRoute =
+  AuthenticatedQaReportsAgentsRouteImport.update({
+    id: '/qa/reports/agents',
+    path: '/qa/reports/agents',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaReportsBatchesRoute =
+  AuthenticatedQaReportsBatchesRouteImport.update({
+    id: '/qa/reports/batches',
+    path: '/qa/reports/batches',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaReportsCallsRoute =
+  AuthenticatedQaReportsCallsRouteImport.update({
+    id: '/qa/reports/calls',
+    path: '/qa/reports/calls',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaReportsCustomersRoute =
+  AuthenticatedQaReportsCustomersRouteImport.update({
+    id: '/qa/reports/customers',
+    path: '/qa/reports/customers',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaReportsEvaluationsRoute =
+  AuthenticatedQaReportsEvaluationsRouteImport.update({
+    id: '/qa/reports/evaluations',
+    path: '/qa/reports/evaluations',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaReportsSalesRepsRoute =
+  AuthenticatedQaReportsSalesRepsRouteImport.update({
+    id: '/qa/reports/sales-reps',
+    path: '/qa/reports/sales-reps',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaReportsTeamsRoute =
+  AuthenticatedQaReportsTeamsRouteImport.update({
+    id: '/qa/reports/teams',
+    path: '/qa/reports/teams',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminActivationRoute =
+  AuthenticatedTsAdminActivationRouteImport.update({
+    id: '/ts/admin/activation',
+    path: '/ts/admin/activation',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminAuditLogRoute =
+  AuthenticatedTsAdminAuditLogRouteImport.update({
+    id: '/ts/admin/audit-log',
+    path: '/ts/admin/audit-log',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminBatchesRoute =
+  AuthenticatedTsAdminBatchesRouteImport.update({
+    id: '/ts/admin/batches',
+    path: '/ts/admin/batches',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminCallResultsRoute =
+  AuthenticatedTsAdminCallResultsRouteImport.update({
+    id: '/ts/admin/call-results',
+    path: '/ts/admin/call-results',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminCampaignsRoute =
+  AuthenticatedTsAdminCampaignsRouteImport.update({
+    id: '/ts/admin/campaigns',
+    path: '/ts/admin/campaigns',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminDailyStatsRoute =
+  AuthenticatedTsAdminDailyStatsRouteImport.update({
+    id: '/ts/admin/daily-stats',
+    path: '/ts/admin/daily-stats',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminFormsRoute =
+  AuthenticatedTsAdminFormsRouteImport.update({
+    id: '/ts/admin/forms',
+    path: '/ts/admin/forms',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminTargetsRoute =
+  AuthenticatedTsAdminTargetsRouteImport.update({
+    id: '/ts/admin/targets',
+    path: '/ts/admin/targets',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminUsersRoute =
+  AuthenticatedTsAdminUsersRouteImport.update({
+    id: '/ts/admin/users',
+    path: '/ts/admin/users',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminValidationRoute =
+  AuthenticatedTsAdminValidationRouteImport.update({
+    id: '/ts/admin/validation',
+    path: '/ts/admin/validation',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsAdminWarningsRoute =
+  AuthenticatedTsAdminWarningsRouteImport.update({
+    id: '/ts/admin/warnings',
+    path: '/ts/admin/warnings',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsReportsAgentsRoute =
+  AuthenticatedTsReportsAgentsRouteImport.update({
+    id: '/ts/reports/agents',
+    path: '/ts/reports/agents',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsReportsCallsRoute =
+  AuthenticatedTsReportsCallsRouteImport.update({
+    id: '/ts/reports/calls',
+    path: '/ts/reports/calls',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsReportsLeadsRoute =
+  AuthenticatedTsReportsLeadsRouteImport.update({
+    id: '/ts/reports/leads',
+    path: '/ts/reports/leads',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedTsReportsMonthlyRoute =
+  AuthenticatedTsReportsMonthlyRouteImport.update({
+    id: '/ts/reports/monthly',
+    path: '/ts/reports/monthly',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedCfAdminRegistrationsIndexRoute =
@@ -443,40 +425,22 @@ const AuthenticatedCfAdminRegistrationsIndexRoute =
     path: '/cf/admin/registrations/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedTsReportsMonthlyCompaniesRoute =
-  AuthenticatedTsReportsMonthlyCompaniesRouteImport.update({
-    id: '/companies',
-    path: '/companies',
-    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
+const AuthenticatedCfAdminRegistrationsIdRoute =
+  AuthenticatedCfAdminRegistrationsIdRouteImport.update({
+    id: '/cf/admin/registrations/$id',
+    path: '/cf/admin/registrations/$id',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedTsReportsMonthlyCampaignsRoute =
-  AuthenticatedTsReportsMonthlyCampaignsRouteImport.update({
-    id: '/campaigns',
-    path: '/campaigns',
-    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
+const AuthenticatedCfAgentRegistrationsIndexRoute =
+  AuthenticatedCfAgentRegistrationsIndexRouteImport.update({
+    id: '/cf/agent/registrations/',
+    path: '/cf/agent/registrations/',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedTsReportsMonthlyAgentsRoute =
-  AuthenticatedTsReportsMonthlyAgentsRouteImport.update({
-    id: '/agents',
-    path: '/agents',
-    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
-  } as any)
-const AuthenticatedQaReportsSalesRepsIdRoute =
-  AuthenticatedQaReportsSalesRepsIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () => AuthenticatedQaReportsSalesRepsRoute,
-  } as any)
-const AuthenticatedQaReportsEvaluationsIdRoute =
-  AuthenticatedQaReportsEvaluationsIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
-  } as any)
-const AuthenticatedCfOpsReviewIdRoute =
-  AuthenticatedCfOpsReviewIdRouteImport.update({
-    id: '/cf/ops/review/$id',
-    path: '/cf/ops/review/$id',
+const AuthenticatedCfOpsHistoryIndexRoute =
+  AuthenticatedCfOpsHistoryIndexRouteImport.update({
+    id: '/cf/ops/history/',
+    path: '/cf/ops/history/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedCfOpsHistoryIdRoute =
@@ -485,11 +449,47 @@ const AuthenticatedCfOpsHistoryIdRoute =
     path: '/cf/ops/history/$id',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedCfAdminRegistrationsIdRoute =
-  AuthenticatedCfAdminRegistrationsIdRouteImport.update({
-    id: '/cf/admin/registrations/$id',
-    path: '/cf/admin/registrations/$id',
+const AuthenticatedCfOpsReviewIdRoute =
+  AuthenticatedCfOpsReviewIdRouteImport.update({
+    id: '/cf/ops/review/$id',
+    path: '/cf/ops/review/$id',
     getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQaReportsEvaluationsIndexRoute =
+  AuthenticatedQaReportsEvaluationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
+  } as any)
+const AuthenticatedQaReportsEvaluationsIdRoute =
+  AuthenticatedQaReportsEvaluationsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedQaReportsEvaluationsRoute,
+  } as any)
+const AuthenticatedQaReportsSalesRepsIdRoute =
+  AuthenticatedQaReportsSalesRepsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedQaReportsSalesRepsRoute,
+  } as any)
+const AuthenticatedTsReportsMonthlyAgentsRoute =
+  AuthenticatedTsReportsMonthlyAgentsRouteImport.update({
+    id: '/agents',
+    path: '/agents',
+    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
+  } as any)
+const AuthenticatedTsReportsMonthlyCampaignsRoute =
+  AuthenticatedTsReportsMonthlyCampaignsRouteImport.update({
+    id: '/campaigns',
+    path: '/campaigns',
+    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
+  } as any)
+const AuthenticatedTsReportsMonthlyCompaniesRoute =
+  AuthenticatedTsReportsMonthlyCompaniesRouteImport.update({
+    id: '/companies',
+    path: '/companies',
+    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
   } as any)
 const AuthenticatedCfAgentRegistrationsIdEditRoute =
   AuthenticatedCfAgentRegistrationsIdEditRouteImport.update({
@@ -941,18 +941,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/': {
@@ -962,67 +962,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/cf/team': {
+      id: '/_authenticated/cf/team'
+      path: '/cf/team'
+      fullPath: '/cf/team'
+      preLoaderRoute: typeof AuthenticatedCfTeamRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/manager/': {
       id: '/_authenticated/manager/'
       path: '/manager'
       fullPath: '/manager/'
       preLoaderRoute: typeof AuthenticatedManagerIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/work': {
-      id: '/_authenticated/ts/work'
-      path: '/ts/work'
-      fullPath: '/ts/work'
-      preLoaderRoute: typeof AuthenticatedTsWorkRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/my-warnings': {
-      id: '/_authenticated/ts/my-warnings'
-      path: '/ts/my-warnings'
-      fullPath: '/ts/my-warnings'
-      preLoaderRoute: typeof AuthenticatedTsMyWarningsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/my-report': {
-      id: '/_authenticated/ts/my-report'
-      path: '/ts/my-report'
-      fullPath: '/ts/my-report'
-      preLoaderRoute: typeof AuthenticatedTsMyReportRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/call-later': {
-      id: '/_authenticated/ts/call-later'
-      path: '/ts/call-later'
-      fullPath: '/ts/call-later'
-      preLoaderRoute: typeof AuthenticatedTsCallLaterRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/call-history': {
-      id: '/_authenticated/ts/call-history'
-      path: '/ts/call-history'
-      fullPath: '/ts/call-history'
-      preLoaderRoute: typeof AuthenticatedTsCallHistoryRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/settings/change-password': {
-      id: '/_authenticated/settings/change-password'
-      path: '/settings/change-password'
-      fullPath: '/settings/change-password'
-      preLoaderRoute: typeof AuthenticatedSettingsChangePasswordRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/work': {
-      id: '/_authenticated/qa/work'
-      path: '/qa/work'
-      fullPath: '/qa/work'
-      preLoaderRoute: typeof AuthenticatedQaWorkRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/call-later': {
-      id: '/_authenticated/qa/call-later'
-      path: '/qa/call-later'
-      fullPath: '/qa/call-later'
-      preLoaderRoute: typeof AuthenticatedQaCallLaterRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/qa/call-history': {
@@ -1032,25 +983,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedQaCallHistoryRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/cf/team': {
-      id: '/_authenticated/cf/team'
-      path: '/cf/team'
-      fullPath: '/cf/team'
-      preLoaderRoute: typeof AuthenticatedCfTeamRouteImport
+    '/_authenticated/qa/call-later': {
+      id: '/_authenticated/qa/call-later'
+      path: '/qa/call-later'
+      fullPath: '/qa/call-later'
+      preLoaderRoute: typeof AuthenticatedQaCallLaterRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/cf/ops/': {
-      id: '/_authenticated/cf/ops/'
-      path: '/cf/ops'
-      fullPath: '/cf/ops/'
-      preLoaderRoute: typeof AuthenticatedCfOpsIndexRouteImport
+    '/_authenticated/qa/work': {
+      id: '/_authenticated/qa/work'
+      path: '/qa/work'
+      fullPath: '/qa/work'
+      preLoaderRoute: typeof AuthenticatedQaWorkRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/cf/agent/': {
-      id: '/_authenticated/cf/agent/'
-      path: '/cf/agent'
-      fullPath: '/cf/agent/'
-      preLoaderRoute: typeof AuthenticatedCfAgentIndexRouteImport
+    '/_authenticated/settings/change-password': {
+      id: '/_authenticated/settings/change-password'
+      path: '/settings/change-password'
+      fullPath: '/settings/change-password'
+      preLoaderRoute: typeof AuthenticatedSettingsChangePasswordRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/call-history': {
+      id: '/_authenticated/ts/call-history'
+      path: '/ts/call-history'
+      fullPath: '/ts/call-history'
+      preLoaderRoute: typeof AuthenticatedTsCallHistoryRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/call-later': {
+      id: '/_authenticated/ts/call-later'
+      path: '/ts/call-later'
+      fullPath: '/ts/call-later'
+      preLoaderRoute: typeof AuthenticatedTsCallLaterRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/my-report': {
+      id: '/_authenticated/ts/my-report'
+      path: '/ts/my-report'
+      fullPath: '/ts/my-report'
+      preLoaderRoute: typeof AuthenticatedTsMyReportRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/my-warnings': {
+      id: '/_authenticated/ts/my-warnings'
+      path: '/ts/my-warnings'
+      fullPath: '/ts/my-warnings'
+      preLoaderRoute: typeof AuthenticatedTsMyWarningsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/work': {
+      id: '/_authenticated/ts/work'
+      path: '/ts/work'
+      fullPath: '/ts/work'
+      preLoaderRoute: typeof AuthenticatedTsWorkRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/cf/admin/': {
@@ -1060,277 +1046,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCfAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/ts/reports/monthly': {
-      id: '/_authenticated/ts/reports/monthly'
-      path: '/ts/reports/monthly'
-      fullPath: '/ts/reports/monthly'
-      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/reports/leads': {
-      id: '/_authenticated/ts/reports/leads'
-      path: '/ts/reports/leads'
-      fullPath: '/ts/reports/leads'
-      preLoaderRoute: typeof AuthenticatedTsReportsLeadsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/reports/calls': {
-      id: '/_authenticated/ts/reports/calls'
-      path: '/ts/reports/calls'
-      fullPath: '/ts/reports/calls'
-      preLoaderRoute: typeof AuthenticatedTsReportsCallsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/reports/agents': {
-      id: '/_authenticated/ts/reports/agents'
-      path: '/ts/reports/agents'
-      fullPath: '/ts/reports/agents'
-      preLoaderRoute: typeof AuthenticatedTsReportsAgentsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/warnings': {
-      id: '/_authenticated/ts/admin/warnings'
-      path: '/ts/admin/warnings'
-      fullPath: '/ts/admin/warnings'
-      preLoaderRoute: typeof AuthenticatedTsAdminWarningsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/validation': {
-      id: '/_authenticated/ts/admin/validation'
-      path: '/ts/admin/validation'
-      fullPath: '/ts/admin/validation'
-      preLoaderRoute: typeof AuthenticatedTsAdminValidationRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/users': {
-      id: '/_authenticated/ts/admin/users'
-      path: '/ts/admin/users'
-      fullPath: '/ts/admin/users'
-      preLoaderRoute: typeof AuthenticatedTsAdminUsersRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/targets': {
-      id: '/_authenticated/ts/admin/targets'
-      path: '/ts/admin/targets'
-      fullPath: '/ts/admin/targets'
-      preLoaderRoute: typeof AuthenticatedTsAdminTargetsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/forms': {
-      id: '/_authenticated/ts/admin/forms'
-      path: '/ts/admin/forms'
-      fullPath: '/ts/admin/forms'
-      preLoaderRoute: typeof AuthenticatedTsAdminFormsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/daily-stats': {
-      id: '/_authenticated/ts/admin/daily-stats'
-      path: '/ts/admin/daily-stats'
-      fullPath: '/ts/admin/daily-stats'
-      preLoaderRoute: typeof AuthenticatedTsAdminDailyStatsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/campaigns': {
-      id: '/_authenticated/ts/admin/campaigns'
-      path: '/ts/admin/campaigns'
-      fullPath: '/ts/admin/campaigns'
-      preLoaderRoute: typeof AuthenticatedTsAdminCampaignsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/call-results': {
-      id: '/_authenticated/ts/admin/call-results'
-      path: '/ts/admin/call-results'
-      fullPath: '/ts/admin/call-results'
-      preLoaderRoute: typeof AuthenticatedTsAdminCallResultsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/batches': {
-      id: '/_authenticated/ts/admin/batches'
-      path: '/ts/admin/batches'
-      fullPath: '/ts/admin/batches'
-      preLoaderRoute: typeof AuthenticatedTsAdminBatchesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/audit-log': {
-      id: '/_authenticated/ts/admin/audit-log'
-      path: '/ts/admin/audit-log'
-      fullPath: '/ts/admin/audit-log'
-      preLoaderRoute: typeof AuthenticatedTsAdminAuditLogRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/ts/admin/activation': {
-      id: '/_authenticated/ts/admin/activation'
-      path: '/ts/admin/activation'
-      fullPath: '/ts/admin/activation'
-      preLoaderRoute: typeof AuthenticatedTsAdminActivationRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/reports/teams': {
-      id: '/_authenticated/qa/reports/teams'
-      path: '/qa/reports/teams'
-      fullPath: '/qa/reports/teams'
-      preLoaderRoute: typeof AuthenticatedQaReportsTeamsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/reports/sales-reps': {
-      id: '/_authenticated/qa/reports/sales-reps'
-      path: '/qa/reports/sales-reps'
-      fullPath: '/qa/reports/sales-reps'
-      preLoaderRoute: typeof AuthenticatedQaReportsSalesRepsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/reports/evaluations': {
-      id: '/_authenticated/qa/reports/evaluations'
-      path: '/qa/reports/evaluations'
-      fullPath: '/qa/reports/evaluations'
-      preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/reports/customers': {
-      id: '/_authenticated/qa/reports/customers'
-      path: '/qa/reports/customers'
-      fullPath: '/qa/reports/customers'
-      preLoaderRoute: typeof AuthenticatedQaReportsCustomersRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/reports/calls': {
-      id: '/_authenticated/qa/reports/calls'
-      path: '/qa/reports/calls'
-      fullPath: '/qa/reports/calls'
-      preLoaderRoute: typeof AuthenticatedQaReportsCallsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/reports/batches': {
-      id: '/_authenticated/qa/reports/batches'
-      path: '/qa/reports/batches'
-      fullPath: '/qa/reports/batches'
-      preLoaderRoute: typeof AuthenticatedQaReportsBatchesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/reports/agents': {
-      id: '/_authenticated/qa/reports/agents'
-      path: '/qa/reports/agents'
-      fullPath: '/qa/reports/agents'
-      preLoaderRoute: typeof AuthenticatedQaReportsAgentsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/admin/users': {
-      id: '/_authenticated/qa/admin/users'
-      path: '/qa/admin/users'
-      fullPath: '/qa/admin/users'
-      preLoaderRoute: typeof AuthenticatedQaAdminUsersRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/admin/sales-reps': {
-      id: '/_authenticated/qa/admin/sales-reps'
-      path: '/qa/admin/sales-reps'
-      fullPath: '/qa/admin/sales-reps'
-      preLoaderRoute: typeof AuthenticatedQaAdminSalesRepsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/qa/admin/import': {
-      id: '/_authenticated/qa/admin/import'
-      path: '/qa/admin/import'
-      fullPath: '/qa/admin/import'
-      preLoaderRoute: typeof AuthenticatedQaAdminImportRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/ts/leads': {
-      id: '/_authenticated/manager/ts/leads'
-      path: '/manager/ts/leads'
-      fullPath: '/manager/ts/leads'
-      preLoaderRoute: typeof AuthenticatedManagerTsLeadsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/ts/campaigns': {
-      id: '/_authenticated/manager/ts/campaigns'
-      path: '/manager/ts/campaigns'
-      fullPath: '/manager/ts/campaigns'
-      preLoaderRoute: typeof AuthenticatedManagerTsCampaignsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/ts/calls': {
-      id: '/_authenticated/manager/ts/calls'
-      path: '/manager/ts/calls'
-      fullPath: '/manager/ts/calls'
-      preLoaderRoute: typeof AuthenticatedManagerTsCallsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/ts/batches': {
-      id: '/_authenticated/manager/ts/batches'
-      path: '/manager/ts/batches'
-      fullPath: '/manager/ts/batches'
-      preLoaderRoute: typeof AuthenticatedManagerTsBatchesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/ts/agents': {
-      id: '/_authenticated/manager/ts/agents'
-      path: '/manager/ts/agents'
-      fullPath: '/manager/ts/agents'
-      preLoaderRoute: typeof AuthenticatedManagerTsAgentsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/qa/teams': {
-      id: '/_authenticated/manager/qa/teams'
-      path: '/manager/qa/teams'
-      fullPath: '/manager/qa/teams'
-      preLoaderRoute: typeof AuthenticatedManagerQaTeamsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/qa/sales-reps': {
-      id: '/_authenticated/manager/qa/sales-reps'
-      path: '/manager/qa/sales-reps'
-      fullPath: '/manager/qa/sales-reps'
-      preLoaderRoute: typeof AuthenticatedManagerQaSalesRepsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/qa/evaluations': {
-      id: '/_authenticated/manager/qa/evaluations'
-      path: '/manager/qa/evaluations'
-      fullPath: '/manager/qa/evaluations'
-      preLoaderRoute: typeof AuthenticatedManagerQaEvaluationsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/qa/customers': {
-      id: '/_authenticated/manager/qa/customers'
-      path: '/manager/qa/customers'
-      fullPath: '/manager/qa/customers'
-      preLoaderRoute: typeof AuthenticatedManagerQaCustomersRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/qa/calls': {
-      id: '/_authenticated/manager/qa/calls'
-      path: '/manager/qa/calls'
-      fullPath: '/manager/qa/calls'
-      preLoaderRoute: typeof AuthenticatedManagerQaCallsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/qa/batches': {
-      id: '/_authenticated/manager/qa/batches'
-      path: '/manager/qa/batches'
-      fullPath: '/manager/qa/batches'
-      preLoaderRoute: typeof AuthenticatedManagerQaBatchesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/manager/qa/agents': {
-      id: '/_authenticated/manager/qa/agents'
-      path: '/manager/qa/agents'
-      fullPath: '/manager/qa/agents'
-      preLoaderRoute: typeof AuthenticatedManagerQaAgentsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/cf/agent/new': {
-      id: '/_authenticated/cf/agent/new'
-      path: '/cf/agent/new'
-      fullPath: '/cf/agent/new'
-      preLoaderRoute: typeof AuthenticatedCfAgentNewRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/cf/admin/import': {
-      id: '/_authenticated/cf/admin/import'
-      path: '/cf/admin/import'
-      fullPath: '/cf/admin/import'
-      preLoaderRoute: typeof AuthenticatedCfAdminImportRouteImport
+    '/_authenticated/cf/admin/batches': {
+      id: '/_authenticated/cf/admin/batches'
+      path: '/cf/admin/batches'
+      fullPath: '/cf/admin/batches'
+      preLoaderRoute: typeof AuthenticatedCfAdminBatchesRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/cf/admin/customers': {
@@ -1340,32 +1060,291 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCfAdminCustomersRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/cf/admin/batches': {
-      id: '/_authenticated/cf/admin/batches'
-      path: '/cf/admin/batches'
-      fullPath: '/cf/admin/batches'
-      preLoaderRoute: typeof AuthenticatedCfAdminBatchesRouteImport
+    '/_authenticated/cf/admin/import': {
+      id: '/_authenticated/cf/admin/import'
+      path: '/cf/admin/import'
+      fullPath: '/cf/admin/import'
+      preLoaderRoute: typeof AuthenticatedCfAdminImportRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/qa/reports/evaluations/': {
-      id: '/_authenticated/qa/reports/evaluations/'
-      path: '/'
-      fullPath: '/qa/reports/evaluations/'
-      preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIndexRouteImport
-      parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
-    }
-    '/_authenticated/cf/ops/history/': {
-      id: '/_authenticated/cf/ops/history/'
-      path: '/cf/ops/history'
-      fullPath: '/cf/ops/history/'
-      preLoaderRoute: typeof AuthenticatedCfOpsHistoryIndexRouteImport
+    '/_authenticated/cf/agent/': {
+      id: '/_authenticated/cf/agent/'
+      path: '/cf/agent'
+      fullPath: '/cf/agent/'
+      preLoaderRoute: typeof AuthenticatedCfAgentIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/cf/agent/registrations/': {
-      id: '/_authenticated/cf/agent/registrations/'
-      path: '/cf/agent/registrations'
-      fullPath: '/cf/agent/registrations/'
-      preLoaderRoute: typeof AuthenticatedCfAgentRegistrationsIndexRouteImport
+    '/_authenticated/cf/agent/new': {
+      id: '/_authenticated/cf/agent/new'
+      path: '/cf/agent/new'
+      fullPath: '/cf/agent/new'
+      preLoaderRoute: typeof AuthenticatedCfAgentNewRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/cf/ops/': {
+      id: '/_authenticated/cf/ops/'
+      path: '/cf/ops'
+      fullPath: '/cf/ops/'
+      preLoaderRoute: typeof AuthenticatedCfOpsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/agents': {
+      id: '/_authenticated/manager/qa/agents'
+      path: '/manager/qa/agents'
+      fullPath: '/manager/qa/agents'
+      preLoaderRoute: typeof AuthenticatedManagerQaAgentsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/batches': {
+      id: '/_authenticated/manager/qa/batches'
+      path: '/manager/qa/batches'
+      fullPath: '/manager/qa/batches'
+      preLoaderRoute: typeof AuthenticatedManagerQaBatchesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/calls': {
+      id: '/_authenticated/manager/qa/calls'
+      path: '/manager/qa/calls'
+      fullPath: '/manager/qa/calls'
+      preLoaderRoute: typeof AuthenticatedManagerQaCallsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/customers': {
+      id: '/_authenticated/manager/qa/customers'
+      path: '/manager/qa/customers'
+      fullPath: '/manager/qa/customers'
+      preLoaderRoute: typeof AuthenticatedManagerQaCustomersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/evaluations': {
+      id: '/_authenticated/manager/qa/evaluations'
+      path: '/manager/qa/evaluations'
+      fullPath: '/manager/qa/evaluations'
+      preLoaderRoute: typeof AuthenticatedManagerQaEvaluationsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/sales-reps': {
+      id: '/_authenticated/manager/qa/sales-reps'
+      path: '/manager/qa/sales-reps'
+      fullPath: '/manager/qa/sales-reps'
+      preLoaderRoute: typeof AuthenticatedManagerQaSalesRepsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/qa/teams': {
+      id: '/_authenticated/manager/qa/teams'
+      path: '/manager/qa/teams'
+      fullPath: '/manager/qa/teams'
+      preLoaderRoute: typeof AuthenticatedManagerQaTeamsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/agents': {
+      id: '/_authenticated/manager/ts/agents'
+      path: '/manager/ts/agents'
+      fullPath: '/manager/ts/agents'
+      preLoaderRoute: typeof AuthenticatedManagerTsAgentsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/batches': {
+      id: '/_authenticated/manager/ts/batches'
+      path: '/manager/ts/batches'
+      fullPath: '/manager/ts/batches'
+      preLoaderRoute: typeof AuthenticatedManagerTsBatchesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/calls': {
+      id: '/_authenticated/manager/ts/calls'
+      path: '/manager/ts/calls'
+      fullPath: '/manager/ts/calls'
+      preLoaderRoute: typeof AuthenticatedManagerTsCallsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/campaigns': {
+      id: '/_authenticated/manager/ts/campaigns'
+      path: '/manager/ts/campaigns'
+      fullPath: '/manager/ts/campaigns'
+      preLoaderRoute: typeof AuthenticatedManagerTsCampaignsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/manager/ts/leads': {
+      id: '/_authenticated/manager/ts/leads'
+      path: '/manager/ts/leads'
+      fullPath: '/manager/ts/leads'
+      preLoaderRoute: typeof AuthenticatedManagerTsLeadsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/admin/import': {
+      id: '/_authenticated/qa/admin/import'
+      path: '/qa/admin/import'
+      fullPath: '/qa/admin/import'
+      preLoaderRoute: typeof AuthenticatedQaAdminImportRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/admin/sales-reps': {
+      id: '/_authenticated/qa/admin/sales-reps'
+      path: '/qa/admin/sales-reps'
+      fullPath: '/qa/admin/sales-reps'
+      preLoaderRoute: typeof AuthenticatedQaAdminSalesRepsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/admin/users': {
+      id: '/_authenticated/qa/admin/users'
+      path: '/qa/admin/users'
+      fullPath: '/qa/admin/users'
+      preLoaderRoute: typeof AuthenticatedQaAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/reports/agents': {
+      id: '/_authenticated/qa/reports/agents'
+      path: '/qa/reports/agents'
+      fullPath: '/qa/reports/agents'
+      preLoaderRoute: typeof AuthenticatedQaReportsAgentsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/reports/batches': {
+      id: '/_authenticated/qa/reports/batches'
+      path: '/qa/reports/batches'
+      fullPath: '/qa/reports/batches'
+      preLoaderRoute: typeof AuthenticatedQaReportsBatchesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/reports/calls': {
+      id: '/_authenticated/qa/reports/calls'
+      path: '/qa/reports/calls'
+      fullPath: '/qa/reports/calls'
+      preLoaderRoute: typeof AuthenticatedQaReportsCallsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/reports/customers': {
+      id: '/_authenticated/qa/reports/customers'
+      path: '/qa/reports/customers'
+      fullPath: '/qa/reports/customers'
+      preLoaderRoute: typeof AuthenticatedQaReportsCustomersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/reports/evaluations': {
+      id: '/_authenticated/qa/reports/evaluations'
+      path: '/qa/reports/evaluations'
+      fullPath: '/qa/reports/evaluations'
+      preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/reports/sales-reps': {
+      id: '/_authenticated/qa/reports/sales-reps'
+      path: '/qa/reports/sales-reps'
+      fullPath: '/qa/reports/sales-reps'
+      preLoaderRoute: typeof AuthenticatedQaReportsSalesRepsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/reports/teams': {
+      id: '/_authenticated/qa/reports/teams'
+      path: '/qa/reports/teams'
+      fullPath: '/qa/reports/teams'
+      preLoaderRoute: typeof AuthenticatedQaReportsTeamsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/activation': {
+      id: '/_authenticated/ts/admin/activation'
+      path: '/ts/admin/activation'
+      fullPath: '/ts/admin/activation'
+      preLoaderRoute: typeof AuthenticatedTsAdminActivationRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/audit-log': {
+      id: '/_authenticated/ts/admin/audit-log'
+      path: '/ts/admin/audit-log'
+      fullPath: '/ts/admin/audit-log'
+      preLoaderRoute: typeof AuthenticatedTsAdminAuditLogRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/batches': {
+      id: '/_authenticated/ts/admin/batches'
+      path: '/ts/admin/batches'
+      fullPath: '/ts/admin/batches'
+      preLoaderRoute: typeof AuthenticatedTsAdminBatchesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/call-results': {
+      id: '/_authenticated/ts/admin/call-results'
+      path: '/ts/admin/call-results'
+      fullPath: '/ts/admin/call-results'
+      preLoaderRoute: typeof AuthenticatedTsAdminCallResultsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/campaigns': {
+      id: '/_authenticated/ts/admin/campaigns'
+      path: '/ts/admin/campaigns'
+      fullPath: '/ts/admin/campaigns'
+      preLoaderRoute: typeof AuthenticatedTsAdminCampaignsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/daily-stats': {
+      id: '/_authenticated/ts/admin/daily-stats'
+      path: '/ts/admin/daily-stats'
+      fullPath: '/ts/admin/daily-stats'
+      preLoaderRoute: typeof AuthenticatedTsAdminDailyStatsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/forms': {
+      id: '/_authenticated/ts/admin/forms'
+      path: '/ts/admin/forms'
+      fullPath: '/ts/admin/forms'
+      preLoaderRoute: typeof AuthenticatedTsAdminFormsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/targets': {
+      id: '/_authenticated/ts/admin/targets'
+      path: '/ts/admin/targets'
+      fullPath: '/ts/admin/targets'
+      preLoaderRoute: typeof AuthenticatedTsAdminTargetsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/users': {
+      id: '/_authenticated/ts/admin/users'
+      path: '/ts/admin/users'
+      fullPath: '/ts/admin/users'
+      preLoaderRoute: typeof AuthenticatedTsAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/validation': {
+      id: '/_authenticated/ts/admin/validation'
+      path: '/ts/admin/validation'
+      fullPath: '/ts/admin/validation'
+      preLoaderRoute: typeof AuthenticatedTsAdminValidationRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/admin/warnings': {
+      id: '/_authenticated/ts/admin/warnings'
+      path: '/ts/admin/warnings'
+      fullPath: '/ts/admin/warnings'
+      preLoaderRoute: typeof AuthenticatedTsAdminWarningsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/reports/agents': {
+      id: '/_authenticated/ts/reports/agents'
+      path: '/ts/reports/agents'
+      fullPath: '/ts/reports/agents'
+      preLoaderRoute: typeof AuthenticatedTsReportsAgentsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/reports/calls': {
+      id: '/_authenticated/ts/reports/calls'
+      path: '/ts/reports/calls'
+      fullPath: '/ts/reports/calls'
+      preLoaderRoute: typeof AuthenticatedTsReportsCallsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/reports/leads': {
+      id: '/_authenticated/ts/reports/leads'
+      path: '/ts/reports/leads'
+      fullPath: '/ts/reports/leads'
+      preLoaderRoute: typeof AuthenticatedTsReportsLeadsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ts/reports/monthly': {
+      id: '/_authenticated/ts/reports/monthly'
+      path: '/ts/reports/monthly'
+      fullPath: '/ts/reports/monthly'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/cf/admin/registrations/': {
@@ -1375,46 +1354,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCfAdminRegistrationsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/ts/reports/monthly/companies': {
-      id: '/_authenticated/ts/reports/monthly/companies'
-      path: '/companies'
-      fullPath: '/ts/reports/monthly/companies'
-      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyCompaniesRouteImport
-      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
+    '/_authenticated/cf/admin/registrations/$id': {
+      id: '/_authenticated/cf/admin/registrations/$id'
+      path: '/cf/admin/registrations/$id'
+      fullPath: '/cf/admin/registrations/$id'
+      preLoaderRoute: typeof AuthenticatedCfAdminRegistrationsIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/ts/reports/monthly/campaigns': {
-      id: '/_authenticated/ts/reports/monthly/campaigns'
-      path: '/campaigns'
-      fullPath: '/ts/reports/monthly/campaigns'
-      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyCampaignsRouteImport
-      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
+    '/_authenticated/cf/agent/registrations/': {
+      id: '/_authenticated/cf/agent/registrations/'
+      path: '/cf/agent/registrations'
+      fullPath: '/cf/agent/registrations/'
+      preLoaderRoute: typeof AuthenticatedCfAgentRegistrationsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/ts/reports/monthly/agents': {
-      id: '/_authenticated/ts/reports/monthly/agents'
-      path: '/agents'
-      fullPath: '/ts/reports/monthly/agents'
-      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyAgentsRouteImport
-      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
-    }
-    '/_authenticated/qa/reports/sales-reps/$id': {
-      id: '/_authenticated/qa/reports/sales-reps/$id'
-      path: '/$id'
-      fullPath: '/qa/reports/sales-reps/$id'
-      preLoaderRoute: typeof AuthenticatedQaReportsSalesRepsIdRouteImport
-      parentRoute: typeof AuthenticatedQaReportsSalesRepsRoute
-    }
-    '/_authenticated/qa/reports/evaluations/$id': {
-      id: '/_authenticated/qa/reports/evaluations/$id'
-      path: '/$id'
-      fullPath: '/qa/reports/evaluations/$id'
-      preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIdRouteImport
-      parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
-    }
-    '/_authenticated/cf/ops/review/$id': {
-      id: '/_authenticated/cf/ops/review/$id'
-      path: '/cf/ops/review/$id'
-      fullPath: '/cf/ops/review/$id'
-      preLoaderRoute: typeof AuthenticatedCfOpsReviewIdRouteImport
+    '/_authenticated/cf/ops/history/': {
+      id: '/_authenticated/cf/ops/history/'
+      path: '/cf/ops/history'
+      fullPath: '/cf/ops/history/'
+      preLoaderRoute: typeof AuthenticatedCfOpsHistoryIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/cf/ops/history/$id': {
@@ -1424,12 +1382,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCfOpsHistoryIdRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/cf/admin/registrations/$id': {
-      id: '/_authenticated/cf/admin/registrations/$id'
-      path: '/cf/admin/registrations/$id'
-      fullPath: '/cf/admin/registrations/$id'
-      preLoaderRoute: typeof AuthenticatedCfAdminRegistrationsIdRouteImport
+    '/_authenticated/cf/ops/review/$id': {
+      id: '/_authenticated/cf/ops/review/$id'
+      path: '/cf/ops/review/$id'
+      fullPath: '/cf/ops/review/$id'
+      preLoaderRoute: typeof AuthenticatedCfOpsReviewIdRouteImport
       parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/qa/reports/evaluations/': {
+      id: '/_authenticated/qa/reports/evaluations/'
+      path: '/'
+      fullPath: '/qa/reports/evaluations/'
+      preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIndexRouteImport
+      parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
+    }
+    '/_authenticated/qa/reports/evaluations/$id': {
+      id: '/_authenticated/qa/reports/evaluations/$id'
+      path: '/$id'
+      fullPath: '/qa/reports/evaluations/$id'
+      preLoaderRoute: typeof AuthenticatedQaReportsEvaluationsIdRouteImport
+      parentRoute: typeof AuthenticatedQaReportsEvaluationsRoute
+    }
+    '/_authenticated/qa/reports/sales-reps/$id': {
+      id: '/_authenticated/qa/reports/sales-reps/$id'
+      path: '/$id'
+      fullPath: '/qa/reports/sales-reps/$id'
+      preLoaderRoute: typeof AuthenticatedQaReportsSalesRepsIdRouteImport
+      parentRoute: typeof AuthenticatedQaReportsSalesRepsRoute
+    }
+    '/_authenticated/ts/reports/monthly/agents': {
+      id: '/_authenticated/ts/reports/monthly/agents'
+      path: '/agents'
+      fullPath: '/ts/reports/monthly/agents'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyAgentsRouteImport
+      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
+    }
+    '/_authenticated/ts/reports/monthly/campaigns': {
+      id: '/_authenticated/ts/reports/monthly/campaigns'
+      path: '/campaigns'
+      fullPath: '/ts/reports/monthly/campaigns'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyCampaignsRouteImport
+      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
+    }
+    '/_authenticated/ts/reports/monthly/companies': {
+      id: '/_authenticated/ts/reports/monthly/companies'
+      path: '/companies'
+      fullPath: '/ts/reports/monthly/companies'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyCompaniesRouteImport
+      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
     }
     '/_authenticated/cf/agent/registrations/$id/edit': {
       id: '/_authenticated/cf/agent/registrations/$id/edit'

@@ -1,11 +1,9 @@
-import { createFileRoute, Outlet, useNavigate, useRouter, Link } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { useAuth, useRoleLabel, useIsAgent } from "@/lib/auth";
-import { clearToken } from "@/lib/api";
-import { Loader2, KeyRound, LogOut, User as UserIcon, Mail, ShieldCheck, AlertTriangle } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader2, KeyRound, LogOut, User as UserIcon, Mail, ShieldCheck } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -16,58 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { AuthenticatedErrorFallback } from "@/components/authenticated-error-fallback";
 
 export const Route = createFileRoute("/_authenticated")({
   component: AuthenticatedLayout,
   errorComponent: AuthenticatedErrorFallback,
 });
-
-function AuthenticatedErrorFallback({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
-  const router = useRouter();
-  console.error("[_authenticated] render error:", error);
-  const signOutAndRetry = () => {
-    clearToken();
-    window.location.href = "/login";
-  };
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <Card className="max-w-md w-full">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-lg bg-destructive/10 text-destructive flex items-center justify-center">
-              <AlertTriangle className="h-5 w-5" />
-            </div>
-            <CardTitle className="text-base">Something went wrong</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground break-words">
-            {error?.message || "An unexpected error occurred while loading this page."}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <Button
-              onClick={() => {
-                router.invalidate();
-                reset();
-              }}
-            >
-              Try again
-            </Button>
-            <Button variant="outline" onClick={signOutAndRetry}>
-              <LogOut className="h-4 w-4 mr-2" /> Sign out & retry
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
 
 function initialsOf(name?: string, fallback?: string) {
   const src = (name || fallback || "U").trim();
