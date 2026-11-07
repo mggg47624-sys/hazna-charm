@@ -76,6 +76,7 @@ import { Route as AuthenticatedCfOpsReviewIdRouteImport } from './routes/_authen
 import { Route as AuthenticatedQaReportsEvaluationsIndexRouteImport } from './routes/_authenticated/qa.reports.evaluations.index'
 import { Route as AuthenticatedQaReportsEvaluationsIdRouteImport } from './routes/_authenticated/qa.reports.evaluations.$id'
 import { Route as AuthenticatedQaReportsSalesRepsIdRouteImport } from './routes/_authenticated/qa.reports.sales-reps.$id'
+import { Route as AuthenticatedTsReportsMonthlyIndexRouteImport } from './routes/_authenticated/ts.reports.monthly.index'
 import { Route as AuthenticatedTsReportsMonthlyAgentsRouteImport } from './routes/_authenticated/ts.reports.monthly.agents'
 import { Route as AuthenticatedTsReportsMonthlyCampaignsRouteImport } from './routes/_authenticated/ts.reports.monthly.campaigns'
 import { Route as AuthenticatedTsReportsMonthlyCompaniesRouteImport } from './routes/_authenticated/ts.reports.monthly.companies'
@@ -473,6 +474,12 @@ const AuthenticatedQaReportsSalesRepsIdRoute =
     path: '/$id',
     getParentRoute: () => AuthenticatedQaReportsSalesRepsRoute,
   } as any)
+const AuthenticatedTsReportsMonthlyIndexRoute =
+  AuthenticatedTsReportsMonthlyIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedTsReportsMonthlyRoute,
+  } as any)
 const AuthenticatedTsReportsMonthlyAgentsRoute =
   AuthenticatedTsReportsMonthlyAgentsRouteImport.update({
     id: '/agents',
@@ -568,6 +575,7 @@ export interface FileRoutesByFullPath {
   '/cf/agent/registrations/': typeof AuthenticatedCfAgentRegistrationsIndexRoute
   '/cf/ops/history/': typeof AuthenticatedCfOpsHistoryIndexRoute
   '/qa/reports/evaluations/': typeof AuthenticatedQaReportsEvaluationsIndexRoute
+  '/ts/reports/monthly/': typeof AuthenticatedTsReportsMonthlyIndexRoute
   '/cf/agent/registrations/$id/edit': typeof AuthenticatedCfAgentRegistrationsIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -623,7 +631,6 @@ export interface FileRoutesByTo {
   '/ts/reports/agents': typeof AuthenticatedTsReportsAgentsRoute
   '/ts/reports/calls': typeof AuthenticatedTsReportsCallsRoute
   '/ts/reports/leads': typeof AuthenticatedTsReportsLeadsRoute
-  '/ts/reports/monthly': typeof AuthenticatedTsReportsMonthlyRouteWithChildren
   '/cf/admin': typeof AuthenticatedCfAdminIndexRoute
   '/cf/agent': typeof AuthenticatedCfAgentIndexRoute
   '/cf/ops': typeof AuthenticatedCfOpsIndexRoute
@@ -639,6 +646,7 @@ export interface FileRoutesByTo {
   '/cf/agent/registrations': typeof AuthenticatedCfAgentRegistrationsIndexRoute
   '/cf/ops/history': typeof AuthenticatedCfOpsHistoryIndexRoute
   '/qa/reports/evaluations': typeof AuthenticatedQaReportsEvaluationsIndexRoute
+  '/ts/reports/monthly': typeof AuthenticatedTsReportsMonthlyIndexRoute
   '/cf/agent/registrations/$id/edit': typeof AuthenticatedCfAgentRegistrationsIdEditRoute
 }
 export interface FileRoutesById {
@@ -713,6 +721,7 @@ export interface FileRoutesById {
   '/_authenticated/cf/agent/registrations/': typeof AuthenticatedCfAgentRegistrationsIndexRoute
   '/_authenticated/cf/ops/history/': typeof AuthenticatedCfOpsHistoryIndexRoute
   '/_authenticated/qa/reports/evaluations/': typeof AuthenticatedQaReportsEvaluationsIndexRoute
+  '/_authenticated/ts/reports/monthly/': typeof AuthenticatedTsReportsMonthlyIndexRoute
   '/_authenticated/cf/agent/registrations/$id/edit': typeof AuthenticatedCfAgentRegistrationsIdEditRoute
 }
 export interface FileRouteTypes {
@@ -787,6 +796,7 @@ export interface FileRouteTypes {
     | '/cf/agent/registrations/'
     | '/cf/ops/history/'
     | '/qa/reports/evaluations/'
+    | '/ts/reports/monthly/'
     | '/cf/agent/registrations/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -842,7 +852,6 @@ export interface FileRouteTypes {
     | '/ts/reports/agents'
     | '/ts/reports/calls'
     | '/ts/reports/leads'
-    | '/ts/reports/monthly'
     | '/cf/admin'
     | '/cf/agent'
     | '/cf/ops'
@@ -858,6 +867,7 @@ export interface FileRouteTypes {
     | '/cf/agent/registrations'
     | '/cf/ops/history'
     | '/qa/reports/evaluations'
+    | '/ts/reports/monthly'
     | '/cf/agent/registrations/$id/edit'
   id:
     | '__root__'
@@ -931,6 +941,7 @@ export interface FileRouteTypes {
     | '/_authenticated/cf/agent/registrations/'
     | '/_authenticated/cf/ops/history/'
     | '/_authenticated/qa/reports/evaluations/'
+    | '/_authenticated/ts/reports/monthly/'
     | '/_authenticated/cf/agent/registrations/$id/edit'
   fileRoutesById: FileRoutesById
 }
@@ -1410,6 +1421,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedQaReportsSalesRepsIdRouteImport
       parentRoute: typeof AuthenticatedQaReportsSalesRepsRoute
     }
+    '/_authenticated/ts/reports/monthly/': {
+      id: '/_authenticated/ts/reports/monthly/'
+      path: '/'
+      fullPath: '/ts/reports/monthly/'
+      preLoaderRoute: typeof AuthenticatedTsReportsMonthlyIndexRouteImport
+      parentRoute: typeof AuthenticatedTsReportsMonthlyRoute
+    }
     '/_authenticated/ts/reports/monthly/agents': {
       id: '/_authenticated/ts/reports/monthly/agents'
       path: '/agents'
@@ -1478,6 +1496,7 @@ interface AuthenticatedTsReportsMonthlyRouteChildren {
   AuthenticatedTsReportsMonthlyAgentsRoute: typeof AuthenticatedTsReportsMonthlyAgentsRoute
   AuthenticatedTsReportsMonthlyCampaignsRoute: typeof AuthenticatedTsReportsMonthlyCampaignsRoute
   AuthenticatedTsReportsMonthlyCompaniesRoute: typeof AuthenticatedTsReportsMonthlyCompaniesRoute
+  AuthenticatedTsReportsMonthlyIndexRoute: typeof AuthenticatedTsReportsMonthlyIndexRoute
 }
 
 const AuthenticatedTsReportsMonthlyRouteChildren: AuthenticatedTsReportsMonthlyRouteChildren =
@@ -1488,6 +1507,8 @@ const AuthenticatedTsReportsMonthlyRouteChildren: AuthenticatedTsReportsMonthlyR
       AuthenticatedTsReportsMonthlyCampaignsRoute,
     AuthenticatedTsReportsMonthlyCompaniesRoute:
       AuthenticatedTsReportsMonthlyCompaniesRoute,
+    AuthenticatedTsReportsMonthlyIndexRoute:
+      AuthenticatedTsReportsMonthlyIndexRoute,
   }
 
 const AuthenticatedTsReportsMonthlyRouteWithChildren =

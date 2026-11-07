@@ -124,7 +124,7 @@ const groups: { label: string; items: Item[] }[] = [
   {
     label: "TeleSales — Reports",
     items: [
-      { title: "Monthly Overview", url: "/ts/reports/monthly", icon: BarChart3, section: "ts:performance-report" },
+      { title: "Monthly Overview", url: "/ts/reports/monthly/", icon: BarChart3, section: "ts:performance-report" },
       { title: "Campaign Performance", url: "/ts/reports/monthly/campaigns", icon: Megaphone, section: "ts:performance-report" },
       { title: "Company Performance", url: "/ts/reports/monthly/companies", icon: Building2, section: "ts:performance-report" },
       { title: "Agent Performance", url: "/ts/reports/monthly/agents", icon: UserCheck, section: "ts:performance-report" },
@@ -201,7 +201,7 @@ export function AppSidebar() {
                   {visible.map((item) => {
                     const active = item.url === "/"
                       ? path === "/"
-                      : item.url === "/ts/reports/monthly"
+                      : item.url === "/ts/reports/monthly/"
                         ? path === item.url
                         : path.startsWith(item.url);
                     return (

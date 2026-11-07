@@ -59,7 +59,7 @@ const CHART_COLORS = [
 ];
 
 const REPORT_LINKS: Array<{ kind: TsMonthlyReportKind; title: string; href: string }> = [
-  { kind: "overview", title: "Overview", href: "/ts/reports/monthly" },
+  { kind: "overview", title: "Overview", href: "/ts/reports/monthly/" },
   { kind: "campaigns", title: "Campaigns", href: "/ts/reports/monthly/campaigns" },
   { kind: "companies", title: "Companies", href: "/ts/reports/monthly/companies" },
   { kind: "agents", title: "Agents", href: "/ts/reports/monthly/agents" },
