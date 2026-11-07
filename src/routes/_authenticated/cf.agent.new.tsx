@@ -11,9 +11,8 @@ import { Loader2 } from "lucide-react";
 import { PageHeader } from "@/components/cf/cf-ui";
 import { RegistrationForm } from "@/components/cf/registration-form";
 import { useCfCheckNationalId, useCfCreateRegistration } from "@/lib/cf-api";
-import { CF_MOCK, type CfCheckResult } from "@/lib/cf-types";
+import type { CfCheckResult } from "@/lib/cf-types";
 import { toWesternDigits, validateNationalId } from "@/lib/cf-validation";
-import { mockNid } from "@/lib/cf-mock";
 
 export const Route = createFileRoute("/_authenticated/cf/agent/new")({
   head: () => ({ meta: [
@@ -68,7 +67,6 @@ function Page() {
           <Button className="h-14 w-full text-base" onClick={doCheck} disabled={checker.isPending}>
             {checker.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Check
           </Button>
-          {CF_MOCK && <p className="break-words text-xs text-muted-foreground">Mock: 1 eligible {mockNid(20)} · 2 registered {mockNid(1)} · 3 rejected & editable {mockNid(8)} · 4 not eligible {mockNid(30)} · 5 expired ID {mockNid(31)} · 6 outdated check {mockNid(32)}</p>}
         </CardContent>
       </Card>
       {check?.result === 1 && (

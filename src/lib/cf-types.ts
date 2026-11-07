@@ -1,8 +1,5 @@
 // Consumer Finance (CF) module — shared types & constants.
 
-/** Mock mode is ON unless VITE_CF_MOCK is explicitly "false". */
-export const CF_MOCK = import.meta.env.VITE_CF_MOCK !== "false";
-
 export type CfStatus = 1 | 2 | 3;
 export const CF_STATUS = { UnderReview: 1, Approved: 2, Rejected: 3 } as const;
 export const CF_STATUS_LABEL: Record<number, string> = {
@@ -26,6 +23,16 @@ export const CF_FILE_SLOTS: { type: CfFileType; label: string; capture: "user" |
   { type: "contractPage3", label: "Customer signature on contract terms (Page 3)", capture: "environment" },
   { type: "contractPage4", label: "KYC form + promissory note (Page 4)", capture: "environment" },
 ];
+
+export const CF_EDITABLE_FIELD_LABELS: Record<string, string> = {
+  khaznaMobile: "Khazna registered mobile",
+  idExpirationDate: "ID expiration date",
+  amount: "Amount",
+  channelId: "Channel",
+  ...Object.fromEntries(CF_FILE_SLOTS.map((slot) => [slot.type, slot.label])),
+};
+export const cfFieldLabels = (fields: string[]) =>
+  fields.map((field) => CF_EDITABLE_FIELD_LABELS[field] ?? field).join(", ");
 
 export interface Paged<T> { items: T[]; total: number; page: number; pageSize: number }
 
@@ -53,6 +60,7 @@ export interface CfAgentRegistration {
   status: CfStatus;
   files: CfFile[];
   latestRejection?: CfRejection | null;
+  editableFields?: string[];
 }
 
 export interface CfAgentBreakdown {
@@ -86,7 +94,7 @@ export interface CfRegistrationDetail {
   statusHistory?: CfStatusHistory[];
 }
 
-export interface CfReason { id: number; nameAr: string }
+export interface CfReason { id: number; nameAr: string; fields?: string[] }
 export interface CfHistoryItem {
   id: number; registrationId: number; customerName: string; nationalId: string;
   decision: string; reasons: string[]; reviewedAt: string;

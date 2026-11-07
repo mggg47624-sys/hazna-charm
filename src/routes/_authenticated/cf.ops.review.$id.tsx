@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { Loader2 } from "lucide-react";
 import { PageHeader, RegistrationDetail } from "@/components/cf/cf-ui";
 import { fetchCfOpsQueue, useCfClaim, useCfDecision, useCfOpsRegistration, useCfReasons } from "@/lib/cf-api";
+import { cfFieldLabels } from "@/lib/cf-types";
 
 export const Route = createFileRoute("/_authenticated/cf/ops/review/$id")({
   head: () => ({ meta: [
@@ -45,8 +46,10 @@ function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const submit = (decision: "approve" | "reject") =>
-    decide.mutate({ decision, reasonIds: decision === "reject" ? sel : [], note: note || undefined }, {
+  const selectedReasons = sel.filter((id) => reasons.data?.some((r) => r.id === id));
+  const submit = (decision: "approve" | "reject") => {
+    if (decision === "reject" && !selectedReasons.length) return;
+    decide.mutate({ decision, reasonIds: decision === "reject" ? selectedReasons : [], note: note || undefined }, {
       onSuccess: async () => {
         toast.success(decision === "approve" ? "Approved" : "Rejected");
         setApproveOpen(false); setRejectOpen(false);
@@ -55,6 +58,7 @@ function Page() {
       },
       onError: (e) => toast.error(e.message),
     });
+  };
 
   if (claim.isError) return <Alert variant="destructive"><AlertDescription>{claim.error.message}</AlertDescription></Alert>;
   if (!claimed || detail.isLoading) return <Loader2 className="mx-auto mt-10 h-6 w-6 animate-spin" />;
@@ -81,16 +85,16 @@ function Page() {
           <DialogHeader><DialogTitle>Reject registration</DialogTitle></DialogHeader>
           <Card><CardContent className="space-y-2 p-3">
             {(reasons.data ?? []).map((r) => (
-              <label key={r.id} className="flex items-center gap-2 text-sm">
+              <label key={r.id} className="flex items-start gap-2 text-sm">
                 <Checkbox checked={sel.includes(r.id)} onCheckedChange={(c) => setSel((s) => (c ? [...s, r.id] : s.filter((x) => x !== r.id)))} />
-                <span dir="auto">{r.nameAr}</span>
+                <span className="space-y-1"><span dir="auto" className="block">{r.nameAr}</span><span className="block text-xs text-muted-foreground">Agent can edit: {cfFieldLabels(Array.isArray(r.fields) ? r.fields : []) || "None"}</span></span>
               </label>
             ))}
           </CardContent></Card>
           <Label>Note (optional)</Label>
           <Textarea dir="auto" value={note} onChange={(e) => setNote(e.target.value)} />
           <DialogFooter>
-            <Button variant="destructive" disabled={!sel.length || decide.isPending} onClick={() => submit("reject")}>
+            <Button variant="destructive" disabled={!selectedReasons.length || decide.isPending} onClick={() => submit("reject")}>
               {decide.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}Reject
             </Button>
           </DialogFooter>

@@ -7,6 +7,7 @@ import { Loader2 } from "lucide-react";
 import { PageHeader } from "@/components/cf/cf-ui";
 import { RegistrationForm } from "@/components/cf/registration-form";
 import { useCfAgentRegistration, useCfUpdateRegistration } from "@/lib/cf-api";
+import { CF_EDITABLE_FIELD_LABELS, cfFieldLabels } from "@/lib/cf-types";
 
 export const Route = createFileRoute("/_authenticated/cf/agent/registrations/$id/edit")({
   head: () => ({ meta: [
@@ -31,16 +32,15 @@ function Page() {
   return (
     <div className="mx-auto max-w-3xl space-y-4">
       <PageHeader title="Edit rejected registration" />
-      {data.latestRejection && (
         <Alert variant="destructive">
           <AlertTitle>Rejection reasons</AlertTitle>
           <AlertDescription className="space-y-2">
-            <div className="flex flex-wrap gap-1">{data.latestRejection.reasons.map((x) => <Badge key={x} variant="outline" dir="auto">{x}</Badge>)}</div>
-            {data.latestRejection.note && <p dir="auto">{data.latestRejection.note}</p>}
+            <div className="flex flex-wrap gap-1">{data.latestRejection?.reasons.map((x) => <Badge key={x} variant="outline" dir="auto">{x}</Badge>)}</div>
+            {data.latestRejection?.note && <p dir="auto">{data.latestRejection.note}</p>}
+            <p>You can only change: {cfFieldLabels(Array.isArray(data.editableFields) ? data.editableFields : Object.keys(CF_EDITABLE_FIELD_LABELS)) || "None"}</p>
           </AlertDescription>
         </Alert>
-      )}
-      <RegistrationForm nationalId={data.nationalId} initial={data} imagesRequired={false} submitting={update.isPending}
+      <RegistrationForm key={id} nationalId={data.nationalId} initial={data} editableFields={data.editableFields} imagesRequired={false} submitting={update.isPending}
         onSubmit={(fd) => update.mutate(fd, {
           onSuccess: () => { toast.success("Registration resubmitted for review"); navigate({ to: "/cf/agent/registrations" }); },
           onError: (e) => toast.error(e.message),
