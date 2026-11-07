@@ -1,6 +1,6 @@
-# CF completion
-- [x] Add CF-only permissions, mock sign-in, sidebar and landing links.
-- [x] Support eligibility results 0–6 with matching mock examples.
-- [x] Verify all CF routes and mock role workflows; confirm preview build status.
+# CF updates
+- [ ] Remove CF mock data and sign-in; preserve real API requests.
+- [ ] Restrict rejected-registration editing and show reason field labels.
+- [ ] Verify preview and editing/rejection controls without adding tests or dependencies.
 - [x] Add presentation-ready TeleSales monthly reports for administrators and team leaders.
 - [x] Verify report routes, access navigation, and preview build.
